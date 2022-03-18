@@ -278,7 +278,7 @@
                                     <td>Switch</td>
                                     <td>Switch</td>
                                     <td>
-                                        <a href="" class="btn btn-outline-base">View</a>
+                                        <a href="" class="btn btn-outline-base">Views</a>
                                     </td>
                                 </tr>
                                 </tbody>
