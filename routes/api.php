@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\Api\attribute\AttributeController;
 use App\Http\Controllers\Api\brand\BrandController;
+use App\Http\Controllers\Api\carousels\CarouselsController;
 use App\Http\Controllers\Api\category\CategoryController;
 use App\Http\Controllers\Api\category\SubCategoryController;
 use App\Http\Controllers\Api\category\SubSubCategoryController;
+use App\Http\Controllers\Api\payment\PaymentController;
+use App\Http\Controllers\Api\slider\SliderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +47,21 @@ Route::prefix('v1')->group(function(){
     store,update,edit,delete
     */
     Route::resource('attributes', AttributeController::class);
+   /*
+     Slider
+    store,update,edit,delete
+    */
+    Route::resource('sliders', SliderController::class);
+    /*
+     Carousels
+    store,update,edit,delete
+    */
+    Route::resource('carousels', CarouselsController::class);
+  /*
+     Payment
+    store,update,edit,delete
+    */
+    Route::resource('payments', PaymentController::class);
 
 
 });
