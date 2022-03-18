@@ -36,6 +36,26 @@ body::-webkit-scrollbar-track {
   margin: auto;
 }
 
+/* PAGES HEADING */
+.page-title {
+  font-size: 22px;
+  font-weight: 300;
+  color: #130577;
+  position: relative;
+  margin-bottom: 0;
+}
+.page-title::after {
+  content: "";
+  position: absolute;
+  background: #130577;
+  width: 80px;
+  bottom: -14px;
+  left: 0;
+  height: 4px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
 /* FONT SIZES */
 .default-font-size {
   font-size: 14px;
@@ -64,6 +84,22 @@ body::-webkit-scrollbar-track {
 
 .bg-light-ash {
   background: #F7F8FA;
+}
+
+.bg-light-ash-2 {
+  background: #F4F5F7;
+}
+
+.bg-base-red {
+  background: #E34133;
+}
+
+.bg-base-green {
+  background: #6D990C;
+}
+
+.bg-base-blue {
+  background: #3B5998;
 }
 
 .linear-red-bg {
@@ -131,6 +167,16 @@ body::-webkit-scrollbar-track {
 
 .card {
   border: none;
+}
+
+.card-header, .rounder-top-corners {
+  border-top-left-radius: 25px !important;
+  border-top-right-radius: 25px !important;
+}
+
+/* BOX SHADOW*/
+.bottom-shadow {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* BUTTONS */
@@ -221,28 +267,6 @@ body::-webkit-scrollbar-track {
 }
 
 /* TABLE STYLES*/
-.table {
-  border-bottom: none !important;
-}
-.table tbody, .table td, .table tfoot, .table th, .table thead, .table tr {
-  border: none !important;
-}
-.table tr {
-  border-radius: 15px !important;
-  overflow: hidden !important;
-}
-.table thead {
-  border-radius: 10px !important;
-  overflow: hidden;
-}
-.table thead tr {
-  background: #E5E5E5;
-  border-radius: 10px !important;
-}
-.table tbody .odd {
-  background: white !important;
-}
-
 /* FILES UPLOADS*/
 .dropzone {
   border: 1px dashed #130577;

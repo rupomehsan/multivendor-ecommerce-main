@@ -35,6 +35,11 @@
         Route::view('/help', 'admin.help.index');
         Route::view('/subscriber', 'admin.subscriber.index');
         Route::view('/delivery-person', 'admin.delivery_person.index');
+        Route::view('/user', 'admin.user.index');
+        Route::view('/manage_admin', 'admin.manage_admin.index');
+        Route::view('/advertisement', 'admin.mobile.index');
+        Route::view('/notification', 'admin.notification.index');
+        Route::view('/setting', 'admin.basic_setting.index');
         Route::view('/smtp', 'admin.smtp.index');
     });
 

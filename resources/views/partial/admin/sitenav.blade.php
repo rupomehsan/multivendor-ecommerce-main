@@ -199,11 +199,42 @@
         </li>
 
 
+        <li class="sidebar-nav-heading text-uppercase ms-3 my-2" >Manage Admin</li>
+        <li class="sidebar-item {{ $currentControllerName == 'manage_admin' || '' ? 'active' : '' }}">
+            <a href="{{url('admin/manage_admin')}}" class="sidebar-link">
+                <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
+                Manage Admin
+            </a>
+        </li>
+
+        <li class="sidebar-nav-heading text-uppercase ms-3 my-2" >Manage User</li>
+        <li class="sidebar-item {{ $currentControllerName == 'user' || '' ? 'active' : '' }}">
+            <a href="{{url('admin/user')}}" class="sidebar-link">
+                <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
+                Manage User
+            </a>
+        </li>
+
+
         <li class="sidebar-nav-heading text-uppercase ms-3 my-2" >Settings</li>
 
 
-        <li class="sidebar-item {{ $currentControllerName == 'smtp' || '' ? 'active' : '' }}">
-            <a href="{{url('admin/smtp')}}" class="sidebar-link">
+        <li class="sidebar-item {{ $currentControllerName == 'advertisement' || '' ? 'active' : '' }}">
+            <a href="{{url('admin/advertisement')}}" class="sidebar-link">
+                <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
+                Advertisement
+            </a>
+        </li>
+
+        <li class="sidebar-item {{ $currentControllerName == 'notification' || '' ? 'active' : '' }}">
+            <a href="{{url('admin/notification')}}" class="sidebar-link">
+                <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
+                Notifications
+            </a>
+        </li>
+
+        <li class="sidebar-item {{ $currentControllerName == 'setting' || '' ? 'active' : '' }}">
+            <a href="{{url('admin/setting')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Basic Setting
             </a>
