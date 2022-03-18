@@ -63,5 +63,8 @@ Route::prefix('v1')->group(function(){
     */
     Route::resource('payments', PaymentController::class);
 
-
+    /*
+       Payment
+      store,update,edit,delete
+      */
 });
