@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\slider;
+namespace App\Http\Controllers\Api\payment;
 
 use App\Http\Controllers\Controller;
-use App\Models\Slider;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Validator;
 
-class SliderController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class SliderController extends Controller
     public function index()
     {
         try {
-            $getSlider = Slider::paginate(5);
+            $getPayment = Payment::paginate(5);
             return response([
                 "status" => 'success',
-                "data" => $getSlider
+                "data" => $getPayment
             ],200);
         }catch (Exception $e){
             return response([
@@ -50,24 +50,21 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            "title"=> "required",
-            "description"=> "required",
-            "offer"=> "required",
+            "payment_name"=> "required",
+            "payment_category"=> "required",
         ]);
         if ($validator->fails()){
             $errors = $validator->errors()->messages();
             return validateError($errors);
         }
 //        dd($request->all());
-        $slider = new Slider();
-        $slider->title = $request->title;
-        $slider->description = $request->description;
-        $slider->image = $request->image;
-        $slider->offer = $request->offer;
-        if($slider->save()){
+        $payment = new Payment();
+        $payment->payment_name = $request->payment_name;
+        $payment->payment_category = $request->payment_category;
+        if($payment->save()){
             return response([
                 "status" => "success",
-                "message" => "Slider Successfully Create"
+                "message" => "Payment Successfully Create"
             ]);
         }
     }
@@ -91,11 +88,11 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        $getSlider = Slider::where("id",$id)->first();
-        if($getSlider){
+        $getPayment = Payment::where("id",$id)->first();
+        if($getPayment){
             return response([
                 "status" => "success",
-                "data" => $getSlider
+                "data" => $getPayment
             ]);
         }else{
             return response([
@@ -114,24 +111,21 @@ class SliderController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
-            "title"=> "required",
-            "description"=> "required",
-            "offer"=> "required",
+            "payment_name"=> "required",
+            "payment_category"=> "required",
         ]);
         if ($validator->fails()){
             $errors = $validator->errors()->messages();
             return validateError($errors);
         }
-        $slider = Slider::where("id",$id)->first();
-        $slider->title = $request->title ??  $slider->title ;
-        $slider->description = $request->description ?? $slider->description;
-        $slider->offer = $request->offer ?? $slider->offer;
-        $slider->image = $request->image ?? $slider->image;
-        $slider->status = $request->status ??  $slider->status ;
-        if($slider->update()){
+        $payment = Payment::where("id",$id)->first();
+        $payment->payment_name = $request->payment_name ??  $payment->payment_name ;
+        $payment->payment_category = $request->payment_category ?? $payment->payment_category;
+        $payment->status = $request->status ??  $payment->status ;
+        if($payment->update()){
             return response([
                 "status" => "success",
-                "message" => "Slider Successfully Update"
+                "message" => "Payment Successfully Update"
             ]);
         }
     }
@@ -145,13 +139,13 @@ class SliderController extends Controller
     public function destroy($id)
     {
         try{
-            $slider = Slider::find($id);
-            if($slider){
-                $slider->delete();
+            $payment = Payment::find($id);
+            if($payment){
+                $payment->delete();
             }
             return response([
                 "status" => "success",
-                "message" => "Slider Successfully Delete"
+                "message" => "Payment Successfully Delete"
             ],200);
         }catch (\Exception $e){
             return response([

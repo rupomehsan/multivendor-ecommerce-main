@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             AttributeSedder::class,
             SliderSeeder::class,
+            CarouselsSeeder::class,
         ]);
     }
 }

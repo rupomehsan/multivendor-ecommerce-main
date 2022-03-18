@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\slider;
+namespace App\Http\Controllers\Api\carousels;
 
 use App\Http\Controllers\Controller;
-use App\Models\Slider;
+use App\Models\Carousel;
 use Illuminate\Http\Request;
 use Validator;
 
-class SliderController extends Controller
+class CarouselsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class SliderController extends Controller
     public function index()
     {
         try {
-            $getSlider = Slider::paginate(5);
+            $getCarousel = Carousel::with(['category'])->paginate(5);
             return response([
                 "status" => 'success',
-                "data" => $getSlider
+                "data" => $getCarousel
             ],200);
         }catch (Exception $e){
             return response([
@@ -50,24 +50,21 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            "title"=> "required",
-            "description"=> "required",
-            "offer"=> "required",
+            "category_id"=> "required",
+            "image"=> "required",
         ]);
         if ($validator->fails()){
             $errors = $validator->errors()->messages();
             return validateError($errors);
         }
 //        dd($request->all());
-        $slider = new Slider();
-        $slider->title = $request->title;
-        $slider->description = $request->description;
-        $slider->image = $request->image;
-        $slider->offer = $request->offer;
-        if($slider->save()){
+        $carousel = new Carousel();
+        $carousel->category_id = $request->category_id;
+        $carousel->image = $request->image;
+        if($carousel->save()){
             return response([
                 "status" => "success",
-                "message" => "Slider Successfully Create"
+                "message" => "Carousel Successfully Create"
             ]);
         }
     }
@@ -91,11 +88,11 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        $getSlider = Slider::where("id",$id)->first();
-        if($getSlider){
+        $getCarousel = Carousel::where("id",$id)->first();
+        if($getCarousel){
             return response([
                 "status" => "success",
-                "data" => $getSlider
+                "data" => $getCarousel
             ]);
         }else{
             return response([
@@ -114,24 +111,21 @@ class SliderController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
-            "title"=> "required",
-            "description"=> "required",
-            "offer"=> "required",
+            "category_id"=> "required",
+            "image"=> "required",
         ]);
         if ($validator->fails()){
             $errors = $validator->errors()->messages();
             return validateError($errors);
         }
-        $slider = Slider::where("id",$id)->first();
-        $slider->title = $request->title ??  $slider->title ;
-        $slider->description = $request->description ?? $slider->description;
-        $slider->offer = $request->offer ?? $slider->offer;
-        $slider->image = $request->image ?? $slider->image;
-        $slider->status = $request->status ??  $slider->status ;
-        if($slider->update()){
+        $carousel = Carousel::where("id",$id)->first();
+        $carousel->category_id = $request->category_id ??  $carousel->category_id ;
+        $carousel->image = $request->image ?? $carousel->image;
+        $carousel->status = $request->status ??  $carousel->status ;
+        if($carousel->update()){
             return response([
                 "status" => "success",
-                "message" => "Slider Successfully Update"
+                "message" => "Carousel Successfully Update"
             ]);
         }
     }
@@ -145,13 +139,13 @@ class SliderController extends Controller
     public function destroy($id)
     {
         try{
-            $slider = Slider::find($id);
-            if($slider){
-                $slider->delete();
+            $carousel = Carousel::find($id);
+            if($carousel){
+                $carousel->delete();
             }
             return response([
                 "status" => "success",
-                "message" => "Slider Successfully Delete"
+                "message" => "Carousel Successfully Delete"
             ],200);
         }catch (\Exception $e){
             return response([
