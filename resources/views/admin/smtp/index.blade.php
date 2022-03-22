@@ -24,28 +24,33 @@
                         </div>
 
                         <div class="form-group my-3">
-                            <label for="port" id="port_label" class="form-label">SMTP USERNAME </label>
-                            <input type="text" id="port" name="port" class="form-control" placeholder="Enter SMTP USERNAME">
-                            <span class="text-danger" id="port_error">Error messages</span>
+                            <label for="username" id="username_label" class="form-label">SMTP USERNAME </label>
+                            <input type="text" id="username" name="username" class="form-control"
+                                   placeholder="Enter SMTP USERNAME">
+                            <span class="text-danger" id="username_error">Error messages</span>
                         </div>
 
 
                         <div class="form-group my-3">
-                            <label for="port" id="port_label" class="form-label">SMTP Password </label>
-                            <input type="text" id="port" name="port" class="form-control" placeholder="Enter SMTP Password">
-                            <span class="text-danger" id="port_error">Error messages</span>
+                            <label for="password" id="password_label" class="form-label">SMTP Password</label>
+                            <input type="text" id="password" name="password" class="form-control"
+                                   placeholder="Enter SMTP Password">
+                            <span class="text-danger" id="password_error">Error messages</span>
                         </div>
 
-                        <select class="form-select">
-                            <option selected>Select Encryption</option>
-                            <option value="tsl">TSL</option>
-                            <option value="ssl">SSL</option>
-                        </select>
-                        <span class="text-danger" id="port_error">Error messages</span>
+                        <div class="form-group my-3">
+                            <label for="encryption" id="encryption_label" class="form-label">SMTP Encryption</label>
+                            <select id="encryption" class="form-select">
+                                <option value="tsl">TSL</option>
+                                <option value="ssl">SSL</option>
+                            </select>
+                            <span class="text-danger" id="encryption_error">Error messages</span>
+                        </div>
+
 
                         <div class="my-3">
                             <a href="" class="btn">Cancel</a>
-                            <button class="btn btn-base-primary">Save</button>
+                            <button id="submit-button" type="submit" class="btn btn-base-primary">Save</button>
                         </div>
 
                     </form>
