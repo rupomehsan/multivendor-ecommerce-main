@@ -102,6 +102,18 @@ body::-webkit-scrollbar-track {
   background: #3B5998;
 }
 
+.bg-sun {
+  background: #FCAF17;
+}
+
+.bg-cello {
+  background: #213162;
+}
+
+.bg-pastel-green {
+  background: #77E6A6;
+}
+
 .linear-red-bg {
   background: linear-gradient(101.69deg, #DA333D 0.51%, #B7121B 101.16%);
 }

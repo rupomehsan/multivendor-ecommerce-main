@@ -12,7 +12,8 @@
     | contains the "web" middleware group. Now create something great!
     |
     */
-    Route::redirect('/', 'admin/dashboard');
+    Route::view('/', 'landing.home.index');
+
     Route::prefix('admin')->group(function () {
         Route::view('/dashboard', 'admin.dashboard.index');
         Route::view('/category', 'admin.category.index');
