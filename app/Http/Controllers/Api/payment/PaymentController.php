@@ -24,7 +24,7 @@ class PaymentController extends Controller
             ],200);
         }catch (Exception $e){
             return response([
-                "status" => 'success',
+                "status" => 'server_error',
                 "data" => $e->getMessage()
             ],500);
         }
@@ -49,24 +49,32 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            "payment_name"=> "required",
-            "payment_category"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-//        dd($request->all());
-        $payment = new Payment();
-        $payment->payment_name = $request->payment_name;
-        $payment->payment_category = $request->payment_category;
-        if($payment->save()){
-            return response([
-                "status" => "success",
-                "message" => "Payment Successfully Create"
+        try {
+            $validator = Validator::make($request->all(),[
+                "payment_name"=> "required",
+                "payment_category"=> "required",
             ]);
+            if ($validator->fails()){
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+//        dd($request->all());
+            $payment = new Payment();
+            $payment->payment_name = $request->payment_name;
+            $payment->payment_category = $request->payment_category;
+            if($payment->save()){
+                return response([
+                    "status" => "success",
+                    "message" => "Payment Successfully Create"
+                ]);
+            }
+        }catch (Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**
@@ -88,17 +96,25 @@ class PaymentController extends Controller
      */
     public function edit($id)
     {
-        $getPayment = Payment::where("id",$id)->first();
-        if($getPayment){
+        try {
+            $getPayment = Payment::where("id",$id)->first();
+            if($getPayment){
+                return response([
+                    "status" => "success",
+                    "data" => $getPayment
+                ]);
+            }else{
+                return response([
+                    "status" =>'not_found'
+                ], 404);
+            }
+        }catch (Exception $e){
             return response([
-                "status" => "success",
-                "data" => $getPayment
-            ]);
-        }else{
-            return response([
-                "status" =>'not_found'
-            ], 404);
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**
@@ -110,24 +126,32 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            "payment_name"=> "required",
-            "payment_category"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-        $payment = Payment::where("id",$id)->first();
-        $payment->payment_name = $request->payment_name ??  $payment->payment_name ;
-        $payment->payment_category = $request->payment_category ?? $payment->payment_category;
-        $payment->status = $request->status ??  $payment->status ;
-        if($payment->update()){
-            return response([
-                "status" => "success",
-                "message" => "Payment Successfully Update"
+        try {
+            $validator = Validator::make($request->all(),[
+                "payment_name"=> "required",
+                "payment_category"=> "required",
             ]);
+            if ($validator->fails()){
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+            $payment = Payment::where("id",$id)->first();
+            $payment->payment_name = $request->payment_name ??  $payment->payment_name ;
+            $payment->payment_category = $request->payment_category ?? $payment->payment_category;
+            $payment->status = $request->status ??  $payment->status ;
+            if($payment->update()){
+                return response([
+                    "status" => "success",
+                    "message" => "Payment Successfully Update"
+                ]);
+            }
+        }catch (Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**

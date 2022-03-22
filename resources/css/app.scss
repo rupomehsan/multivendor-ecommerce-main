@@ -36,11 +36,34 @@ body {
         background: colors.$body;
     }
 }
+
 /* WRAPPER (CUSTOM CONTAINER)*/
-.wrapper{
+.wrapper {
     width: 90%;
     margin: auto;
 }
+
+/* PAGES HEADING */
+.page-title {
+    font-size: 22px;
+    font-weight: 300;
+    color: colors.$base-color;
+    position: relative;
+    margin-bottom: 0;
+
+    &::after {
+        content: "";
+        position: absolute;
+        background: colors.$base-color;
+        width: 80px;
+        bottom: -14px;
+        left: 0;
+        height: 4px;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+}
+
 /* FONT SIZES */
 .default-font-size {
     font-size: fonts.$default;
@@ -71,7 +94,21 @@ body {
 .bg-light-ash {
     background: colors.$light-ash;
 }
+.bg-light-ash-2 {
+    background: colors.$light-ash-2;
+}
 
+.bg-base-red{
+    background: colors.$base-red;
+}
+
+.bg-base-green{
+    background: colors.$base-green;
+}
+
+.bg-base-blue{
+    background: colors.$base-blue;
+}
 .linear-red-bg {
     background: colors.$linear-red;
 }
@@ -101,7 +138,7 @@ body {
     height: 200px;
 }
 
-.avatar-table{
+.avatar-table {
     height: 100px;
 }
 
@@ -143,6 +180,16 @@ body {
     border: none;
 }
 
+
+.card-header, .rounder-top-corners {
+    border-top-left-radius: 25px !important;
+    border-top-right-radius: 25px !important;
+}
+
+/* BOX SHADOW*/
+.bottom-shadow{
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
+}
 
 /* BUTTONS */
 .btn-base {
@@ -248,33 +295,35 @@ body {
 
 /* TABLE STYLES*/
 
-.table{
-    border-bottom: none !important;
-
-    tbody, td, tfoot, th, thead, tr{
-        border: none !important;
-    }
-
-    tr{
-        border-radius: 15px !important;
-        overflow: hidden !important;
-    }
-
-    thead{
-        border-radius: 10px !important;
-        overflow: hidden;
-        tr{
-            background: colors.$body;
-            border-radius: 10px !important;
-        }
-
-    }
-    tbody{
-        .odd{
-            background: white !important;
-        }
-    }
-}
+//.table {
+//    border-bottom: none !important;
+//
+//    tbody, td, tfoot, th, thead, tr {
+//        border: none !important;
+//    }
+//
+//    tr {
+//        border-radius: 15px !important;
+//        overflow: hidden !important;
+//    }
+//
+//    thead {
+//        border-radius: 10px !important;
+//        overflow: hidden;
+//
+//        tr {
+//            background: colors.$body;
+//            border-radius: 10px !important;
+//        }
+//
+//    }
+//
+//    tbody {
+//        .odd {
+//            background: white !important;
+//        }
+//    }
+//}
 
 
 //.table-striped>tbody>tr:nth-child(odd)>td,
@@ -357,7 +406,7 @@ aside {
                 color: colors.$white;
                 position: relative;
 
-                .iconify{
+                .iconify {
                     position: absolute;
                     top: 50%;
                     left: 30px;
@@ -365,14 +414,15 @@ aside {
                 }
             }
         }
-        .sidebar-sub-item{
-            .sub-menu-btn{
+
+        .sidebar-sub-item {
+            .sub-menu-btn {
                 display: block;
                 padding: 1rem;
                 cursor: pointer;
                 position: relative;
 
-                .sub-menu-indicator{
+                .sub-menu-indicator {
                     position: absolute;
                     top: 50%;
                     right: 10px;
@@ -380,15 +430,16 @@ aside {
                 }
             }
 
-            .sub-menu-list{
-                .sub-list-item{
-                    margin-left: 40px ;
+            .sub-menu-list {
+                .sub-list-item {
+                    margin-left: 40px;
 
-                    .sub-list-link{
+                    .sub-list-link {
                         display: block;
                         padding: 1rem;
                         color: colors.$white;
-                        &.active, &:hover{
+
+                        &.active, &:hover {
                             background: #3d328f;
                             border-radius: 15px 0 0 15px;
                             color: colors.$white;

@@ -27,7 +27,7 @@ class SubSubCategoryController extends Controller
             ],200);
         }catch (Exception $e){
             return response([
-                "status" => 'success',
+                "status" => 'server_error',
                 "data" => $e->getMessage()
             ],500);
         }
@@ -50,27 +50,35 @@ class SubSubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            "name"=> "required",
-            "category_id"=> "required",
-            "sub_category_id"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-//        dd($request->all());
-        $subSubCategory = new SubSubCategory();
-        $subSubCategory->name = $request->name;
-        $subSubCategory->category_id = $request->category_id;
-        $subSubCategory->sub_category_id = $request->sub_category_id;
-        $subSubCategory->image = $request->image;
-        if($subSubCategory->save()){
-            return response([
-                "status" => "success",
-                "message" => "SubSubCategory Successfully Create"
+        try {
+            $validator = Validator::make($request->all(),[
+                "name"=> "required",
+                "category_id"=> "required",
+                "sub_category_id"=> "required",
             ]);
+            if ($validator->fails()){
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+//        dd($request->all());
+            $subSubCategory = new SubSubCategory();
+            $subSubCategory->name = $request->name;
+            $subSubCategory->category_id = $request->category_id;
+            $subSubCategory->sub_category_id = $request->sub_category_id;
+            $subSubCategory->image = $request->image;
+            if($subSubCategory->save()){
+                return response([
+                    "status" => "success",
+                    "message" => "SubSubCategory Successfully Create"
+                ]);
+            }
+        }catch (Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**
@@ -92,15 +100,23 @@ class SubSubCategoryController extends Controller
      */
     public function edit($id)
     {
-        $subSubCategory = SubSubCategory::where("id",$id)->first();
-        if($subSubCategory){
+        try {
+            $subSubCategory = SubSubCategory::where("id",$id)->first();
+            if($subSubCategory){
+                return response([
+                    "status" => "success",
+                    "data" => $subSubCategory
+                ]);
+            }else{
+                return response(redirect(url('/not-found')), 404);
+            }
+        }catch (Exception $e){
             return response([
-                "status" => "success",
-                "data" => $subSubCategory
-            ]);
-        }else{
-            return response(redirect(url('/not-found')), 404);
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
 
     }
 
@@ -113,25 +129,33 @@ class SubSubCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            "sub_category_id"=> "required",
-            "category_id"=> "required",
-            "name"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-        $subSubCategory = SubSubCategory::where("id",$id)->first();
-        $subSubCategory->category_id = $request->category_id ?? $subSubCategory->category_id;
-        $subSubCategory->name = $request->name ?? $subSubCategory->name;
-        $subSubCategory->status = $request->status ??  $subSubCategory->status ;
-        if($subSubCategory->update()){
-            return response([
-                "status" => "success",
-                "message" => "SubSubCategory Successfully Update"
+        try {
+            $validator = Validator::make($request->all(),[
+                "sub_category_id"=> "required",
+                "category_id"=> "required",
+                "name"=> "required",
             ]);
+            if ($validator->fails()){
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+            $subSubCategory = SubSubCategory::where("id",$id)->first();
+            $subSubCategory->category_id = $request->category_id ?? $subSubCategory->category_id;
+            $subSubCategory->name = $request->name ?? $subSubCategory->name;
+            $subSubCategory->status = $request->status ??  $subSubCategory->status ;
+            if($subSubCategory->update()){
+                return response([
+                    "status" => "success",
+                    "message" => "SubSubCategory Successfully Update"
+                ]);
+            }
+        }catch (Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**

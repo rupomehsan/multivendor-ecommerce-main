@@ -28,7 +28,7 @@ class SubCategoryController extends Controller
             ],200);
         }catch (Exception $e){
             return response([
-                "status" => 'success',
+                "status" => 'server_error',
                 "data" => $e->getMessage()
             ],500);
         }
@@ -51,25 +51,33 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            "name"=> "required",
-            "category_id"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-//        dd($request->all());
-        $subCategory = new SubCategory();
-        $subCategory->name = $request->name;
-        $subCategory->category_id = $request->category_id;
-        $subCategory->image = $request->image;
-        if($subCategory->save()){
-            return response([
-                "status" => "success",
-                "message" => "SubCategory Successfully Create"
+        try {
+            $validator = Validator::make($request->all(),[
+                "name"=> "required",
+                "category_id"=> "required",
             ]);
+            if ($validator->fails()){
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+//        dd($request->all());
+            $subCategory = new SubCategory();
+            $subCategory->name = $request->name;
+            $subCategory->category_id = $request->category_id;
+            $subCategory->image = $request->image;
+            if($subCategory->save()){
+                return response([
+                    "status" => "success",
+                    "message" => "SubCategory Successfully Create"
+                ]);
+            }
+        }catch (Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**
@@ -91,15 +99,23 @@ class SubCategoryController extends Controller
      */
     public function edit($id)
     {
-        $subCategory = SubCategory::where("id",$id)->first();
-        if($subCategory){
+        try {
+            $subCategory = SubCategory::where("id",$id)->first();
+            if($subCategory){
+                return response([
+                    "status" => "success",
+                    "data" => $subCategory
+                ]);
+            }else{
+                return response(redirect(url('/not-found')), 404);
+            }
+        }catch (Exception $e){
             return response([
-                "status" => "success",
-                "data" => $subCategory
-            ]);
-        }else{
-            return response(redirect(url('/not-found')), 404);
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
 
     }
 

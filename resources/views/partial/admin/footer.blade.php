@@ -4,6 +4,7 @@
 <!--<script src="--><?//= $asset ?><!--vendor/bootstrap/js/bootstrap.min.js"></script>-->
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/vendor/MCDatepicker-master/dist/mc-calendar.min.js')}}"></script>
+<script src="{{asset('assets/vendor/ckeditor5-build-classic/ckeditor.js')}}"></script>
 
 <!-- ===== CDN JS Link ===== -->
 <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>

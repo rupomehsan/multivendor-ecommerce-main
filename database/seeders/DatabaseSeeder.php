@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Coupon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +24,10 @@ class DatabaseSeeder extends Seeder
             AttributeSedder::class,
             SliderSeeder::class,
             CarouselsSeeder::class,
+            UserSeeder::class,
+            RoleSeeder::class,
+            CouponSeeder::class,
+            DeliveryPersonSeeder::class,
         ]);
     }
 }
