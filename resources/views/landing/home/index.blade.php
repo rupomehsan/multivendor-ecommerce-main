@@ -21,6 +21,7 @@
             <span class="iconify" data-icon="carbon:delivery" style="color: #da333d;" data-width="55" data-height="55"></span>
             <p>24/7 Nationwide Delivery</p>
         </div>
+
     </div>
 
 @endsection
