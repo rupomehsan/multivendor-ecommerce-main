@@ -13,6 +13,11 @@
     |
     */
     Route::view('/', 'landing.home.index');
+    Route::view('/product-view', 'landing.product_view.index');
+
+    Route::view('/login', 'landing.auth.login');
+    Route::view('/register', 'landing.auth.register');
+
 
     Route::prefix('admin')->group(function () {
         Route::view('/dashboard', 'admin.dashboard.index');

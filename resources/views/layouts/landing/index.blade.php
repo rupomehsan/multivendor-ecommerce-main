@@ -1,4 +1,5 @@
 @include('partial.landing.header')
 @include('partial.landing.navbar')
 @yield('content')
+@include('partial.landing.main_footer')
 @include('partial.landing.footer')

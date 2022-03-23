@@ -92,7 +92,10 @@ class VendorController extends Controller
      */
     public function show($id)
     {
-        //
+        return response([
+            "status" => "success",
+            "message" => "Vendor Successfully Delete"
+        ], 200);
     }
 
     /**
