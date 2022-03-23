@@ -29,7 +29,7 @@ class CategoryController extends Controller
             ],200);
         }catch (Exception $e){
             return response([
-                "status" => 'success',
+                "status" => 'server_error',
                 "data" => $e->getMessage()
             ],500);
         }
@@ -54,27 +54,35 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            "name"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-//        dd($request->all());
-        $category = new Category();
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->meta_tag_title = $request->meta_tag_title;
-        $category->meta_tag_desc = $request->meta_tag_desc;
-        $category->meta_tag_keyword = $request->meta_tag_keyword;
-        $category->image = $request->image;
-        if($category->save()){
-            return response([
-                "status" => "success",
-                "message" => "Category Successfully Create"
+        try {
+            $validator = Validator::make($request->all(),[
+                "name"=> "required",
             ]);
+            if ($validator->fails()){
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+//        dd($request->all());
+            $category = new Category();
+            $category->name = $request->name;
+            $category->description = $request->description;
+            $category->meta_tag_title = $request->meta_tag_title;
+            $category->meta_tag_desc = $request->meta_tag_desc;
+            $category->meta_tag_keyword = $request->meta_tag_keyword;
+            $category->image = $request->image;
+            if($category->save()){
+                return response([
+                    "status" => "success",
+                    "message" => "Category Successfully Create"
+                ]);
+            }
+        }catch (Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**
@@ -96,15 +104,23 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $getCategory = Category::where("id",$id)->first();
-        if($getCategory){
+        try {
+            $getCategory = Category::where("id",$id)->first();
+            if($getCategory){
+                return response([
+                    "status" => "success",
+                    "data" => $getCategory
+                ]);
+            }else{
+                return response(redirect(url('/not-found')), 404);
+            }
+        }catch (Exception $e){
             return response([
-                "status" => "success",
-                "data" => $getCategory
-            ]);
-        }else{
-            return response(redirect(url('/not-found')), 404);
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**
@@ -116,27 +132,35 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            "name"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-        $category = Category::where("id",$id)->first();
-        $category->name = $request->name ??  $category->name ;
-        $category->description = $request->description ?? $category->description;
-        $category->meta_tag_title = $request->meta_tag_title ?? $category->meta_tag_title ;
-        $category->meta_tag_desc = $request->meta_tag_desc ?? $category->meta_tag_desc;
-        $category->meta_tag_keyword = $request->meta_tag_keyword ?? $category->meta_tag_keyword;
-        $category->image = $request->image ?? $category->image;
-        $category->status = $request->status ??  $category->status ;
-        if($category->update()){
-            return response([
-                "status" => "success",
-                "message" => "Category Successfully Update"
+        try {
+            $validator = Validator::make($request->all(),[
+                "name"=> "required",
             ]);
+            if ($validator->fails()){
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+            $category = Category::where("id",$id)->first();
+            $category->name = $request->name ??  $category->name ;
+            $category->description = $request->description ?? $category->description;
+            $category->meta_tag_title = $request->meta_tag_title ?? $category->meta_tag_title ;
+            $category->meta_tag_desc = $request->meta_tag_desc ?? $category->meta_tag_desc;
+            $category->meta_tag_keyword = $request->meta_tag_keyword ?? $category->meta_tag_keyword;
+            $category->image = $request->image ?? $category->image;
+            $category->status = $request->status ??  $category->status ;
+            if($category->update()){
+                return response([
+                    "status" => "success",
+                    "message" => "Category Successfully Update"
+                ]);
+            }
+        }catch (Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**

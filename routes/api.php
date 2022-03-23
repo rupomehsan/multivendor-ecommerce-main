@@ -1,15 +1,16 @@
 <?php
-
 use App\Http\Controllers\Api\attribute\AttributeController;
 use App\Http\Controllers\Api\brand\BrandController;
 use App\Http\Controllers\Api\carousels\CarouselsController;
 use App\Http\Controllers\Api\category\CategoryController;
 use App\Http\Controllers\Api\category\SubCategoryController;
 use App\Http\Controllers\Api\category\SubSubCategoryController;
+use App\Http\Controllers\Api\coupon\CouponController;
 use App\Http\Controllers\Api\payment\PaymentController;
 use App\Http\Controllers\Api\slider\SliderController;
+use App\Http\Controllers\Api\vendor\VendorController;
+use App\Models\DeliveryPerson;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::prefix('v1')->group(function(){
     /*
      Category
@@ -62,6 +62,19 @@ Route::prefix('v1')->group(function(){
     store,update,edit,delete
     */
     Route::resource('payments', PaymentController::class);
-
-
+    /*
+       Vendor
+      store,update,edit,delete
+      */
+    Route::resource('vendors', VendorController::class);
+    /*
+     Coupon
+    store,update,edit,delete
+    */
+    Route::resource('coupons',CouponController::class);
+    /*
+    Delivery Person
+   store,update,edit,delete
+   */
+    Route::resource('delivery-persons',DeliveryPerson::class);
 });

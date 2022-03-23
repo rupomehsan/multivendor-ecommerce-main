@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api\payment;
+namespace App\Http\Controllers\Api\vendor;
 
 use App\Http\Controllers\Controller;
-use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 
-class PaymentController extends Controller
+class VendorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +18,10 @@ class PaymentController extends Controller
     public function index()
     {
         try {
-            $getPayment = Payment::paginate(5);
+            $getVendor = User::where('user_role',3)->paginate(5);
             return response([
                 "status" => 'success',
-                "data" => $getPayment
+                "data" => $getVendor
             ],200);
         }catch (Exception $e){
             return response([
@@ -51,21 +52,26 @@ class PaymentController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "payment_name"=> "required",
-                "payment_category"=> "required",
+                "name" => "required|min:5",
+                "email"=> 'required|email:rfc,dns|unique:users',
+                "phone"=> "required",
+                "password"=> "required|min:6",
+                "confirm_password"=> "required|min:6",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
 //        dd($request->all());
-            $payment = new Payment();
-            $payment->payment_name = $request->payment_name;
-            $payment->payment_category = $request->payment_category;
-            if($payment->save()){
+            $vendor = new User();
+            $vendor->name = $request->name;
+            $vendor->password = Hash::make($request->description);
+            $vendor->phone = $request->phone;
+            $vendor->email = $request->email;
+            if($vendor->save()){
                 return response([
                     "status" => "success",
-                    "message" => "Payment Successfully Create"
+                    "message" => "Vendor Successfully Create"
                 ]);
             }
         }catch (Exception $e){
@@ -97,11 +103,11 @@ class PaymentController extends Controller
     public function edit($id)
     {
         try {
-            $getPayment = Payment::where("id",$id)->first();
-            if($getPayment){
+            $getVendor = User::where("id",$id)->first();
+            if($getVendor){
                 return response([
                     "status" => "success",
-                    "data" => $getPayment
+                    "data" => $getVendor
                 ]);
             }else{
                 return response([
@@ -128,21 +134,27 @@ class PaymentController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "payment_name"=> "required",
-                "payment_category"=> "required",
+                "name" => "required|min:5",
+                "email"=> 'required|email:rfc,dns|unique:users',
+                "phone"=> "required",
+                "password"=> "required|min:6",
+                "confirm_password"=> "required|min:6",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $payment = Payment::where("id",$id)->first();
-            $payment->payment_name = $request->payment_name ??  $payment->payment_name ;
-            $payment->payment_category = $request->payment_category ?? $payment->payment_category;
-            $payment->status = $request->status ??  $payment->status ;
-            if($payment->update()){
+            $vendor = User::where("id",$id)->first();
+            $vendor->name = $request->name ??  $vendor->name ;
+            $vendor->password =Hash::make($request->password)  ?? $vendor->password;
+            $vendor->phone = $request->phone ?? $vendor->phone;
+            $vendor->image = $request->image ?? $vendor->image;
+            $vendor->email = $request->email ??  $vendor->email;
+            if($vendor->update()){
                 return response([
+
                     "status" => "success",
-                    "message" => "Payment Successfully Update"
+                    "message" => "User Successfully Update"
                 ]);
             }
         }catch (Exception $e){
@@ -163,13 +175,13 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         try{
-            $payment = Payment::find($id);
-            if($payment){
-                $payment->delete();
+            $vendor = User::find($id);
+            if($vendor){
+                $vendor->delete();
             }
             return response([
                 "status" => "success",
-                "message" => "Payment Successfully Delete"
+                "message" => "Vendor Successfully Delete"
             ],200);
         }catch (\Exception $e){
             return response([

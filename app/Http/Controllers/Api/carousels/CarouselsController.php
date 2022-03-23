@@ -21,12 +21,12 @@ class CarouselsController extends Controller
             return response([
                 "status" => 'success',
                 "data" => $getCarousel
-            ],200);
-        }catch (Exception $e){
+            ], 200);
+        } catch (Exception $e) {
             return response([
-                "status" => 'success',
+                "status" => 'server_error',
                 "data" => $e->getMessage()
-            ],500);
+            ], 500);
         }
     }
 
@@ -44,35 +44,43 @@ class CarouselsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            "category_id"=> "required",
-            "image"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
+        try {
+            $validator = Validator::make($request->all(), [
+                "category_id" => "required",
+                "image" => "required",
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
 //        dd($request->all());
-        $carousel = new Carousel();
-        $carousel->category_id = $request->category_id;
-        $carousel->image = $request->image;
-        if($carousel->save()){
+            $carousel = new Carousel();
+            $carousel->category_id = $request->category_id;
+            $carousel->image = $request->image;
+            if ($carousel->save()) {
+                return response([
+                    "status" => "success",
+                    "message" => "Carousel Successfully Create"
+                ]);
+            }
+        } catch (Exception $e) {
             return response([
-                "status" => "success",
-                "message" => "Carousel Successfully Create"
+                "status" => "server_error",
+                "message" => $e->getMessage()
             ]);
         }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -83,75 +91,91 @@ class CarouselsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $getCarousel = Carousel::where("id",$id)->first();
-        if($getCarousel){
+        try {
+            $getCarousel = Carousel::where("id", $id)->first();
+            if ($getCarousel) {
+                return response([
+                    "status" => "success",
+                    "data" => $getCarousel
+                ]);
+            } else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
+            }
+        } catch (Exception $e) {
             return response([
-                "status" => "success",
-                "data" => $getCarousel
+                "status" => "server_error",
+                "message" => $e->getMessage()
             ]);
-        }else{
-            return response([
-                "status" =>'not_found'
-            ], 404);
         }
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            "category_id"=> "required",
-            "image"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-        $carousel = Carousel::where("id",$id)->first();
-        $carousel->category_id = $request->category_id ??  $carousel->category_id ;
-        $carousel->image = $request->image ?? $carousel->image;
-        $carousel->status = $request->status ??  $carousel->status ;
-        if($carousel->update()){
+        try {
+            $validator = Validator::make($request->all(), [
+                "category_id" => "required",
+                "image" => "required",
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+            $carousel = Carousel::where("id", $id)->first();
+            $carousel->category_id = $request->category_id ?? $carousel->category_id;
+            $carousel->image = $request->image ?? $carousel->image;
+            $carousel->status = $request->status ?? $carousel->status;
+            if ($carousel->update()) {
+                return response([
+                    "status" => "success",
+                    "message" => "Carousel Successfully Update"
+                ]);
+            }
+        } catch (Exception $e) {
             return response([
-                "status" => "success",
-                "message" => "Carousel Successfully Update"
+                "status" => "server_error",
+                "message" => $e->getMessage()
             ]);
         }
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        try{
+        try {
             $carousel = Carousel::find($id);
-            if($carousel){
+            if ($carousel) {
                 $carousel->delete();
             }
             return response([
                 "status" => "success",
                 "message" => "Carousel Successfully Delete"
-            ],200);
-        }catch (\Exception $e){
+            ], 200);
+        } catch (\Exception $e) {
             return response([
-                "status" =>"server_error",
+                "status" => "server_error",
                 "message" => $e->getMessage()
-            ],500);
+            ], 500);
         }
     }
 }

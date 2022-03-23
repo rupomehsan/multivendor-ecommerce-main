@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\payment;
+namespace App\Http\Controllers\Api\coupon;
 
 use App\Http\Controllers\Controller;
-use App\Models\Payment;
+use App\Models\Coupon;
 use Illuminate\Http\Request;
-use Validator;
 
-class PaymentController extends Controller
+class CouponController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +16,10 @@ class PaymentController extends Controller
     public function index()
     {
         try {
-            $getPayment = Payment::paginate(5);
+            $getCoupne = Coupon::paginate(5);
             return response([
                 "status" => 'success',
-                "data" => $getPayment
+                "data" => $getCoupne
             ],200);
         }catch (Exception $e){
             return response([
@@ -51,21 +50,29 @@ class PaymentController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "payment_name"=> "required",
-                "payment_category"=> "required",
+                "coupon_name" => "required",
+                "type"=> 'required',
+                "per_user_use"=> "required",
+                "amount"=> "required",
+                "start_date"=> "required",
+                "end_date"=> "required",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
 //        dd($request->all());
-            $payment = new Payment();
-            $payment->payment_name = $request->payment_name;
-            $payment->payment_category = $request->payment_category;
-            if($payment->save()){
+            $coupon = new Coupon();
+            $coupon->coupon_name = $request->coupon_name;
+            $coupon->type =$request->type;
+            $coupon->per_user_use = $request->per_user_use;
+            $coupon->amount = $request->amount;
+            $coupon->start_date = $request->start_date;
+            $coupon->end_date = $request->end_date;
+            if($coupon->save()){
                 return response([
                     "status" => "success",
-                    "message" => "Payment Successfully Create"
+                    "message" => "Coupon Successfully Create"
                 ]);
             }
         }catch (Exception $e){
@@ -74,7 +81,6 @@ class PaymentController extends Controller
                 "data" => $e->getMessage()
             ],500);
         }
-
     }
 
     /**
@@ -97,11 +103,11 @@ class PaymentController extends Controller
     public function edit($id)
     {
         try {
-            $getPayment = Payment::where("id",$id)->first();
-            if($getPayment){
+            $getCoupon = Coupon::where("id",$id)->first();
+            if($getCoupon){
                 return response([
                     "status" => "success",
-                    "data" => $getPayment
+                    "data" => $getCoupon
                 ]);
             }else{
                 return response([
@@ -128,21 +134,30 @@ class PaymentController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "payment_name"=> "required",
-                "payment_category"=> "required",
+                "coupon_name" => "required",
+                "type"=> 'required',
+                "per_user_use"=> "required",
+                "amount"=> "required",
+                "start_date"=> "required",
+                "end_date"=> "required",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $payment = Payment::where("id",$id)->first();
-            $payment->payment_name = $request->payment_name ??  $payment->payment_name ;
-            $payment->payment_category = $request->payment_category ?? $payment->payment_category;
-            $payment->status = $request->status ??  $payment->status ;
-            if($payment->update()){
+            $coupon = Coupon::where("id",$id)->first();
+            $coupon->coupon_name = $request->coupon_name ??  $coupon->coupon_name ;
+            $coupon->type =$request->type ?? $coupon->type;
+            $coupon->per_user_use = $request->per_user_use ?? $coupon->per_user_use;
+            $coupon->amount = $request->amount ?? $coupon->amount;
+            $coupon->start_date = $request->start_date ??  $coupon->start_date;
+            $coupon->end_date = $request->end_date ??  $coupon->end_date;
+            $coupon->status = $request->status ??  $coupon->status;
+            if($coupon->update()){
                 return response([
+
                     "status" => "success",
-                    "message" => "Payment Successfully Update"
+                    "message" => "Coupon Successfully Update"
                 ]);
             }
         }catch (Exception $e){
@@ -163,13 +178,13 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         try{
-            $payment = Payment::find($id);
-            if($payment){
-                $payment->delete();
+            $coupon = Coupon::find($id);
+            if($coupon){
+                $coupon->delete();
             }
             return response([
                 "status" => "success",
-                "message" => "Payment Successfully Delete"
+                "message" => "Vendor Successfully Delete"
             ],200);
         }catch (\Exception $e){
             return response([

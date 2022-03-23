@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\payment;
+namespace App\Http\Controllers\Api\deliveryperson;
 
 use App\Http\Controllers\Controller;
-use App\Models\Payment;
+use App\Models\DeliveryPerson;
 use Illuminate\Http\Request;
 use Validator;
 
-class PaymentController extends Controller
+class DeliveryPersonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class PaymentController extends Controller
     public function index()
     {
         try {
-            $getPayment = Payment::paginate(5);
+            $getDeliveryPerson = DeliveryPerson::paginate(5);
             return response([
                 "status" => 'success',
-                "data" => $getPayment
+                "data" => $getDeliveryPerson
             ],200);
         }catch (Exception $e){
             return response([
@@ -51,21 +51,28 @@ class PaymentController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "payment_name"=> "required",
-                "payment_category"=> "required",
+                "name" => "required",
+                "email"=> 'required|email:rfc,dns|unique:delivery_people',
+                "phone"=> "required",
+                "identity_type"=> "required",
+                "identity_number"=> "required",
+
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
 //        dd($request->all());
-            $payment = new Payment();
-            $payment->payment_name = $request->payment_name;
-            $payment->payment_category = $request->payment_category;
-            if($payment->save()){
+            $deliveryPerson = new DeliveryPerson();
+            $deliveryPerson->name = $request->name;
+            $deliveryPerson->email =$request->email;
+            $deliveryPerson->phone = $request->phone;
+            $deliveryPerson->identity_type = $request->identity_type;
+            $deliveryPerson->identity_number = $request->identity_number;
+            if($deliveryPerson->save()){
                 return response([
                     "status" => "success",
-                    "message" => "Payment Successfully Create"
+                    "message" => "DeliveryPerson Successfully Create"
                 ]);
             }
         }catch (Exception $e){
@@ -74,7 +81,6 @@ class PaymentController extends Controller
                 "data" => $e->getMessage()
             ],500);
         }
-
     }
 
     /**
@@ -97,11 +103,11 @@ class PaymentController extends Controller
     public function edit($id)
     {
         try {
-            $getPayment = Payment::where("id",$id)->first();
-            if($getPayment){
+            $getDeliveryPerson = DeliveryPerson::where("id",$id)->first();
+            if($getDeliveryPerson){
                 return response([
                     "status" => "success",
-                    "data" => $getPayment
+                    "data" => $getDeliveryPerson
                 ]);
             }else{
                 return response([
@@ -128,21 +134,26 @@ class PaymentController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "payment_name"=> "required",
-                "payment_category"=> "required",
+                "name" => "required",
+                "email"=> 'required|email:rfc,dns|unique:delivery_people',
+                "phone"=> "required",
+                "identity_type"=> "required",
+                "identity_number"=> "required",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $payment = Payment::where("id",$id)->first();
-            $payment->payment_name = $request->payment_name ??  $payment->payment_name ;
-            $payment->payment_category = $request->payment_category ?? $payment->payment_category;
-            $payment->status = $request->status ??  $payment->status ;
-            if($payment->update()){
+            $deliveryPerson = DeliveryPerson::where("id",$id)->first();
+            $deliveryPerson->name = $request->name ??  $deliveryPerson->name ;
+            $deliveryPerson->email =$request->email ?? $deliveryPerson->email;
+            $deliveryPerson->phone = $request->phone ?? $deliveryPerson->phone;
+            $deliveryPerson->identity_type = $request->identity_type ?? $deliveryPerson->identity_type;
+            $deliveryPerson->identity_number = $request->identity_number ??  $deliveryPerson->identity_number;
+            if($deliveryPerson->update()){
                 return response([
                     "status" => "success",
-                    "message" => "Payment Successfully Update"
+                    "message" => "DeliveryPerson Successfully Update"
                 ]);
             }
         }catch (Exception $e){
@@ -163,13 +174,13 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         try{
-            $payment = Payment::find($id);
-            if($payment){
-                $payment->delete();
+            $deliveryPerson = DeliveryPerson::find($id);
+            if($deliveryPerson){
+                $deliveryPerson->delete();
             }
             return response([
                 "status" => "success",
-                "message" => "Payment Successfully Delete"
+                "message" => "DeliveryPerson Successfully Delete"
             ],200);
         }catch (\Exception $e){
             return response([

@@ -24,7 +24,7 @@ class SliderController extends Controller
             ],200);
         }catch (Exception $e){
             return response([
-                "status" => 'success',
+                "status" => 'server_error',
                 "data" => $e->getMessage()
             ],500);
         }
@@ -49,27 +49,35 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            "title"=> "required",
-            "description"=> "required",
-            "offer"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-//        dd($request->all());
-        $slider = new Slider();
-        $slider->title = $request->title;
-        $slider->description = $request->description;
-        $slider->image = $request->image;
-        $slider->offer = $request->offer;
-        if($slider->save()){
-            return response([
-                "status" => "success",
-                "message" => "Slider Successfully Create"
+        try {
+            $validator = Validator::make($request->all(),[
+                "title"=> "required",
+                "description"=> "required",
+                "offer"=> "required",
             ]);
+            if ($validator->fails()){
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+//        dd($request->all());
+            $slider = new Slider();
+            $slider->title = $request->title;
+            $slider->description = $request->description;
+            $slider->image = $request->image;
+            $slider->offer = $request->offer;
+            if($slider->save()){
+                return response([
+                    "status" => "success",
+                    "message" => "Slider Successfully Create"
+                ]);
+            }
+        }catch (Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**
@@ -91,17 +99,25 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        $getSlider = Slider::where("id",$id)->first();
-        if($getSlider){
+        try {
+            $getSlider = Slider::where("id",$id)->first();
+            if($getSlider){
+                return response([
+                    "status" => "success",
+                    "data" => $getSlider
+                ]);
+            }else{
+                return response([
+                    "status" =>'not_found'
+                ], 404);
+            }
+        }catch (Exception $e){
             return response([
-                "status" => "success",
-                "data" => $getSlider
-            ]);
-        }else{
-            return response([
-                "status" =>'not_found'
-            ], 404);
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**
@@ -113,27 +129,35 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            "title"=> "required",
-            "description"=> "required",
-            "offer"=> "required",
-        ]);
-        if ($validator->fails()){
-            $errors = $validator->errors()->messages();
-            return validateError($errors);
-        }
-        $slider = Slider::where("id",$id)->first();
-        $slider->title = $request->title ??  $slider->title ;
-        $slider->description = $request->description ?? $slider->description;
-        $slider->offer = $request->offer ?? $slider->offer;
-        $slider->image = $request->image ?? $slider->image;
-        $slider->status = $request->status ??  $slider->status ;
-        if($slider->update()){
-            return response([
-                "status" => "success",
-                "message" => "Slider Successfully Update"
+        try {
+            $validator = Validator::make($request->all(),[
+                "title"=> "required",
+                "description"=> "required",
+                "offer"=> "required",
             ]);
+            if ($validator->fails()){
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+            $slider = Slider::where("id",$id)->first();
+            $slider->title = $request->title ??  $slider->title ;
+            $slider->description = $request->description ?? $slider->description;
+            $slider->offer = $request->offer ?? $slider->offer;
+            $slider->image = $request->image ?? $slider->image;
+            $slider->status = $request->status ??  $slider->status ;
+            if($slider->update()){
+                return response([
+                    "status" => "success",
+                    "message" => "Slider Successfully Update"
+                ]);
+            }
+        }catch (Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ],500);
         }
+
     }
 
     /**
@@ -144,6 +168,7 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
+
         try{
             $slider = Slider::find($id);
             if($slider){
