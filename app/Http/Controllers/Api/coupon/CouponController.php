@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\coupon;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
+use Validator;
 
 class CouponController extends Controller
 {
@@ -181,11 +182,15 @@ class CouponController extends Controller
             $coupon = Coupon::find($id);
             if($coupon){
                 $coupon->delete();
+                return response([
+                    "status" => "success",
+                    "message" => "Coupons Successfully Delete"
+                ], 200);
+            }else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
             }
-            return response([
-                "status" => "success",
-                "message" => "Vendor Successfully Delete"
-            ],200);
         }catch (\Exception $e){
             return response([
                 "status" =>"server_error",

@@ -170,16 +170,15 @@ class SubSubCategoryController extends Controller
             $subSubCategory = SubSubCategory::find($id);
             if ($subSubCategory){
                 $subSubCategory->delete();
-            }else{
                 return response([
-                    "status" => "error",
-                    "message" => "SubSubCategory  Delete fails"
-                ],200);
+                    "status" => "success",
+                    "message" => "SubSubCategory Successfully Delete"
+                ], 200);
+            }else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
             }
-            return response([
-                "status" => "success",
-                "message" => "SubSubCategory Successfully Delete"
-            ],200);
         }catch (\Exception $e){
             return response([
                 "status" =>"server_error",

@@ -141,7 +141,7 @@ class AttributeController extends Controller
                     "message" => "Attribute Successfully Update"
                 ]);
             }
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return response([
                 "status" => "server_error",
                 "message" => $e->getMessage()
@@ -162,11 +162,15 @@ class AttributeController extends Controller
             $attribute = Attribute::find($id);
             if ($attribute) {
                 $attribute->delete();
+                return response([
+                    "status" => "success",
+                    "message" => "Attribute Successfully Delete"
+                ], 200);
+            } else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
             }
-            return response([
-                "status" => "success",
-                "message" => "Attribute Successfully Delete"
-            ], 200);
         } catch (\Exception $e) {
             return response([
                 "status" => "server_error",

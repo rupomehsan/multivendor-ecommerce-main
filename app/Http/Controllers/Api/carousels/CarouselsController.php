@@ -166,11 +166,15 @@ class CarouselsController extends Controller
             $carousel = Carousel::find($id);
             if ($carousel) {
                 $carousel->delete();
+                return response([
+                    "status" => "success",
+                    "message" => "Carousel Successfully Delete"
+                ], 200);
+            }else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
             }
-            return response([
-                "status" => "success",
-                "message" => "Carousel Successfully Delete"
-            ], 200);
         } catch (\Exception $e) {
             return response([
                 "status" => "server_error",

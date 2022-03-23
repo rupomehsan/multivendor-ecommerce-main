@@ -171,11 +171,15 @@ class BrandController extends Controller
             $brand = Brand::find($id);
             if ($brand) {
                 $brand->delete();
+                return response([
+                    "status" => "success",
+                    "message" => "Brand Successfully Delete"
+                ], 200);
+            }else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
             }
-            return response([
-                "status" => "success",
-                "message" => "Brand Successfully Delete"
-            ], 200);
         } catch (\Exception $e) {
             return response([
                 "status" => "server_error",

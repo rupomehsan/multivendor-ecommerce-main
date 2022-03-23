@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\deliveryperson;
+namespace App\Http\Controllers\Api\deliveryPerson;
 
 use App\Http\Controllers\Controller;
 use App\Models\DeliveryPerson;
@@ -135,7 +135,7 @@ class DeliveryPersonController extends Controller
         try {
             $validator = Validator::make($request->all(),[
                 "name" => "required",
-                "email"=> 'required|email:rfc,dns|unique:delivery_people',
+                "email"=> 'required',
                 "phone"=> "required",
                 "identity_type"=> "required",
                 "identity_number"=> "required",
@@ -177,11 +177,16 @@ class DeliveryPersonController extends Controller
             $deliveryPerson = DeliveryPerson::find($id);
             if($deliveryPerson){
                 $deliveryPerson->delete();
+                return response([
+                    "status" => "success",
+                    "message" => "DeliveryPerson Successfully Delete"
+                ],200);
+            }else{
+                return response([
+                    "status" =>'not_found'
+                ], 404);
             }
-            return response([
-                "status" => "success",
-                "message" => "DeliveryPerson Successfully Delete"
-            ],200);
+
         }catch (\Exception $e){
             return response([
                 "status" =>"server_error",

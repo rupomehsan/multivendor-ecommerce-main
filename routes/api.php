@@ -6,10 +6,10 @@ use App\Http\Controllers\Api\category\CategoryController;
 use App\Http\Controllers\Api\category\SubCategoryController;
 use App\Http\Controllers\Api\category\SubSubCategoryController;
 use App\Http\Controllers\Api\coupon\CouponController;
+use App\Http\Controllers\Api\deliveryPerson\DeliveryPersonController;
 use App\Http\Controllers\Api\payment\PaymentController;
 use App\Http\Controllers\Api\slider\SliderController;
 use App\Http\Controllers\Api\vendor\VendorController;
-use App\Models\DeliveryPerson;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -76,5 +76,5 @@ Route::prefix('v1')->group(function(){
     Delivery Person
    store,update,edit,delete
    */
-    Route::resource('delivery-persons',DeliveryPerson::class);
+    Route::resource('delivery-persons',DeliveryPersonController::class);
 });

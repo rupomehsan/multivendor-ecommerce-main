@@ -18,7 +18,7 @@ class VendorController extends Controller
     public function index()
     {
         try {
-            $getVendor = User::where('user_role',3)->paginate(5);
+            $getVendor = User::whereJsonContains('user_role',"3")->paginate(5);
             return response([
                 "status" => 'success',
                 "data" => $getVendor
@@ -68,6 +68,7 @@ class VendorController extends Controller
             $vendor->password = Hash::make($request->description);
             $vendor->phone = $request->phone;
             $vendor->email = $request->email;
+            $vendor->user_role= $request->user_role;
             if($vendor->save()){
                 return response([
                     "status" => "success",
@@ -120,7 +121,6 @@ class VendorController extends Controller
                 "data" => $e->getMessage()
             ],500);
         }
-
     }
 
     /**
@@ -150,6 +150,7 @@ class VendorController extends Controller
             $vendor->phone = $request->phone ?? $vendor->phone;
             $vendor->image = $request->image ?? $vendor->image;
             $vendor->email = $request->email ??  $vendor->email;
+            $vendor->user_role = $request->email ??  $vendor->email;
             if($vendor->update()){
                 return response([
 
@@ -163,7 +164,6 @@ class VendorController extends Controller
                 "data" => $e->getMessage()
             ],500);
         }
-
     }
 
     /**
@@ -178,11 +178,15 @@ class VendorController extends Controller
             $vendor = User::find($id);
             if($vendor){
                 $vendor->delete();
+                return response([
+                    "status" => "success",
+                    "message" => "Vendor Successfully Delete"
+                ], 200);
+            }else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
             }
-            return response([
-                "status" => "success",
-                "message" => "Vendor Successfully Delete"
-            ],200);
         }catch (\Exception $e){
             return response([
                 "status" =>"server_error",

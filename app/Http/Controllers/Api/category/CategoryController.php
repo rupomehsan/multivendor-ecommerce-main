@@ -26,12 +26,12 @@ class CategoryController extends Controller
             return response([
                 "status" => 'success',
                 "data" => $getcategory
-            ],200);
-        }catch (Exception $e){
+            ], 200);
+        } catch (Exception $e) {
             return response([
                 "status" => 'server_error',
                 "data" => $e->getMessage()
-            ],500);
+            ], 500);
         }
     }
 
@@ -49,16 +49,16 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(),[
-                "name"=> "required",
+            $validator = Validator::make($request->all(), [
+                "name" => "required",
             ]);
-            if ($validator->fails()){
+            if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
@@ -70,17 +70,17 @@ class CategoryController extends Controller
             $category->meta_tag_desc = $request->meta_tag_desc;
             $category->meta_tag_keyword = $request->meta_tag_keyword;
             $category->image = $request->image;
-            if($category->save()){
+            if ($category->save()) {
                 return response([
                     "status" => "success",
                     "message" => "Category Successfully Create"
                 ]);
             }
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response([
                 "status" => 'server_error',
                 "data" => $e->getMessage()
-            ],500);
+            ], 500);
         }
 
     }
@@ -88,7 +88,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -99,26 +99,26 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         try {
-            $getCategory = Category::where("id",$id)->first();
-            if($getCategory){
+            $getCategory = Category::where("id", $id)->first();
+            if ($getCategory) {
                 return response([
                     "status" => "success",
                     "data" => $getCategory
                 ]);
-            }else{
+            } else {
                 return response(redirect(url('/not-found')), 404);
             }
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response([
                 "status" => 'server_error',
                 "data" => $e->getMessage()
-            ],500);
+            ], 500);
         }
 
     }
@@ -126,39 +126,39 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         try {
-            $validator = Validator::make($request->all(),[
-                "name"=> "required",
+            $validator = Validator::make($request->all(), [
+                "name" => "required",
             ]);
-            if ($validator->fails()){
+            if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $category = Category::where("id",$id)->first();
-            $category->name = $request->name ??  $category->name ;
+            $category = Category::where("id", $id)->first();
+            $category->name = $request->name ?? $category->name;
             $category->description = $request->description ?? $category->description;
-            $category->meta_tag_title = $request->meta_tag_title ?? $category->meta_tag_title ;
+            $category->meta_tag_title = $request->meta_tag_title ?? $category->meta_tag_title;
             $category->meta_tag_desc = $request->meta_tag_desc ?? $category->meta_tag_desc;
             $category->meta_tag_keyword = $request->meta_tag_keyword ?? $category->meta_tag_keyword;
             $category->image = $request->image ?? $category->image;
-            $category->status = $request->status ??  $category->status ;
-            if($category->update()){
+            $category->status = $request->status ?? $category->status;
+            if ($category->update()) {
                 return response([
                     "status" => "success",
                     "message" => "Category Successfully Update"
                 ]);
             }
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response([
                 "status" => 'server_error',
                 "data" => $e->getMessage()
-            ],500);
+            ], 500);
         }
 
     }
@@ -166,33 +166,38 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        try{
+        try {
             $category = Category::find($id);
-            $subCategory = SubCategory::where('category_id',$id);
-            $subSubCategory = SubSubCategory::where('sub_category_id',$id);
-            if($category){
+            $subCategory = SubCategory::where('category_id', $id);
+            $subSubCategory = SubSubCategory::where('sub_category_id', $id);
+            if ($category) {
                 $category->delete();
+                if ($subCategory) {
+                    $subCategory->delete();
+                }
+                if ($subSubCategory) {
+                    $subSubCategory->delete();
+                }
+                return response([
+                    "status" => "success",
+                    "message" => "Category Successfully Delete"
+                ], 200);
+            } else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
             }
-            if ($subCategory){
-                $subCategory->delete();
-            }
-            if ($subSubCategory){
-                $subSubCategory->delete();
-            }
+
+        } catch (\Exception $e) {
             return response([
-              "status" => "success",
-                "message" => "Category Successfully Delete"
-            ],200);
-        }catch (\Exception $e){
-           return response([
-               "status" =>"server_error",
-               "message" => $e->getMessage()
-           ],500);
+                "status" => "server_error",
+                "message" => $e->getMessage()
+            ], 500);
         }
     }
 }
