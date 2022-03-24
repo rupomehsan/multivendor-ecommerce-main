@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\vendor;
+namespace App\Http\Controllers\Api\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Validator;
-
-class VendorController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +17,10 @@ class VendorController extends Controller
     public function index()
     {
         try {
-            $getVendor = User::whereJsonContains('user_role',"3")->paginate(5);
+            $getAdmin = User::whereJsonContains('user_role',"2")->paginate(5);
             return response([
                 "status" => 'success',
-                "data" => $getVendor
+                "data" => $getAdmin
             ],200);
         }catch (Exception $e){
             return response([
@@ -55,6 +54,7 @@ class VendorController extends Controller
                 "name" => "required|min:5",
                 "email"=> 'required|email:rfc,dns|unique:users',
                 "phone"=> "required",
+                "access"=> "required",
                 "password"=> "required|min:6",
                 "confirm_password"=> "required|min:6",
             ]);
@@ -63,17 +63,18 @@ class VendorController extends Controller
                 return validateError($errors);
             }
 //        dd($request->all());
-            $vendor = new User();
-            $vendor->name = $request->name;
-            $vendor->password = Hash::make($request->description);
-            $vendor->phone = $request->phone;
-            $vendor->email = $request->email;
-            $vendor->image = $request->image;
-            $vendor->user_role= $request->user_role;
-            if($vendor->save()){
+            $admin = new User();
+            $admin->name = $request->name;
+            $admin->password = Hash::make($request->description);
+            $admin->phone = $request->phone;
+            $admin->email = $request->email;
+            $admin->image = $request->image;
+            $admin->user_role= $request->user_role;
+            $admin->access= $request->access;
+            if($admin->save()){
                 return response([
                     "status" => "success",
-                    "message" => "Vendor Successfully Create"
+                    "message" => "Admin Successfully Create"
                 ]);
             }
         }catch (Exception $e){
@@ -82,7 +83,6 @@ class VendorController extends Controller
                 "data" => $e->getMessage()
             ],500);
         }
-
     }
 
     /**
@@ -93,10 +93,7 @@ class VendorController extends Controller
      */
     public function show($id)
     {
-        return response([
-            "status" => "success",
-            "message" => "Vendor Successfully Delete"
-        ], 200);
+
     }
 
     /**
@@ -108,11 +105,11 @@ class VendorController extends Controller
     public function edit($id)
     {
         try {
-            $getVendor = User::where("id",$id)->first();
-            if($getVendor){
+            $getAdmin = User::where("id",$id)->first();
+            if($getAdmin){
                 return response([
                     "status" => "success",
-                    "data" => $getVendor
+                    "data" => $getAdmin
                 ]);
             }else{
                 return response([
@@ -141,6 +138,7 @@ class VendorController extends Controller
                 "name" => "required|min:5",
                 "email"=> 'required|email:rfc,dns|unique:users',
                 "phone"=> "required",
+                "access"=> "required",
                 "password"=> "required|min:6",
                 "confirm_password"=> "required|min:6",
             ]);
@@ -148,17 +146,18 @@ class VendorController extends Controller
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $vendor = User::where("id",$id)->first();
-            $vendor->name = $request->name ??  $vendor->name ;
-            $vendor->password =Hash::make($request->password)  ?? $vendor->password;
-            $vendor->phone = $request->phone ?? $vendor->phone;
-            $vendor->image = $request->image ?? $vendor->image;
-            $vendor->email = $request->email ??  $vendor->email;
-            $vendor->user_role = $request->user_role ??  $vendor->user_role;
-            if($vendor->update()){
+            $admin = User::where("id",$id)->first();
+            $admin->name = $request->name ??  $admin->name ;
+            $admin->password =Hash::make($request->password)  ?? $admin->password;
+            $admin->phone = $request->phone ?? $admin->phone;
+            $admin->image = $request->image ?? $admin->image;
+            $admin->email = $request->email ??  $admin->email;
+            $admin->access = $request->access ??  $admin->access;
+            $admin->user_role = $request->user_role ??  $admin->user_role;
+            if($admin->update()){
                 return response([
                     "status" => "success",
-                    "message" => "User Successfully Update"
+                    "message" => "Admin Successfully Update"
                 ]);
             }
         }catch (Exception $e){
@@ -178,12 +177,12 @@ class VendorController extends Controller
     public function destroy($id)
     {
         try{
-            $vendor = User::find($id);
-            if($vendor){
-                $vendor->delete();
+            $admin = User::find($id);
+            if($admin){
+                $admin->delete();
                 return response([
                     "status" => "success",
-                    "message" => "Vendor Successfully Delete"
+                    "message" => "Admin Successfully Delete"
                 ], 200);
             }else {
                 return response([

@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Api\admin\AdminController;
 use App\Http\Controllers\Api\attribute\AttributeController;
 use App\Http\Controllers\Api\brand\BrandController;
 use App\Http\Controllers\Api\carousels\CarouselsController;
@@ -7,10 +9,13 @@ use App\Http\Controllers\Api\category\SubCategoryController;
 use App\Http\Controllers\Api\category\SubSubCategoryController;
 use App\Http\Controllers\Api\coupon\CouponController;
 use App\Http\Controllers\Api\deliveryPerson\DeliveryPersonController;
+use App\Http\Controllers\Api\mobileAds\MobileAdsController;
 use App\Http\Controllers\Api\payment\PaymentController;
 use App\Http\Controllers\Api\slider\SliderController;
+use App\Http\Controllers\Api\user\UserController;
 use App\Http\Controllers\Api\vendor\VendorController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::prefix('v1')->group(function(){
+Route::prefix('v1')->group(function () {
     /*
      Category
     store,update,edit,delete
@@ -42,25 +47,25 @@ Route::prefix('v1')->group(function(){
     store,update,edit,delete
     */
     Route::resource('brands', BrandController::class);
-  /*
-     Attribute
-    store,update,edit,delete
-    */
+    /*
+       Attribute
+      store,update,edit,delete
+      */
     Route::resource('attributes', AttributeController::class);
-   /*
-     Slider
-    store,update,edit,delete
-    */
+    /*
+      Slider
+     store,update,edit,delete
+     */
     Route::resource('sliders', SliderController::class);
     /*
      Carousels
     store,update,edit,delete
     */
     Route::resource('carousels', CarouselsController::class);
-  /*
-     Payment
-    store,update,edit,delete
-    */
+    /*
+       Payment
+      store,update,edit,delete
+      */
     Route::resource('payments', PaymentController::class);
     /*
        Vendor
@@ -71,10 +76,25 @@ Route::prefix('v1')->group(function(){
      Coupon
     store,update,edit,delete
     */
-    Route::resource('coupons',CouponController::class);
+    Route::resource('coupons', CouponController::class);
     /*
     Delivery Person
    store,update,edit,delete
    */
-    Route::resource('delivery-persons',DeliveryPersonController::class);
+    Route::resource('delivery-persons', DeliveryPersonController::class);
+    /*
+    Admin
+   store,update,edit,delete
+   */
+    Route::resource('admins', AdminController::class);
+    /*
+     user
+    store,update,edit,delete
+    */
+    Route::resource('users', UserController::class);
+    /*
+     Advertisement
+    store,update,edit,
+    */
+    Route::resource('mobile-ads', MobileAdsController::class);
 });
