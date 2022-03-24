@@ -94,42 +94,46 @@ body {
 .bg-athens-gray {
     background: colors.$athens-gray;
 }
+
 .bg-light-ash-2 {
     background: colors.$light-ash-2;
 }
 
-.bg-base-red{
+.bg-base-red {
     background: colors.$base-red;
 }
 
-.bg-base-green{
+.bg-base-green {
     background: colors.$base-green;
 }
 
-.bg-base-blue{
+.bg-base-blue {
     background: colors.$base-blue;
 }
-.bg-sun{
+
+.bg-sun {
     background: colors.$sun;
 }
-.bg-cello{
+
+.bg-cello {
     background: colors.$cello;
 }
-.bg-pastel-green{
+
+.bg-pastel-green {
     background: colors.$pastel-green;
 }
 
-.bg-mercury{
+.bg-mercury {
     background: colors.$mercury;
 }
 
-.bg-valencia{
+.bg-valencia {
     background: colors.$valencia;
 }
-.bg-outline-valencia{
+
+.bg-outline-valencia {
     border: 1px solid colors.$valencia;
 }
-
 
 
 .linear-red-bg {
@@ -210,7 +214,7 @@ body {
 }
 
 /* BOX SHADOW*/
-.bottom-shadow{
+.bottom-shadow {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
 }
 
@@ -269,22 +273,25 @@ body {
     }
 }
 
-.btn-outline-valencia{
+.btn-outline-valencia {
     color: colors.$valencia;
     border: 1px solid colors.$valencia;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     border-radius: 2px;
+
     &:hover {
         color: colors.$white;
         background: colors.$valencia;
     }
 }
-.btn-valencia{
+
+.btn-valencia {
     color: colors.$white;
     border: 1px solid colors.$valencia;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     border-radius: 2px;
     background: colors.$valencia;
+
     &:hover {
         color: colors.$white;
         background: colors.$mandy;
@@ -388,7 +395,7 @@ body {
 }
 
 /* INCREMENT-DECREMENT STYLES */
-.handle-counter{
+.handle-counter {
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -396,7 +403,7 @@ body {
     background: #EEEEEE;
     padding: 5px;
 
-    input{
+    input {
         width: 50px;
         background: white;
         border: none;
@@ -609,27 +616,29 @@ header {
 /* ---------------------------------
  ---- LANDING PAGES STYLES ------ */
 /* TOP NAVBAR */
-#navbar{
+#navbar {
     background: white;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
-    .nav-item{
+
+    .nav-item {
 
         transition: all ease-in-out .3s;
 
-        &:not(:last-child):not(:nth-child(3)):hover, .active{
+        &:not(:last-child):not(:nth-child(3)):hover, .active {
             background: colors.$valencia;
             color: colors.$white;
             border-radius: 9px;
 
-            .nav-link{
+            .nav-link {
                 color: colors.$white;
             }
         }
 
-        &:last-child{
-            .nav-link{
+        &:last-child {
+            .nav-link {
                 position: relative;
-                .count{
+
+                .count {
                     position: absolute;
                     top: 0;
                     right: 0;
@@ -647,31 +656,38 @@ header {
             }
         }
 
-        &:nth-child(3){
+        &:nth-child(3) {
             width: 40%;
             margin-left: 50px;
         }
 
-        .nav-link{
+        .nav-link {
             display: flex;
             align-items: center;
             justify-content: center;
             color: #000000;
+        }
+
+        .dropdown-menu {
+            overflow: hidden;
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
         }
     }
 }
 
 
 /* HOMEPAGE HERO */
-.hero{
+.hero {
     .swiper {
         width: 100%;
         height: 500px;
 
-        .swiper-wrapper{
-            .swiper-slide{
+        .swiper-wrapper {
+            .swiper-slide {
                 position: relative;
-                .overlay{
+
+                .overlay {
                     position: absolute;
                     top: 0;
                     left: 16%;
@@ -681,5 +697,64 @@ header {
     }
 }
 
-/* HOMEPAGE FILTERED */
+/* PRODUCT VIEW HERO */
+#product-view {
+    .swiper {
+        width: 100%;
+        height: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
+    .swiper-slide {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .productSwiper {
+        height: 400px;
+        width: 100%;
+        border: 1px solid red;
+        position: relative;
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 60%;
+            border: 1px solid green;
+        }
+    }
+    .productThumbSwiper {
+        border: 1px solid green;
+        width: 100%;
+        height: 100px;
+        margin: 10px 0;
+        box-sizing: border-box;
+
+        .swiper-slide{
+            width: 20%;
+            height: 100%;
+            opacity: 0.2;
+
+            img {
+                width: 100%;
+                height: 100%;
+                border: 1px solid red;
+            }
+
+        }
+    }
+
+    //.productThumbSwiper .swiper-slide {
+    //    width: 25%;
+    //    height: 100%;
+    //    opacity: 0.5;
+    //}
+    //
+    //.productThumbSwiper .swiper-slide-thumb-active {
+    //    opacity: 1;
+    //}
+
+}

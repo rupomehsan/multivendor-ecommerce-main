@@ -1,10 +1,41 @@
 @extends('layouts.landing.index')
 
 @section('content')
-    <div class="container my-2">
+    <div class="container my-2" id="product-view">
         <div class="row">
             <div class="col-lg-4">
-                <img class="img-fluid" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                <div
+                    style="--swiper-navigation-color: rgba(0, 0, 0, 0.35); --swiper-pagination-color: #fff"
+                    class="swiper productSwiper"
+                >
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="{{asset('assets/image/pos-item.png')}}"/>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-2.jpg"/>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+
+                <div thumbsSlider="" class="swiper productThumbSwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img  src="{{asset('assets/image/pos-item.png')}}"/>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-2.jpg"/>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-lg-4">
@@ -61,6 +92,24 @@
     </div>
 @endsection
 
-@push('custom-js')
 
+@push('custom-js')
+    <script>
+        let productThumbSwiper = new Swiper(".productThumbSwiper", {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+        let productSwiper = new Swiper(".productSwiper", {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: productThumbSwiper,
+            },
+        });
+    </script>
 @endpush
