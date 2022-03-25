@@ -19,7 +19,10 @@ $(document).on('click', '.filter-btn', function () {
 let colorSwitchButtons = document.querySelectorAll('.switch-button');
 
 colorSwitchButtons.forEach(item => {
-    console.log(item.getAttribute('data'))
+
+    let colorId = item.getAttribute('data-id')
+
+    console.log()
     item.addEventListener('click', function (e){
 
 
