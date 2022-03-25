@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             CouponSeeder::class,
             DeliveryPersonSeeder::class,
+            NotificationSeeder::class,
+            SettingSeeder::class,
+            SmtpSeeder::class,
         ]);
     }
 }

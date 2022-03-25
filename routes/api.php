@@ -27,74 +27,73 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('v1')->group(function () {
-    /*
-     Category
-    store,update,edit,delete
+    /*Category
+    index,store,update,edit,delete
     */
     Route::resource('categories', CategoryController::class);
-    /*
-     sub-Category
-    store,update,edit,delete
+    /*sub-Category
+    index,store,update,edit,delete
     */
     Route::resource('sub-categories', SubCategoryController::class);
-    /*
-     sub-sub-Category
-    store,update,edit,delete
+    /*sub-sub-Category
+    index,store,update,edit,delete
     */
     Route::resource('sub-sub-categories', SubSubCategoryController::class);
-    /*
-     Brand
-    store,update,edit,delete
+    /*Brand
+    index,store,update,edit,delete
     */
     Route::resource('brands', BrandController::class);
-    /*
-       Attribute
-      store,update,edit,delete
+    /*Attribute
+      index,store,update,edit,delete
       */
     Route::resource('attributes', AttributeController::class);
-    /*
-      Slider
-     store,update,edit,delete
+    /*Slider
+     index,store,update,edit,delete
      */
     Route::resource('sliders', SliderController::class);
-    /*
-     Carousels
-    store,update,edit,delete
+    /*Carousels
+    index,store,update,edit,delete
     */
     Route::resource('carousels', CarouselsController::class);
-    /*
-       Payment
-      store,update,edit,delete
+    /*Payment
+     index,store,update,edit,delete
       */
     Route::resource('payments', PaymentController::class);
-    /*
-       Vendor
-      store,update,edit,delete
-      */
+    /*Vendor
+     index,store,update,edit,delete
+     */
     Route::resource('vendors', VendorController::class);
-    /*
-     Coupon
-    store,update,edit,delete
+    /*Coupon
+    index,store,update,edit,delete
     */
     Route::resource('coupons', CouponController::class);
-    /*
-    Delivery Person
-   store,update,edit,delete
+    /*Delivery Person
+    index,store,update,edit,delete
    */
     Route::resource('delivery-persons', DeliveryPersonController::class);
-    /*
-    Admin
-   store,update,edit,delete
+    /* Admin
+    index,store,update,edit,delete
    */
     Route::resource('admins', AdminController::class);
-    /*
-     user
-    store,update,edit,delete
+    /*user
+    index,store,update,edit,delete
     */
     Route::resource('users', UserController::class);
-    /*
-     Advertisement
-    store,update,edit,
+    /*Advertisement
+    index,store,update,edit,
     */
     Route::resource('mobile-ads', MobileAdsController::class);
+    /*Notification
+    index,store,update,edit,delete
+    */
+    Route::resource('notifications', \App\Http\Controllers\Api\notification\NotificationController::class);
+    Route::post('notifications/store', [\App\Http\Controllers\Api\notification\NotificationController::class, "sendNotification"]);
+    /* Settings
+    index,store,update,edit,
+    */
+    Route::resource('settings', \App\Http\Controllers\Api\setting\SettingController::class);
+    /* Settings
+    index,store,update,edit,
+    */
+    Route::resource('smtps', \App\Http\Controllers\Api\smtp\SmtpController::class);
 });
