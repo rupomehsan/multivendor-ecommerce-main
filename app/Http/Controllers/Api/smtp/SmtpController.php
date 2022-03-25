@@ -91,7 +91,10 @@ class SmtpController extends Controller
      */
     public function show($id)
     {
-
+        if ($validator->fails()){
+            $errors = $validator->errors()->messages();
+            return validateError($errors);
+        }
     }
 
     /**
