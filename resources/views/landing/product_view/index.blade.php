@@ -62,9 +62,9 @@
                     <span class="">Colors</span>
 
                     <div class="color-switcher ms-5">
-                        <span class="switch-button" data-id="gray"></span>
-                        <span class="switch-button" data-id="red"></span>
-                        <span class="switch-button" data-id="green"></span>
+                        <span class="switch-button" id="#33D0DA"></span>
+                        <span class="switch-button" id="#22A0DF"></span>
+                        <span class="switch-button" id="#FF8A00"></span>
                     </div>
                 </div>
             </div>

@@ -25,11 +25,11 @@ $(document).on('click', '.filter-btn', function () {
 
 var colorSwitchButtons = document.querySelectorAll('.switch-button');
 colorSwitchButtons.forEach(function (item) {
-  var colorId = item.getAttribute('data-id');
-  console.log();
-  item.addEventListener('click', function (e) {// let colors = [];
-    // colors.push(e.target.id)
-    // console.log(colors)
+  var id = item.getAttribute('id');
+  var buttonId = document.getElementById(id);
+  buttonId.style.backgroundColor = id;
+  buttonId.addEventListener('click', function (e) {
+    buttonId.style.border = '1px solid black';
   });
 });
 
