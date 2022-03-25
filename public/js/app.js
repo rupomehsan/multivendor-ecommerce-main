@@ -19,6 +19,18 @@ $(document).on('click', '.order-menu', function () {
 $(document).on('click', '.filter-btn', function () {
   $('.filter-card').toggleClass('d-none');
 });
+/***
+ * COLOR SWITCHER
+ ***/
+
+var colorSwitchButtons = document.querySelectorAll('.switch-button');
+colorSwitchButtons.forEach(function (item) {
+  console.log(item.getAttribute('data'));
+  item.addEventListener('click', function (e) {// let colors = [];
+    // colors.push(e.target.id)
+    // console.log(colors)
+  });
+});
 
 /***/ }),
 

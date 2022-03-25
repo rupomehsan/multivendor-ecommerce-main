@@ -4,6 +4,7 @@
     <div class="container my-2" id="product-view">
         <div class="row">
             <div class="col-lg-4">
+                <!-- Product Slider -->
                 <div
                     style="--swiper-navigation-color: rgba(0, 0, 0, 0.35); --swiper-pagination-color: #fff"
                     class="swiper productSwiper"
@@ -18,11 +19,19 @@
                         <div class="swiper-slide">
                             <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
                         </div>
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
+                        </div>
                     </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
-
                 <div thumbsSlider="" class="swiper productThumbSwiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
@@ -34,6 +43,28 @@
                         <div class="swiper-slide">
                             <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
                         </div>
+
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Product Sizes & Colors -->
+                <div class="d-flex align-items-center my-5">
+                    <span class="">Colors</span>
+
+                    <div class="color-switcher ms-5">
+                        <span class="switch-button" data-id="gray"></span>
+                        <span class="switch-button" data-id="red"></span>
+                        <span class="switch-button" data-id="green"></span>
                     </div>
                 </div>
             </div>

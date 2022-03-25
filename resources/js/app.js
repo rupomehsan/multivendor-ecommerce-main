@@ -13,6 +13,20 @@ $(document).on('click', '.filter-btn', function () {
     $('.filter-card').toggleClass('d-none')
 })
 
+/***
+ * COLOR SWITCHER
+ ***/
+let colorSwitchButtons = document.querySelectorAll('.switch-button');
 
+colorSwitchButtons.forEach(item => {
+    console.log(item.getAttribute('data'))
+    item.addEventListener('click', function (e){
+
+
+        // let colors = [];
+        // colors.push(e.target.id)
+        // console.log(colors)
+    })
+})
 
 
