@@ -21,7 +21,7 @@ $(document).on('click', '.filter-btn', function () {
 });
 /***
  * COLOR SWITCHER
- ***/
+ * **/
 
 var colorSwitchButtons = document.querySelectorAll('.switch-button');
 colorSwitchButtons.forEach(function (item) {
@@ -30,6 +30,19 @@ colorSwitchButtons.forEach(function (item) {
   buttonId.style.backgroundColor = id;
   buttonId.addEventListener('click', function (e) {
     buttonId.style.border = '1px solid black';
+  });
+});
+/***
+ * SIZE SWITCHER
+ * **/
+
+var sizeSwitchButtons = document.querySelectorAll('.size-button');
+sizeSwitchButtons.forEach(function (item) {
+  var id = item.getAttribute('id');
+  var buttonId = document.getElementById(id); // buttonId.style.backgroundColor = id;
+
+  buttonId.addEventListener('click', function (e) {
+    buttonId.style.cssText = 'border: none; background: red; color: white;';
   });
 });
 

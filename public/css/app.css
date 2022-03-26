@@ -13,7 +13,6 @@ ul, li, a {
 }
 
 body {
-  background: #F7F8FA;
   transition: all ease-in-out 0.3s;
 }
 
@@ -67,6 +66,10 @@ body {
 /* COLORS */
 .text-base-color {
   color: #130577;
+}
+
+.text-valencia {
+  color: #DA333D;
 }
 
 .bg-athens-gray {
@@ -312,8 +315,6 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: #EEEEEE;
-  padding: 5px;
 }
 .handle-counter input {
   width: 50px;
@@ -584,6 +585,11 @@ header {
 #product-view .productThumbSwiper .swiper-slide-thumb-active {
   border: 1px solid red;
 }
+#product-view #cartModal .btn-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 
 .color-switcher {
   display: flex;
@@ -595,4 +601,77 @@ header {
   height: 25px;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.size-switcher {
+  display: flex;
+  align-items: center;
+}
+.size-switcher .size-button {
+  margin-right: 20px;
+  cursor: pointer;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+#cart-section .cart-img-container {
+  width: 100%;
+  height: 186px;
+  padding: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+#cart-section .cart-img-container img {
+  width: 100%;
+  height: 100%;
+}
+
+#bag-section .table > :not(caption) > * > *, #bag-section .table tfoot {
+  border: none !important;
+}
+#bag-section .table thead, #bag-section .table thead > tr, #bag-section .table tbody {
+  border: none !important;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.05);
+}
+#bag-section .table tfoot .tfoot {
+  box-shadow: 0px 8.97561px 8.97561px rgba(0, 0, 0, 0.06);
+}
+
+#vendor-shop-section .banner {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+#vendor-shop-section .banner .vendor-banner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#vendor-shop-section .nav .nav-item .nav-link {
+  color: black;
+  text-transform: capitalize;
+}
+#vendor-shop-section .nav .nav-item .nav-link.active {
+  color: #DA333D;
+  position: relative;
+}
+#vendor-shop-section .nav .nav-item .nav-link.active:after {
+  content: "";
+  width: 80%;
+  height: 4px;
+  border-radius: 32px;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #DA333D;
+}
+#vendor-shop-section .nav .nav-item .nav-link:hover {
+  color: #DA333D;
+}
+
+.chat-box {
+  width: 30%;
+  height: 300px;
+  background: antiquewhite;
 }

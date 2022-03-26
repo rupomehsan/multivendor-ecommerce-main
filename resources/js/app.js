@@ -15,7 +15,7 @@ $(document).on('click', '.filter-btn', function () {
 
 /***
  * COLOR SWITCHER
- ***/
+ * **/
 let colorSwitchButtons = document.querySelectorAll('.switch-button');
 colorSwitchButtons.forEach(item => {
     let id = item.getAttribute('id')
@@ -24,6 +24,20 @@ colorSwitchButtons.forEach(item => {
 
     buttonId.addEventListener('click', function (e) {
         buttonId.style.border = '1px solid black'
+    })
+})
+
+/***
+ * SIZE SWITCHER
+ * **/
+let sizeSwitchButtons = document.querySelectorAll('.size-button');
+sizeSwitchButtons.forEach(item => {
+    let id = item.getAttribute('id')
+    let buttonId =  document.getElementById(id);
+    // buttonId.style.backgroundColor = id;
+
+    buttonId.addEventListener('click', function (e) {
+        buttonId.style.cssText = 'border: none; background: red; color: white;'
     })
 })
 
