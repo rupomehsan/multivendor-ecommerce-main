@@ -15,9 +15,35 @@ $(document).on('click', '.homepage-menu', function () {
 });
 $(document).on('click', '.order-menu', function () {
   $('.order-list').toggleClass('d-none');
+}); // $(document).on('click', '.filter-btn', function () {
+//     $('.filter-card').toggleClass('d-none')
+// })
+
+/***
+ * COLOR SWITCHER
+ * **/
+
+var colorSwitchButtons = document.querySelectorAll('.switch-button');
+colorSwitchButtons.forEach(function (item) {
+  var id = item.getAttribute('id');
+  var buttonId = document.getElementById(id);
+  buttonId.style.backgroundColor = id;
+  buttonId.addEventListener('click', function (e) {
+    buttonId.style.border = '1px solid black';
+  });
 });
-$(document).on('click', '.filter-btn', function () {
-  $('.filter-card').toggleClass('d-none');
+/***
+ * SIZE SWITCHER
+ * **/
+
+var sizeSwitchButtons = document.querySelectorAll('.size-button');
+sizeSwitchButtons.forEach(function (item) {
+  var id = item.getAttribute('id');
+  var buttonId = document.getElementById(id); // buttonId.style.backgroundColor = id;
+
+  buttonId.addEventListener('click', function (e) {
+    buttonId.style.cssText = 'border: none; background: red; color: white;';
+  });
 });
 
 /***/ }),

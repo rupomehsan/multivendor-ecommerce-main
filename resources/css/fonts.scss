@@ -1,6 +1,13 @@
-$default: 14px;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+
+$font-roboto: 'Roboto', sans-serif;
+
+$default: 14px;
 $font-size-xs: 10px;
 $font-size-sm: 12px;
 $font-size-sm-2: 16px;
 $font-size-sm-3: 18px;
+
+
+$font-36: 36px;
