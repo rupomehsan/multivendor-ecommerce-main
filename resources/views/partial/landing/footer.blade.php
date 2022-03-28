@@ -3,6 +3,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- ===== Vendor JS Files ===== -->
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/vendor/jQuery-Simple-Timer-master/jquery.simple.timer.js')}}"></script>
 
 
 

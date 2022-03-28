@@ -20,7 +20,14 @@
     Route::view('/cart', 'landing.cart.index');
     Route::view('/checkout', 'landing.checkout.index');
     Route::view('/my-bag', 'landing.bag.index');
-    Route::view('/vendor-shop', 'landing.vendor.index');
+
+    Route::prefix('vendor')->group(function (){
+        Route::view('/', 'landing.vendor.index');
+        Route::view('/all-products', 'landing.vendor.all_products');
+        Route::view('/profile', 'landing.vendor.profile');
+    });
+
+
 
 
     Route::prefix('admin')->group(function () {
