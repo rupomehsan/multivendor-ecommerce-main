@@ -20,6 +20,14 @@ class CreateCategoriesTable extends Migration
             $table->string('meta_tag_title')->nullable();
             $table->string('meta_tag_desc')->nullable();
             $table->string('meta_tag_keyword')->nullable();
+            $table->integer('parent_id')->nullable();
+            $table->tinyInteger('top')->nullable();
+            $table->integer('column')->nullable();
+            $table->integer('sort_order')->nullable();
+            $table->integer('filter_id')->nullable();
+            $table->integer('path_id')->nullable();
+            $table->integer('store_id')->nullable();
+            $table->integer('layout_id')->nullable();
             $table->json('image')->nullable();
             $table->string('status')->nullable()->default('active');
             $table->timestamps();
