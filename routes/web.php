@@ -27,6 +27,7 @@
         Route::view('/profile', 'landing.vendor.profile');
     });
 
+    Route::view('not-found', 'partial.not_found.index');
 
 
 
