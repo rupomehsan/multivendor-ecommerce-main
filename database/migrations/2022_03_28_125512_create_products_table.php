@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->integer('language_id')->nullable();
             $table->text('description')->nullable();
             $table->string('tag')->nullable();
             $table->string('meta_title')->nullable();
@@ -30,7 +31,7 @@ class CreateProductsTable extends Migration
             $table->string('location')->nullable();
             $table->integer('quantity')->nullable();
             $table->integer('stock_status_id')->nullable();
-            $table->integer('manufacturer_id')->nullable();
+            $table->integer('brand_id')->nullable();
             $table->tinyInteger('shipping')->nullable();
             $table->decimal('price')->nullable();
             $table->integer('points')->nullable();
@@ -45,9 +46,19 @@ class CreateProductsTable extends Migration
             $table->tinyInteger('subtract')->nullable();
             $table->integer('minimum')->nullable();
             $table->integer('sort_order')->nullable();
-            $table->integer('sort_order')->nullable();
+            $table->json('category_id')->nullable();
+            $table->json('filters')->nullable();
+            $table->json('related_product_id')->nullable();
+            $table->json('attributes')->nullable();
+            $table->json('option')->nullable();
+            $table->json('recurring')->nullable();
+            $table->json('discount')->nullable();
+            $table->json('special')->nullable();
+            $table->json('reward_point')->nullable();
+            $table->json('seo_keywords')->nullable();
+            $table->json('design')->nullable();
             $table->integer('viewed')->nullable();
-            $table->string('image')->nullable();
+            $table->json('image')->nullable();
             $table->enum('status',['active','inactive'])->nullable()->default('active');
             $table->timestamps();
         });

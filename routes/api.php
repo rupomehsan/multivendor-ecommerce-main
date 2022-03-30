@@ -47,6 +47,14 @@ Route::prefix('v1')->group(function () {
       index,store,update,edit,delete
       */
     Route::resource('attributes', AttributeController::class);
+    /* Product
+      index,store,update,edit,delete
+      */
+    Route::resource('products', \App\Http\Controllers\Api\product\ProductController::class);
+    /* Recurrings
+      index,store,update,edit,delete
+      */
+    Route::resource('recurrings', \App\Http\Controllers\Api\recurring\RecurringController::class);
     /*Slider
      index,store,update,edit,delete
      */

@@ -31,6 +31,9 @@ class DatabaseSeeder extends Seeder
             NotificationSeeder::class,
             SettingSeeder::class,
             SmtpSeeder::class,
+            ProductSeeder::class,
+            ReviewSeder::class,
+            RecurringSeeder::class,
         ]);
     }
 }

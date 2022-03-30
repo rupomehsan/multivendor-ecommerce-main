@@ -69,6 +69,14 @@ class CategoryController extends Controller
             $category->meta_tag_title = $request->meta_tag_title;
             $category->meta_tag_desc = $request->meta_tag_desc;
             $category->meta_tag_keyword = $request->meta_tag_keyword;
+            $category->parent_id = $request->parent_id;
+            $category->top = $request->top;
+            $category->column = $request->column;
+            $category->sort_order = $request->sort_order;
+            $category->filter_id = $request->filter_id;
+            $category->path_id = $request->path_id;
+            $category->store_id = $request->store_id;
+            $category->layout_id = $request->layout_id;
             $category->image = $request->image;
             if ($category->save()) {
                 return response([
@@ -147,7 +155,16 @@ class CategoryController extends Controller
             $category->meta_tag_desc = $request->meta_tag_desc ?? $category->meta_tag_desc;
             $category->meta_tag_keyword = $request->meta_tag_keyword ?? $category->meta_tag_keyword;
             $category->image = $request->image ?? $category->image;
-            $category->status = $request->status ?? $category->status;
+            $category->parent_id = $request->parent_id ?? $category->parent_id;
+            $category->top = $request->top ?? $category->top;
+            $category->column = $request->column ?? $category->column;
+            $category->sort_order = $request->sort_order ?? $category->sort_order;
+            $category->filter_id = $request->filter_id ?? $category->filter_id;
+            $category->path_id = $request->path_id ?? $category->path_id;
+            $category->store_id = $request->store_id ?? $category->store_id;
+            $category->layout_id = $request->layout_id ?? $category->layout_id;
+            $category->status = $request->status ?? $category->status ;
+
             if ($category->update()) {
                 return response([
                     "status" => "success",
