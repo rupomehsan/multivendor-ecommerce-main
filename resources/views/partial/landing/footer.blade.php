@@ -4,6 +4,7 @@
 <!-- ===== Vendor JS Files ===== -->
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/vendor/jQuery-Simple-Timer-master/jquery.simple.timer.js')}}"></script>
+<script src="{{asset('assets/vendor/Flexible-Bootstrap-Plugin-To-Create-Wizard-Style-Interface-Smart-Wizard/dist/js/jquery.smartWizard.min.js')}}"></script>
 
 
 

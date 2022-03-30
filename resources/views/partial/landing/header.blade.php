@@ -10,13 +10,13 @@
     <!-- ===== Vendor CSS Files ===== -->
     <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/Flexible-Bootstrap-Plugin-To-Create-Wizard-Style-Interface-Smart-Wizard/dist/css/smart_wizard_all.css')}}">
 
     <!-- ===== CDN CSS Files ===== -->
     <link
         rel="stylesheet"
         href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
-
     <!-- ===== Custom CSS Files ===== -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>

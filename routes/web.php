@@ -21,6 +21,12 @@
     Route::view('/checkout', 'landing.checkout.index');
     Route::view('/my-bag', 'landing.bag.index');
 
+    Route::view('/all-category', 'landing.category.index');
+    Route::view('/all-products', 'landing.product.index');
+    Route::view('/all-brands', 'landing.brands.index');
+    Route::view('/all-shops', 'landing.shops.index');
+    Route::view('/all-offers', 'landing.offers.index');
+
     Route::prefix('vendor')->group(function (){
         Route::view('/', 'landing.vendor.index');
         Route::view('/all-products', 'landing.vendor.all_products');

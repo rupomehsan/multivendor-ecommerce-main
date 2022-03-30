@@ -91,6 +91,9 @@
 
         </div>
 
+        <!-- ***** Navigation for All (Products, Brands, Shops, Offers) ***** -->
+        @include('partial.landing.menu')
+
 
         <!-- ***** Category Section ***** -->
         <div id="category-section" class="category-section py-5">
@@ -153,9 +156,10 @@
 
                 <div class="d-flex justify-content-end">
                     <div class="dropdown">
-                        <span class="iconify filter-btn" data-icon="ri:equalizer-line" data-width="25" data-height="25" type="button" data-bs-toggle="dropdown"></span>
+                        <span class="iconify filter-btn" data-icon="ri:equalizer-line" data-width="25" data-height="25"
+                              type="button" data-bs-toggle="dropdown"></span>
 
-                        <ul class="dropdown-menu dropdown-menu-end p-3 border-0 bottom-shadow" style="width: 400px" >
+                        <ul class="dropdown-menu dropdown-menu-end p-3 border-0 bottom-shadow" style="width: 400px">
                             <form action="">
                                 <label for="customRange" class="form-label">Price</label>
                                 <input type="range" class="form-range" id="customRange" name="points" min="0" max="4">
@@ -168,7 +172,8 @@
                                     </div>
 
                                     <div class="col">
-                                        <input type="button" class="btn bg-valencia form-control text-white rounded-pill"
+                                        <input type="button"
+                                               class="btn bg-valencia form-control text-white rounded-pill"
                                                value="PHone">
                                     </div>
                                 </div>
@@ -180,7 +185,6 @@
                         </ul>
                     </div>
                 </div>
-
 
 
                 <div class="row row-cols-lg-3">
