@@ -37,7 +37,11 @@ class SliderController extends Controller
      */
     public function create(Request $request)
     {
-
+        $validator = Validator::make($request->all(),[
+            "title"=> "required",
+            "description"=> "required",
+            "offer"=> "required",
+        ]);
 
     }
 
