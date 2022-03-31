@@ -4,7 +4,7 @@
     </li>
 
     <li class="menu_item">
-        <a href="{{url('/all-brands')}}" class="menu_link active">all brands</a>
+        <a href="{{url('/all-brands')}}" class="menu_link">all brands</a>
     </li>
 
     <li class="menu_item">

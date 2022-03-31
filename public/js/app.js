@@ -15,10 +15,32 @@ $(document).on('click', '.homepage-menu', function () {
 });
 $(document).on('click', '.order-menu', function () {
   $('.order-list').toggleClass('d-none');
-}); // $(document).on('click', '.filter-btn', function () {
-//     $('.filter-card').toggleClass('d-none')
-// })
+});
+$(document).on('click', '.chat-launcher', function () {
+  $('.chat-section').toggleClass('d-none');
+  $('.chat-launcher').addClass('d-none');
+});
+$(document).on('click', '.close-btn', function () {
+  $('.chat-section').addClass('d-none');
+  $('.chat-launcher').removeClass('d-none');
+});
+/***
+ * SUB-MENU TOGGLE
+ * **/
 
+$('.sub-list').hide();
+$('.list > .sub-list').parent().click(function () {
+  var submenu = $(this).children('.sub-list');
+  var title = $(this).children('.list-title');
+
+  if ($(submenu).is(':hidden')) {
+    $(submenu).slideDown(200);
+    $(title).css('font-weight', 'bold');
+  } else {
+    $(title).css('font-weight', 'normal');
+    $(submenu).slideUp(200);
+  }
+});
 /***
  * COLOR SWITCHER
  * **/

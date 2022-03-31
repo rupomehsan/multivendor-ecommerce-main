@@ -26,11 +26,18 @@
     Route::view('/all-brands', 'landing.brands.index');
     Route::view('/all-shops', 'landing.shops.index');
     Route::view('/all-offers', 'landing.offers.index');
+    Route::view('/compare', 'landing.compare.index');
 
     Route::prefix('vendor')->group(function (){
         Route::view('/', 'landing.vendor.index');
         Route::view('/all-products', 'landing.vendor.all_products');
         Route::view('/profile', 'landing.vendor.profile');
+    });
+
+    Route::prefix('seller')->group(function (){
+        Route::view('/', 'landing.seller.index');
+        Route::view('/register', 'landing.seller.register');
+        Route::view('/login', 'landing.seller.login');
     });
 
     Route::view('not-found', 'partial.not_found.index');
