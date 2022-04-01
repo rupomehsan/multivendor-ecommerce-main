@@ -1,4 +1,20 @@
 @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap);
+@font-face {
+  font-family: "Gilroy-Regular";
+  src: url(/fonts/Gilroy-Regular.ttf?5b89a8df3b17dccdb73f5d55cb3cd072);
+}
+@font-face {
+  font-family: "Gilroy-Bold";
+  src: url(/fonts/Gilroy-Bold.ttf?ca49f7658c4eaac78b6d4dd77a751c59);
+}
+@font-face {
+  font-family: "Helvetica-Regular";
+  src: url(/fonts/Helvetica.ttf?06113bf748ae7dc33e05189a90815625);
+}
+@font-face {
+  font-family: "Helvetica-Bold";
+  src: url(/fonts/Helvetica-Bold.ttf?ed57aca7292971d8548c4554f08c0255);
+}
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +30,7 @@ ul, li, a {
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Gilroy-Regular";
   transition: all ease-in-out 0.3s;
 }
 
@@ -67,6 +83,14 @@ body {
 
 .font-size-sm-3 {
   font-size: 18px;
+}
+
+.font-roboto {
+  font-family: "Roboto", sans-serif;
+}
+
+.font-helvetica {
+  font-family: "Helvetica-Regular";
 }
 
 /* COLORS */
@@ -201,6 +225,7 @@ body {
 
 /* PORTION TITLE */
 .portion-title {
+  font-family: "Roboto", sans-serif;
   color: #DA333D;
   font-size: 36px;
   font-weight: 700;
@@ -512,6 +537,7 @@ header {
  ---- LANDING PAGES STYLES ------ */
 /* TOP NAVBAR */
 #navbar {
+  font-family: "Roboto", sans-serif;
   background: white;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
 }
@@ -576,11 +602,10 @@ header {
 }
 #home-section .hero .swiper .swiper-wrapper .swiper-slide .overlay .title span {
   color: #DA333D;
-  font-weight: bolder;
 }
 #home-section .hero .swiper .swiper-wrapper .swiper-slide .overlay .percentage {
   font-size: 48px;
-  font-weight: bolder;
+  font-weight: lighter;
   margin: 25px 0;
 }
 #home-section .hero .swiper .swiper-pagination .swiper-pagination-bullet {

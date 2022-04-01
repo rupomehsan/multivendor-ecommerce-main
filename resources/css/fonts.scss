@@ -11,3 +11,27 @@ $font-size-sm-3: 18px;
 
 
 $font-36: 36px;
+
+@font-face {
+    font-family: 'Gilroy-Regular';
+    src: url("./Gilroy-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'Gilroy-Bold';
+    src: url("./Gilroy-Bold.ttf");
+}
+@font-face {
+    font-family: 'Helvetica-Regular';
+    src: url("./Helvetica.ttf");
+}
+@font-face {
+    font-family: 'Helvetica-Bold';
+    src: url("./Helvetica-Bold.ttf");
+}
+
+$font-helvetica-regular: 'Helvetica-Regular';
+$font-helvetica-bold: 'Helvetica-Bold';
+
+$font-gilroy-regular: 'Gilroy-Regular';
+$font-gilroy-bold: 'Gilroy-Bold';

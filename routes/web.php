@@ -74,3 +74,15 @@
         Route::view('/smtp', 'admin.smtp.index');
     });
 
+    Route::prefix('seller')->group(function (){
+        Route::view('/dashboard', 'admin.dashboard.vendor');
+        Route::view('/products', 'admin.products.index');
+        Route::view('/add-product', 'admin.products.add-product');
+        Route::view('/orders', 'admin.orders.seller.index');
+        Route::view('/return-orders', 'admin.orders.seller.return');
+        Route::view('/return-policy', 'admin.orders.seller.return-policy');
+        Route::view('/orders/view', 'admin.orders.seller.view');
+        Route::view('/payout-requests', 'admin.payout_requests.seller.index');
+        Route::view('/shop-setting', 'admin.shop.seller.setting');
+    });
+
