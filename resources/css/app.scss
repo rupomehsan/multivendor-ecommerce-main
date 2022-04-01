@@ -785,7 +785,9 @@ header {
                             }
 
                             span {
-                                color: colors.$valencia;
+                                //color: colors.$valencia;
+                                color: green;
+                                font-weight: bolder;
 
                             }
                         }

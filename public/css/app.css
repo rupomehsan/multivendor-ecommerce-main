@@ -635,7 +635,8 @@ header {
   }
 }
 #home-section .hero .swiper .swiper-wrapper .swiper-slide .overlay .title span {
-  color: #DA333D;
+  color: green;
+  font-weight: bolder;
 }
 #home-section .hero .swiper .swiper-wrapper .swiper-slide .overlay .percentage {
   font-size: 48px;
