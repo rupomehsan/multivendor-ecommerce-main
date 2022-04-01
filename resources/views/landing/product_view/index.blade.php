@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container" id="product-view">
+        <!-- ***** Product Detail Information ***** -->
         <div class="row">
             <div class="col-lg-4">
                 <!-- Product Slider -->
@@ -79,8 +80,8 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
-                <div class="d-flex justify-content-between align-items-center my-2">
+            <div class="col-lg-5">
+                <div class="d-flex justify-content-between align-items-center my-5">
                     <h2 class="text-uppercase">puma shoes</h2>
 
                     <button class="btn bg-valencia rounded-0">
@@ -101,218 +102,701 @@
                           data-height="20"></span>
                     <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;" data-width="20"
                           data-height="20"></span>
-
                     <span class="mx-4">4.2</span>
                     <span class="text-secondary border-start ps-4">(123 Customer reviews)</span>
                 </div>
 
 
-                <h2 class="mb-3 text-valencia">$14.99</h2>
+                <h2 class="mb-3 text-valencia fw-bold">$14.99</h2>
 
-                <span>
+                <span class="text-black-50 ">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus ante viverra platea ac egestas nulla. Mi volutpat ultricies amet egestas sem. Porttitor ut nunc non neque. Consectetur est non sollicitudin enim ac quisque massa malesuada.
                 </span>
 
                 <div class="border-top border-bottom py-3 my-4">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="handle-counter" id="handleCounter">
-                                <span>Qty</span>
+                        <div class="col-lg-6 mb-3">
+                            <div class="handle-counter border bg-athens-gray bottom-shadow " id="handleCounter">
+                                <label for="qty">Qty:</label>
                                 <button class="btn decrement-btn">-</button>
-                                <input class="counter-input" type="text" value="1">
+                                <input id="qty" name="qty" class="counter-input" type="number" value="1">
                                 <button class="btn increment-btn">+</button>
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 mb-3">
                             <button class="btn btn-valencia form-control" data-bs-toggle="modal"
                                     data-bs-target="#cartModal">Add to cart
                             </button>
                         </div>
+
+                        <div class="col-lg-6 mb-3">
+                            <button
+                                class="btn btn-outline-valencia form-control text-capitalize d-flex align-items-center justify-content-center">
+                                <span class="iconify me-3" data-icon="ic:outline-favorite" data-width="20"
+                                      data-height="20"></span>
+                                add to wishlist
+                            </button>
+                        </div>
+
+
+                        <div class="col-lg-6 mb-3">
+                            <button
+                                class="btn btn-outline-valencia form-control justify-content-center text-capitalize d-flex align-items-center">
+                                <span class="iconify me-3 " data-icon="bx:git-compare" data-width="20"
+                                      data-height="20"></span>
+                                compare
+                            </button>
+                        </div>
                     </div>
-
-                    <button class="btn text-capitalize text-secondary d-flex align-items-center mt-4">
-                        <span class="iconify me-3" data-icon="ic:outline-favorite" data-width="20"
-                              data-height="20"></span>
-
-                        add to wishlist
-                    </button>
-                    <button class="btn text-capitalize text-secondary d-flex align-items-center">
-                        <span class="iconify me-3" data-icon="bx:git-compare" data-width="20" data-height="20"></span>
-                        compare
-                    </button>
                 </div>
 
 
-                <h6>Product Code:<span class="text-secondary mx-2">ak023</span></h6>
-                <h6>Category:<span class='text-secondary mx-2'>Shoe</span></h6>
+                <h6 class="fw-bold">Product Code:<span class="text-secondary mx-2 fw-normal">ak023</span></h6>
+                <h6 class="fw-bold">Category:<span class='text-secondary mx-2 fw-normal'>Shoe</span></h6>
             </div>
 
 
-            <div class="col-lg-4">
+            <div class="col-lg-3">
+                <div class="sold-box my-5 p-2">
+                    <h6 class="text-valencia">Sold by</h6>
+                    <h4 class="">BATA shoes
+                        <span class="iconify" data-icon="flat-color-icons:ok" data-width="20" data-height="20"></span>
+                    </h4>
+                    <h3 class="text-valencia">50</h3>
 
-                <div class="bg-athens-gray p-1">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="text-secondary mt-2">Delivery Options</h6>
-                        <span class="iconify text-secondary" data-icon="charm:circle-warning" data-width="25"
-                              data-height="25"></span>
-                    </div>
+                    <button class="btn btn-valencia form-control rounded-pill mb-3 default-font-size">
+                        <span class="iconify" data-icon="bx:store" data-width="20" data-height="20"></span>
+                        Visit store
+                    </button>
+                    <button class="btn btn-valencia rounded-pill mb-3 form-control font-size-sm">
+                        <span class="iconify" data-icon="bx:store" data-width="20" data-height="20"></span>
+                        Add to favorite seller
+                    </button>
+                    <button class="btn btn-valencia rounded-pill form-control mb-3 default-font-size">
+                        <span class="iconify" data-icon="bx:store" data-width="20" data-height="20"></span>
+                        Contact seller
+                    </button>
+                </div>
 
-                    <div class="d-flex justify-content-between ">
-                        <span class="d-flex align-items-center text-secondary">
-                              <span class="iconify me-2" data-icon="akar-icons:location" data-width="25"
-                                    data-height="25"></span>
-                            Skyview Paragon, ibrahimpur, Dhaka
-                        </span>
-                        <span class="text-valencia">Change</span>
-                    </div>
+                <div class="seller-product-box">
+                    <ul>
+                        <li>
+                            <div class="d-flex align-items-center justify-content-between pb-3">
+                                <h6 class="m-0 title">Seller products</h6>
+                                <div class="">
+                                    <a href="">
+                                        <span class="iconify" data-icon="dashicons:arrow-left-alt2" data-width="20"
+                                              data-height="20"></span>
+                                    </a>
+                                    <a href="">
+                                        <span class="iconify" data-icon="dashicons:arrow-right-alt2" data-width="20"
+                                              data-height="20"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
 
-                    <hr>
-
-                    <div class="d-flex align-items-center justify-content-between text-secondary">
-                        <div class="d-flex align-items-center">
-                            <span class="iconify me-2" data-icon="icon-park-outline:delivery" data-width="25"
-                                  data-height="25"></span>
-                            <h6 class="text-capitalize">
-                                home delivery <br>
-                                <span class="">3-4 Days</span>
-                            </h6>
-                        </div>
-
-                        <h5>$14.99</h5>
-                    </div>
-
-                    <hr>
-
-                    <div class="text-secondary d-flex align-items-center">
-                        <span class="iconify me-2" data-icon="fa:credit-card" data-width="25" data-height="25"></span>
-                        <h6 class="m-0 p-0">Credit Card Payment</h6>
-                    </div>
-
-                    <hr>
-
-
-                    <div class="d-flex justify-content-between text-secondary">
-                        <div>
-                            <h6>Return & Warranty</h6>
-                            <div class="d-flex align-items-center my-3">
-                                <span class="iconify me-2" data-icon="entypo:back-in-time" data-width="25"
-                                      data-height="25"></span>
-
-                                <div>
-                                    <h6 class="m-0">
-                                        7 Days Return
-                                    </h6>
-                                    <span class="">Change of mind is not applicable</span>
+                        <li class="py-3">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img style="width: 100px; height: 100px"
+                                         src="{{asset('assets/image/pos-item.png')}}" alt="">
                                 </div>
 
+                                <div class="col-lg-6">
+                                    <h6 class="d-flex align-items-center fw-bold">
+                                        <span class="iconify me-2" data-icon="ant-design:star-filled" data-width="20"
+                                              data-height="20"></span>
+                                        4.2
+                                    </h6>
+                                    <h6 class="text-valencia fw-bold">$123.00</h6>
+                                    <p class="fw-bold">School Bag</p>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <span class="iconify cursor-pointer text-valencia" data-icon="bi:plus-circle"
+                                          data-width="20" data-height="20"></span>
+                                </div>
                             </div>
-
-                            <h6 class="text-secondary d-flex align-items-center">
-                                <span class="iconify me-2" data-icon="bi:shield-slash" data-width="25"
-                                      data-height="25"></span>
-                                Warranty not available
-                            </h6>
-                        </div>
-                        <span class="iconify text-secondary" data-icon="charm:circle-warning" data-width="25"
-                              data-height="25"></span>
-                    </div>
-
-                </div>
-
-                <div class="bg-athens-gray mt-2 p-1">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-secondary">Sold by</span>
-
-                        <button class="btn text-secondary">
-                            <span class="iconify text-valencia" data-icon="jam:messages" data-width="25"
-                                  data-height="25"></span>
-                            Chat Now
-                        </button>
-                    </div>
-
-                    <h6 class="text-secondary">
-                        SK Fashion BD
-                    </h6>
-
-                    <ul class="d-flex">
-                        <li class="border-top border-bottom d-flex justify-content-center align-items-center flex-column p-2">
-                            <span class="text-secondary">Positive Seller Ratings</span>
-                            <h2 class="text-valencia">81%</h2>
                         </li>
 
-                        <li class="border d-flex justify-content-center align-items-center flex-column p-2">
-                            <span class="text-secondary">Positive Seller Ratings</span>
-                            <h2 class="text-valencia">81%</h2>
+
+                        <li class="py-3">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img style="width: 100px; height: 100px"
+                                         src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <h6 class="d-flex align-items-center fw-bold">
+                                        <span class="iconify me-2" data-icon="ant-design:star-filled" data-width="20"
+                                              data-height="20"></span>
+                                        4.2
+                                    </h6>
+                                    <h6 class="text-valencia fw-bold">$123.00</h6>
+                                    <p class="fw-bold">School Bag</p>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <span class="iconify cursor-pointer text-valencia" data-icon="bi:plus-circle"
+                                          data-width="20" data-height="20"></span>
+                                </div>
+                            </div>
                         </li>
 
-                        <li class="border-top border-bottom d-flex justify-content-center align-items-center flex-column p-2">
-                            <span class="text-secondary">Positive Seller Ratings</span>
-                            <h2 class="text-valencia">81%</h2>
+
+                        <li class="py-3">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img style="width: 100px; height: 100px"
+                                         src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <h6 class="d-flex align-items-center fw-bold">
+                                        <span class="iconify me-2" data-icon="ant-design:star-filled" data-width="20"
+                                              data-height="20"></span>
+                                        4.2
+                                    </h6>
+                                    <h6 class="text-valencia fw-bold">$123.00</h6>
+                                    <p class="fw-bold">School Bag</p>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <span class="iconify cursor-pointer text-valencia" data-icon="bi:plus-circle"
+                                          data-width="20" data-height="20"></span>
+                                </div>
+                            </div>
                         </li>
+
                     </ul>
-
-                    <div class="text-center my-3">
-                        <button class="btn text-capitalize text-valencia">
-                            go to store
-                        </button>
-                    </div>
                 </div>
+
+                {{--                <div class="bg-athens-gray p-3">--}}
+
+                {{--                    <div class="d-flex justify-content-between mt-3">--}}
+                {{--                        <h6 class="text-secondary">Delivery Options</h6>--}}
+                {{--                        <span class="iconify text-secondary" data-icon="charm:circle-warning" data-width="25"--}}
+                {{--                              data-height="25"></span>--}}
+                {{--                    </div>--}}
+
+                {{--                    <div class="d-flex justify-content-between mt-2 ">--}}
+                {{--                        <span class="d-flex align-items-center text-secondary">--}}
+                {{--                              <span class="iconify me-2" data-icon="akar-icons:location" data-width="25"--}}
+                {{--                                    data-height="25"></span>--}}
+                {{--                            Skyview Paragon, ibrahimpur, Dhaka--}}
+                {{--                        </span>--}}
+                {{--                        <span class="text-valencia">Change</span>--}}
+                {{--                    </div>--}}
+
+                {{--                    <hr>--}}
+
+                {{--                    <div class="d-flex align-items-center justify-content-between text-secondary">--}}
+                {{--                        <div class="d-flex align-items-center">--}}
+                {{--                            <span class="iconify me-2" data-icon="icon-park-outline:delivery" data-width="25"--}}
+                {{--                                  data-height="25"></span>--}}
+                {{--                            <h6 class="text-capitalize">--}}
+                {{--                                home delivery <br>--}}
+                {{--                                <span class="">3-4 Days</span>--}}
+                {{--                            </h6>--}}
+                {{--                        </div>--}}
+
+                {{--                        <h5>$14.99</h5>--}}
+                {{--                    </div>--}}
+
+                {{--                    <hr>--}}
+
+                {{--                    <div class="text-secondary d-flex align-items-center">--}}
+                {{--                        <span class="iconify me-2" data-icon="fa:credit-card" data-width="25" data-height="25"></span>--}}
+                {{--                        <h6 class="m-0 p-0">Credit Card Payment</h6>--}}
+                {{--                    </div>--}}
+
+                {{--                    <hr>--}}
+
+
+                {{--                    <div class="d-flex justify-content-between text-secondary">--}}
+                {{--                        <div>--}}
+                {{--                            <h6>Return & Warranty</h6>--}}
+                {{--                            <div class="d-flex align-items-center my-3">--}}
+                {{--                                <span class="iconify me-2" data-icon="entypo:back-in-time" data-width="25"--}}
+                {{--                                      data-height="25"></span>--}}
+
+                {{--                                <div>--}}
+                {{--                                    <h6 class="m-0">--}}
+                {{--                                        7 Days Return--}}
+                {{--                                    </h6>--}}
+                {{--                                    <span class="">Change of mind is not applicable</span>--}}
+                {{--                                </div>--}}
+
+                {{--                            </div>--}}
+
+                {{--                            <h6 class="text-secondary d-flex align-items-center">--}}
+                {{--                                <span class="iconify me-2" data-icon="bi:shield-slash" data-width="25"--}}
+                {{--                                      data-height="25"></span>--}}
+                {{--                                Warranty not available--}}
+                {{--                            </h6>--}}
+                {{--                        </div>--}}
+                {{--                        <span class="iconify text-secondary" data-icon="charm:circle-warning" data-width="25"--}}
+                {{--                              data-height="25"></span>--}}
+                {{--                    </div>--}}
+
+                {{--                </div>--}}
+
+                {{--                <div class="bg-athens-gray mt-2 p-4">--}}
+                {{--                    <div class="d-flex justify-content-between align-items-center">--}}
+                {{--                        <span class="text-secondary">Sold by</span>--}}
+
+                {{--                        <button class="btn text-secondary">--}}
+                {{--                            <span class="iconify text-valencia" data-icon="jam:messages" data-width="25"--}}
+                {{--                                  data-height="25"></span>--}}
+                {{--                            Chat Now--}}
+                {{--                        </button>--}}
+                {{--                    </div>--}}
+
+                {{--                    <h6 class="text-secondary">--}}
+                {{--                        SK Fashion BD--}}
+                {{--                    </h6>--}}
+
+                {{--                    <ul class="d-flex">--}}
+                {{--                        <li class="border-top border-bottom d-flex justify-content-center align-items-center flex-column p-2">--}}
+                {{--                            <span class="text-secondary">Positive Seller Ratings</span>--}}
+                {{--                            <h2 class="text-valencia">81%</h2>--}}
+                {{--                        </li>--}}
+
+                {{--                        <li class="border d-flex justify-content-center align-items-center flex-column p-2">--}}
+                {{--                            <span class="text-secondary">Positive Seller Ratings</span>--}}
+                {{--                            <h2 class="text-valencia">81%</h2>--}}
+                {{--                        </li>--}}
+
+                {{--                        <li class="border-top border-bottom d-flex justify-content-center align-items-center flex-column p-2">--}}
+                {{--                            <span class="text-secondary">Positive Seller Ratings</span>--}}
+                {{--                            <h2 class="text-valencia">81%</h2>--}}
+                {{--                        </li>--}}
+                {{--                    </ul>--}}
+
+                {{--                    <div class="text-center my-3">--}}
+                {{--                        <button class="btn text-capitalize text-valencia">--}}
+                {{--                            go to store--}}
+                {{--                        </button>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
 
 
             </div>
         </div>
 
+        <!-- ***** Description & Review Tab ***** -->
+        <div id="descriptionReviewTab" class="my-5 border-bottom">
 
-        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+            <ul class="nav nav-tabs justify-content-center align-items-center" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                            data-bs-target="#description" type="button" role="tab" aria-controls="description"
+                            aria-selected="true">Description
+                    </button>
+                </li>
 
-            <li class="nav-item" role="presentation">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button"
+                            role="tab" aria-controls="profile" aria-selected="false">Reviews
+                    </button>
+                </li>
 
-                <button class="nav-link border-0 active" id="description-tab" data-bs-toggle="tab"
-                        data-bs-target="#description" type="button" role="tab" aria-controls="description"
-                        aria-selected="true">Description
-                </button>
+                <li class="nav-item social-links">
+                    <a href="">
+                        <span class="iconify" data-icon="ant-design:facebook-filled" data-width="30"
+                              data-height="30"></span>
+                    </a>
+                    <a href="">
+                        <span class="iconify" data-icon="ant-design:facebook-filled" data-width="30"
+                              data-height="30"></span>
+                    </a>
+                </li>
+            </ul>
 
-            </li>
 
-            <li class="nav-item" role="presentation">
+            <div class="tab-content py-3" id="myTabContent">
 
-                <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button"
-                        role="tab" aria-controls="profile" aria-selected="false">Reviews
-                </button>
+                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row row-cols-2">
+                        <div class="col-4">
+                            <h2>Description</h2>
+                        </div>
 
-            </li>
+                        <div class="col">
+                            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus ante viverra platea ac egestas nulla. Mi volutpat ultricies amet egestas sem. Porttitor ut nunc non neque. Consectetur est non sollicitudin enim ac quisque massa malesuada metus. </span>
 
-            <li class="nav-item ms-5" role="presentation">
-                heloo
-            </li>
-        </ul>
-        <div class="tab-content py-3" id="myTabContent">
-            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row row-cols-2">
-                    <div class="col-4">
-                        <h2>Description</h2>
+                            <ul>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, voluptatem.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, voluptatem.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, voluptatem.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, voluptatem.</li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="col">
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus ante viverra platea ac egestas nulla. Mi volutpat ultricies amet egestas sem. Porttitor ut nunc non neque. Consectetur est non sollicitudin enim ac quisque massa malesuada metus. </span>
+                <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row row-cols-2">
+                        <div class="col-4">
+                            <h2>Reviews</h2>
+                        </div>
 
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, voluptatem.</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, voluptatem.</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, voluptatem.</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, voluptatem.</li>
+                        <div class="col-8">
+                            <ul>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <img class="img-fluid border" src="{{asset('assets/image/pos-item.png')}}"
+                                                 alt="">
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <span>Product Name dolor sit amet, consectetur adipiscing elit. Pellentesque mi ut leo tristique morbi vel amet integer.</span>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- ***** Related Products ***** -->
+        <div id="relatedProducts">
+            <div class="text-center">
+                <h4 class="portion-title"><span>Related </span>Products</h4>
+                <span>Customers who bought this, also bought</span>
+            </div>
+        </div>
+        <div class="row row-cols-lg-3">
+            <div class="col my-3">
+                <div class="card bg-athens-gray rounded-sm product-card">
+                    <div class="card-body">
+
+                        <ul class="extra-list">
+                            <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                            </li>
+
+                            <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                            </li>
                         </ul>
+                        <div class="text-center my-5">
+                            <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                <span class="fw-lighter text-capitalize">Shoes</span>
+                                <hr>
+                                <h5 class="fw-lighter">$14.99</h5>
+
+                                <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                <div class="row row-cols-2 my-2">
+                                    <div class="col">
+                                        <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                            <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <a href="{{url('/product-view')}}"
+                                           class="btn form-control btn-outline-valencia">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
+            <div class="col my-3">
+                <div class="card bg-athens-gray rounded-sm product-card">
+                    <div class="card-body">
 
-            <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                        <ul class="extra-list">
+                            <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                            </li>
 
+                            <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                            </li>
+                        </ul>
+                        <div class="text-center my-5">
+                            <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                <span class="fw-lighter text-capitalize">Shoes</span>
+                                <hr>
+                                <h5 class="fw-lighter">$14.99</h5>
+
+                                <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                <div class="row row-cols-2 my-2">
+                                    <div class="col">
+                                        <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                            <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <a href="{{url('/product-view')}}"
+                                           class="btn form-control btn-outline-valencia">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col my-3">
+                <div class="card bg-athens-gray rounded-sm product-card">
+                    <div class="card-body">
+
+                        <ul class="extra-list">
+                            <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                            </li>
+
+                            <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                            </li>
+                        </ul>
+                        <div class="text-center my-5">
+                            <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                <span class="fw-lighter text-capitalize">Shoes</span>
+                                <hr>
+                                <h5 class="fw-lighter">$14.99</h5>
+
+                                <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                <div class="row row-cols-2 my-2">
+                                    <div class="col">
+                                        <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                            <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <a href="{{url('/product-view')}}"
+                                           class="btn form-control btn-outline-valencia">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col my-3">
+                <div class="card bg-athens-gray rounded-sm product-card">
+                    <div class="card-body">
+
+                        <ul class="extra-list">
+                            <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                            </li>
+
+                            <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                            </li>
+                        </ul>
+                        <div class="text-center my-5">
+                            <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                <span class="fw-lighter text-capitalize">Shoes</span>
+                                <hr>
+                                <h5 class="fw-lighter">$14.99</h5>
+
+                                <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                <div class="row row-cols-2 my-2">
+                                    <div class="col">
+                                        <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                            <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <a href="{{url('/product-view')}}"
+                                           class="btn form-control btn-outline-valencia">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col my-3">
+                <div class="card bg-athens-gray rounded-sm product-card">
+                    <div class="card-body">
+
+                        <ul class="extra-list">
+                            <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                            </li>
+
+                            <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                            </li>
+                        </ul>
+                        <div class="text-center my-5">
+                            <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                <span class="fw-lighter text-capitalize">Shoes</span>
+                                <hr>
+                                <h5 class="fw-lighter">$14.99</h5>
+
+                                <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                <div class="row row-cols-2 my-2">
+                                    <div class="col">
+                                        <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                            <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <a href="{{url('/product-view')}}"
+                                           class="btn form-control btn-outline-valencia">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col my-3">
+                <div class="card bg-athens-gray rounded-sm product-card">
+                    <div class="card-body">
+
+                        <ul class="extra-list">
+                            <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                            </li>
+
+                            <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                            </li>
+                        </ul>
+                        <div class="text-center my-5">
+                            <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                <span class="fw-lighter text-capitalize">Shoes</span>
+                                <hr>
+                                <h5 class="fw-lighter">$14.99</h5>
+
+                                <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                <div class="row row-cols-2 my-2">
+                                    <div class="col">
+                                        <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                            <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <a href="{{url('/product-view')}}"
+                                           class="btn form-control btn-outline-valencia">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-5">
+                <button class="btn btn-valencia form-control text-capitalize rounded-sm my-5">Load more products</button>
+            </div>
         </div>
-
-
-
 
 
         <!-- Add to Cart Modal -->
@@ -326,7 +810,8 @@
 
                         <div class="row py-3">
                             <div class="col-lg-3">
-                                <img class="border border-danger w-100 h-auto " src="{{asset('assets/image/pos-item.png')}}"
+                                <img class="border border-danger w-100 h-auto "
+                                     src="{{asset('assets/image/pos-item.png')}}"
                                      alt="">
                             </div>
                             <div class="col-lg-9">
@@ -335,13 +820,15 @@
 
                                 <div class="row my-3">
                                     <div class="col-lg-4">
-                                        <a href="{{url('/cart')}}" class="btn btn-outline-danger form-control rounded-0 bottom-shadow">View
+                                        <a href="{{url('/cart')}}"
+                                           class="btn btn-outline-danger form-control rounded-0 bottom-shadow">View
                                             Cart
                                         </a>
                                     </div>
 
                                     <div class="col-lg-4">
-                                        <a href="{{url('/checkout')}}" class="btn btn-valencia form-control">Checkout</a>
+                                        <a href="{{url('/checkout')}}"
+                                           class="btn btn-valencia form-control">Checkout</a>
                                     </div>
                                 </div>
                             </div>
@@ -383,7 +870,8 @@
 
                                                 <div class="row row-cols-2">
                                                     <div class="col">
-                                                        <button class="btn btn-valencia form-control font-size-sm">Add to
+                                                        <button class="btn btn-valencia form-control font-size-sm">Add
+                                                            to
                                                             cart
                                                         </button>
                                                     </div>
@@ -433,7 +921,8 @@
 
                                                 <div class="row row-cols-2">
                                                     <div class="col">
-                                                        <button class="btn btn-valencia form-control font-size-sm">Add to
+                                                        <button class="btn btn-valencia form-control font-size-sm">Add
+                                                            to
                                                             cart
                                                         </button>
                                                     </div>
