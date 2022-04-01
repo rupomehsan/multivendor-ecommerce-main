@@ -12,8 +12,10 @@
                    <li>Description</li>
                    <li>Add to Cart</li>
                    <li>Remove</li>
+                   
                </ul>
            </div>
+
 
            <div class="products-wrapper">
                <ul class="products-columns">
