@@ -12,7 +12,6 @@
                    <li>Description</li>
                    <li>Add to Cart</li>
                    <li>Remove</li>
-                   
                </ul>
            </div>
 
