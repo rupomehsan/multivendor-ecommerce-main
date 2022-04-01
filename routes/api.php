@@ -108,4 +108,8 @@ Route::prefix('v1')->group(function () {
     store,update,edit,show
     */
     Route::resource('carts', \App\Http\Controllers\Api\cart\CartController::class);
+    /* Settings
+    store,update,edit,show
+    */
+    Route::resource('carts', \App\Http\Controllers\Api\cart\CartController::class);
 });
