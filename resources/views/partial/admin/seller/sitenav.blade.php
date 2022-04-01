@@ -23,7 +23,7 @@
     <ul class="sidebar-nav">
 
         <li class="sidebar-item {{ $currentControllerName == '' || '' ? 'active' : '' }} ">
-            <a href="{{url('admin/dashboard')}}" class="sidebar-link">
+            <a href="{{url('seller/dashboard')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Dashboard
             </a>

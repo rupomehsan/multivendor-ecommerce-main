@@ -1,439 +1,1335 @@
 @extends('layouts.landing.vendor')
 @section('content')
-    <div id="vendor-shop-section">
+    <div id="vendor-shop-section" class=" bg-white">
         <img src="{{asset('assets/image/poster.png')}}" class="img-fluid" alt="">
-
         <div class="container py-5">
-            <div class="row my-3">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4">
-                    <div class="text-center">
-                        <h2 class="portion-title"><span>special</span> offer</h2>
+            <div id="popular-product" class="popular-product py-5">
+                <div class="container">
+                    <h2 class="portion-title text-center">Special Offers</h2>
+
+                    <div class="row row-cols-lg-3">
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+                                    <div class="ribbon ribbon-top-left"><span>10%</span></div>
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 offset-lg-5">
+                            <button class="btn btn-valencia form-control text-capitalize rounded-sm my-5">Load more products</button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <form action="">
-                        <input type="search" class="form-control border-0 rounded-pill bg-athens-gray"
-                               placeholder="Search">
-                    </form>
+
                 </div>
             </div>
 
-            <div class="swiper category-slider">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="{{asset('assets/image/category.png')}}" alt="">
-                        <div class="ribbon ribbon-top-left"><span>10%</span></div>
 
-                        <div class="overlay">
-                            <span>Sneakers</span>
+            <div id="popular-product" class="popular-product py-5">
+                <div class="container">
+                    <h2 class="portion-title text-center">Feature Products</h2>
+
+                    <div class="row row-cols-lg-3">
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
 
-                    <div class="swiper-slide">
-                        <div class="ribbon ribbon-top-left"><span>10%</span></div>
-                        <img src="{{asset('assets/image/category.png')}}" alt="">
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
 
-                        <div class="overlay">
-                            <span>Sneakers</span>
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
 
 
-                    <div class="swiper-slide">
-                        <img src="{{asset('assets/image/category.png')}}" alt="">
-                        <div class="ribbon ribbon-top-left"><span>10%</span></div>
-                        <div class="overlay">
-                            <span>Sneakers</span>
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
 
-                    <div class="swiper-slide">
-                        <img src="{{asset('assets/image/category.png')}}" alt="">
-                        <div class="ribbon ribbon-top-left"><span>10%</span></div>
-                        <div class="overlay">
-                            <span>Sneakers</span>
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 offset-lg-5">
+                            <button class="btn btn-valencia form-control text-capitalize rounded-sm my-5">Load more products</button>
                         </div>
                     </div>
 
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
+            <div id="popular-product" class="popular-product py-5">
+                <div class="container">
+                    <h2 class="portion-title text-center">Best Selling Products</h2>
 
-            <div class="py-5">
-                <div class="d-flex justify-content-end">
-                    <div class="dropdown">
-                        <span class="iconify filter-btn" data-icon="ri:equalizer-line" data-width="25" data-height="25" type="button" data-bs-toggle="dropdown"></span>
+                    <div class="row row-cols-lg-3">
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
 
-                        <ul class="dropdown-menu dropdown-menu-end p-3 border-0 bottom-shadow" style="width: 400px" >
-                            <form action="">
-                                <label for="customRange" class="form-label">Price</label>
-                                <input type="range" class="form-range" id="customRange" name="points" min="0" max="4">
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
 
-                                <h6>Categories</h6>
-                                <div class="row row-cols-2">
-                                    <div class="col">
-                                        <input type="button" class="btn bg-outline-valencia form-control rounded-pill"
-                                               value="PHone">
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
                                     </div>
 
-                                    <div class="col">
-                                        <input type="button" class="btn bg-valencia form-control text-white rounded-pill"
-                                               value="PHone">
-                                    </div>
-                                </div>
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
 
-                                <div class="my-2">
-                                    <button type="submit" class="btn btn-valencia form-control">Search</button>
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </form>
-                        </ul>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
+
+
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 offset-lg-5">
+                            <button class="btn btn-valencia form-control text-capitalize rounded-sm my-5">Load more products</button>
+                        </div>
                     </div>
+
                 </div>
+            </div>
+            <div id="popular-product" class="popular-product py-5">
+                <div class="container">
+                    <h2 class="portion-title text-center">Best Rated Products</h2>
+
+                    <div class="row row-cols-lg-3">
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
 
 
-                <div class="row row-cols-lg-3">
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray">
-                            <div class="card-body">
-
-                                <div class="text-end">
-                                    <button class="btn">
-                                    <span class="iconify" data-icon="ant-design:heart-filled" style="color: #e20d13;"
-                                          data-width="30" data-height="30"></span>
-                                    </button>
-                                </div>
-
-                                <div class="text-center py-5">
-                                    <img class="py-5" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h3>Sneakers</h3>
-                                        <p>Shoes</p>
-                                        <hr>
-                                        <h4 class="my-2">$14.99</h4>
-
-                                        <h6 class="my-2">
-                                        <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;"
-                                              data-width="20" data-height="20"></span>
-                                            <span>4.2</span>
-
-                                            <span>123 reviews</span>
-                                        </h6>
-
-                                        <div class="row row-cols-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia  form-control">Add to cart</button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
 
 
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray">
-                            <div class="card-body">
-
-                                <div class="text-end">
-                                    <button class="btn">
-                                    <span class="iconify" data-icon="ant-design:heart-filled" style="color: #e20d13;"
-                                          data-width="30" data-height="30"></span>
-                                    </button>
-                                </div>
-
-                                <div class="text-center py-5">
-                                    <img class="py-5" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h3>Sneakers</h3>
-                                        <p>Shoes</p>
-                                        <hr>
-                                        <h4 class="my-2">$14.99</h4>
-
-                                        <h6 class="my-2">
-                                        <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;"
-                                              data-width="20" data-height="20"></span>
-                                            <span>4.2</span>
-
-                                            <span>123 reviews</span>
-                                        </h6>
-
-                                        <div class="row row-cols-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia  form-control">Add to cart</button>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn form-control btn-outline-valencia">Details</button>
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
 
 
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray">
-                            <div class="card-body">
-
-                                <div class="text-end">
-                                    <button class="btn">
-                                    <span class="iconify" data-icon="ant-design:heart-filled" style="color: #e20d13;"
-                                          data-width="30" data-height="30"></span>
-                                    </button>
-                                </div>
-
-                                <div class="text-center py-5">
-                                    <img class="py-5" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h3>Sneakers</h3>
-                                        <p>Shoes</p>
-                                        <hr>
-                                        <h4 class="my-2">$14.99</h4>
-
-                                        <h6 class="my-2">
-                                        <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;"
-                                              data-width="20" data-height="20"></span>
-                                            <span>4.2</span>
-
-                                            <span>123 reviews</span>
-                                        </h6>
-
-                                        <div class="row row-cols-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia  form-control">Add to cart</button>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn form-control btn-outline-valencia">Details</button>
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
 
 
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray">
-                            <div class="card-body">
-
-                                <div class="text-end">
-                                    <button class="btn">
-                                    <span class="iconify" data-icon="ant-design:heart-filled" style="color: #e20d13;"
-                                          data-width="30" data-height="30"></span>
-                                    </button>
-                                </div>
-
-                                <div class="text-center py-5">
-                                    <img class="py-5" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h3>Sneakers</h3>
-                                        <p>Shoes</p>
-                                        <hr>
-                                        <h4 class="my-2">$14.99</h4>
-
-                                        <h6 class="my-2">
-                                        <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;"
-                                              data-width="20" data-height="20"></span>
-                                            <span>4.2</span>
-
-                                            <span>123 reviews</span>
-                                        </h6>
-
-                                        <div class="row row-cols-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia  form-control">Add to cart</button>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn form-control btn-outline-valencia">Details</button>
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
 
 
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray">
-                            <div class="card-body">
-
-                                <div class="text-end">
-                                    <button class="btn">
-                                    <span class="iconify" data-icon="ant-design:heart-filled" style="color: #e20d13;"
-                                          data-width="30" data-height="30"></span>
-                                    </button>
-                                </div>
-
-                                <div class="text-center py-5">
-                                    <img class="py-5" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h3>Sneakers</h3>
-                                        <p>Shoes</p>
-                                        <hr>
-                                        <h4 class="my-2">$14.99</h4>
-
-                                        <h6 class="my-2">
-                                        <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;"
-                                              data-width="20" data-height="20"></span>
-                                            <span>4.2</span>
-
-                                            <span>123 reviews</span>
-                                        </h6>
-
-                                        <div class="row row-cols-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia  form-control">Add to cart</button>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn form-control btn-outline-valencia">Details</button>
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col my-3">
+                            <div class="card bg-athens-gray rounded-sm product-card">
+                                <div class="card-body">
+
+                                    <ul class="extra-list">
+                                        <li class="list-item">
+                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                              data-width="25" data-height="25"></span>
+                                        </li>
+
+                                        <li class="list-item">
+
+                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                              data-height="25"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center my-5">
+                                        <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="fw-bold text-capitalize">Sneakers</h5>
+                                            <span class="fw-lighter text-capitalize">Shoes</span>
+                                            <hr>
+                                            <h5 class="fw-lighter">$14.99</h5>
+
+                                            <span class="d-flex align-items-center justify-content-center my-4">
+                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                  data-width="20" data-height="20"></span>
+                                           <span class="text-warning fw-bold">4.2</span>
+                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                        </span>
 
 
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray">
-                            <div class="card-body">
-
-                                <div class="text-end">
-                                    <button class="btn">
-                                    <span class="iconify" data-icon="ant-design:heart-filled" style="color: #e20d13;"
-                                          data-width="30" data-height="30"></span>
-                                    </button>
-                                </div>
-
-                                <div class="text-center py-5">
-                                    <img class="py-5" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h3>Sneakers</h3>
-                                        <p>Shoes</p>
-                                        <hr>
-                                        <h4 class="my-2">$14.99</h4>
-
-                                        <h6 class="my-2">
-                                        <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;"
-                                              data-width="20" data-height="20"></span>
-                                            <span>4.2</span>
-
-                                            <span>123 reviews</span>
-                                        </h6>
-
-                                        <div class="row row-cols-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia  form-control">Add to cart</button>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn form-control btn-outline-valencia">Details</button>
+                                            <div class="row row-cols-2 my-2">
+                                                <div class="col">
+                                                    <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
+                                                        <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{{url('/product-view')}}"
+                                                       class="btn form-control btn-outline-valencia">Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
+                        </div>
+                        <div class="col-lg-2 offset-lg-5">
+                            <button class="btn btn-valencia form-control text-capitalize rounded-sm my-5">Load more products</button>
                         </div>
                     </div>
 
-
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray">
-                            <div class="card-body">
-
-                                <div class="text-end">
-                                    <button class="btn">
-                                    <span class="iconify" data-icon="ant-design:heart-filled" style="color: #e20d13;"
-                                          data-width="30" data-height="30"></span>
-                                    </button>
-                                </div>
-
-                                <div class="text-center py-5">
-                                    <img class="py-5" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h3>Sneakers</h3>
-                                        <p>Shoes</p>
-                                        <hr>
-                                        <h4 class="my-2">$14.99</h4>
-
-                                        <h6 class="my-2">
-                                        <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;"
-                                              data-width="20" data-height="20"></span>
-                                            <span>4.2</span>
-
-                                            <span>123 reviews</span>
-                                        </h6>
-
-                                        <div class="row row-cols-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia  form-control">Add to cart</button>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn form-control btn-outline-valencia">Details</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <button class="btn btn-valencia">Load More</button>
                 </div>
             </div>
         </div>
-
-{{--        <div class="chat-box">--}}
-{{--            h--}}
-{{--        </div>--}}
-
+        <div class="py-4 text-center my-3" style="background: #FFEDEE">
+            <a href="" class="text-valencia fw-bold fs-4 text-center">View all products of this shop >>></a>
+        </div>
     </div>
 @endsection
 
