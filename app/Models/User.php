@@ -44,4 +44,8 @@ class User extends Authenticatable
         'image'=>'array',
         'user_role'=>'array'
     ];
+
+    public function customer_details(){
+        return $this->hasOne(CustomerDetails::class);
+    }
 }

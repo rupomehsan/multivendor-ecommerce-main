@@ -8,11 +8,11 @@ use App\Http\Controllers\Api\category\CategoryController;
 use App\Http\Controllers\Api\category\SubCategoryController;
 use App\Http\Controllers\Api\category\SubSubCategoryController;
 use App\Http\Controllers\Api\coupon\CouponController;
+use App\Http\Controllers\Api\customer\CustomerController;
 use App\Http\Controllers\Api\deliveryPerson\DeliveryPersonController;
 use App\Http\Controllers\Api\mobileAds\MobileAdsController;
 use App\Http\Controllers\Api\payment\PaymentController;
 use App\Http\Controllers\Api\slider\SliderController;
-use App\Http\Controllers\Api\user\UserController;
 use App\Http\Controllers\Api\vendor\VendorController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +47,14 @@ Route::prefix('v1')->group(function () {
       index,store,update,edit,delete
       */
     Route::resource('attributes', AttributeController::class);
+    /* Product
+      index,store,update,edit,delete
+      */
+    Route::resource('products', \App\Http\Controllers\Api\product\ProductController::class);
+    /* Recurrings
+      index,store,update,edit,delete
+      */
+    Route::resource('recurrings', \App\Http\Controllers\Api\recurring\RecurringController::class);
     /*Slider
      index,store,update,edit,delete
      */
@@ -78,7 +86,7 @@ Route::prefix('v1')->group(function () {
     /*user
     index,store,update,edit,delete
     */
-    Route::resource('users', UserController::class);
+    Route::resource('customers', CustomerController::class);
     /*Advertisement
     index,store,update,edit,
     */
@@ -96,4 +104,8 @@ Route::prefix('v1')->group(function () {
     index,store,update,edit,
     */
     Route::resource('smtps', \App\Http\Controllers\Api\smtp\SmtpController::class);
+    /* Settings
+    store,update,edit,show
+    */
+    Route::resource('carts', \App\Http\Controllers\Api\cart\CartController::class);
 });

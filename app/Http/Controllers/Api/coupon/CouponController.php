@@ -37,7 +37,9 @@ class CouponController extends Controller
      */
     public function create(Request $request)
     {
-
+        return response([
+            "status" => 'server_error',
+        ],500);
 
     }
 

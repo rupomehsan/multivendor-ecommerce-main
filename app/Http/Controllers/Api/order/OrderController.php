@@ -1,27 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Api\user;
+namespace App\Http\Controllers\Api\order;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Validator;
 
-class UserController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $getUser = User::whereJsonContains('user_role',"4")->paginate(5);
+            $getOrder = Order::where('session_id',auth()->id())->get();
             return response([
                 "status" => 'success',
-                "data" => $getUser
+                "data" => $getOrder
             ],200);
         }catch (Exception $e){
             return response([
@@ -52,28 +51,24 @@ class UserController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "name" => "required|min:5",
-                "email"=> 'required|email:rfc,dns|unique:users',
-                "phone"=> "required",
-                "password"=> "required|min:6",
-                "confirm_password"=> "required|min:6",
+                "quantity" => "required|min:1",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
 //        dd($request->all());
-            $user = new User();
-            $user->name = $request->name;
-            $user->password = Hash::make($request->description);
-            $user->phone = $request->phone;
-            $user->email = $request->email;
-            $user->image = $request->image;
-            $user->user_role= ["4"];
-            if($user->save()){
+            $Order = new Order();
+            $Order->api_id = $request->api_id;
+            $Order->customer_id = $request->customer_id;
+            $Order->product_id = $request->product_id;
+            $Order->recurring_id = $request->recurring_id;
+            $Order->option = $request->option;
+            $Order->quantity = $request->quantity;
+            if($Order->save()){
                 return response([
                     "status" => "success",
-                    "message" => "User Successfully Create"
+                    "message" => "Successfully Added To Order "
                 ]);
             }
         }catch (Exception $e){
@@ -103,24 +98,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        try {
-            $getUser = User::where("id",$id)->first();
-            if($getUser){
-                return response([
-                    "status" => "success",
-                    "data" => $getUser
-                ]);
-            }else{
-                return response([
-                    "status" =>'not_found'
-                ], 404);
-            }
-        }catch (Exception $e){
-            return response([
-                "status" => 'server_error',
-                "data" => $e->getMessage()
-            ],500);
-        }
+
     }
 
     /**
@@ -134,27 +112,23 @@ class UserController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "name" => "required|min:5",
-                "email"=> 'required|email:rfc,dns|unique:users',
-                "phone"=> "required",
-                "access"=> "required",
-                "password"=> "required|min:6",
-                "confirm_password"=> "required|min:6",
+                "quantity" => "required|min:1",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $user = User::where("id",$id)->first();
-            $user->name = $request->name ??  $user->name ;
-            $user->password =Hash::make($request->password)  ?? $user->password;
-            $user->phone = $request->phone ?? $user->phone;
-            $user->image = $request->image ?? $user->image;
-            $user->email = $request->email ??  $user->email;
-            if($user->update()){
+            $Order = Order::where("id",$id)->first();
+            $Order->api_id = $request->api_id ?? $Order->api_id;
+            $Order->customer_id = $request->customer_id ?? $Order->customer_id;
+            $Order->product_id = $request->product_id ?? $Order->product_id ;
+            $Order->recurring_id = $request->recurring_id ?? $Order->recurring_id ;
+            $Order->option = $request->option ?? $Order->option;
+            $Order->quantity = $request->quantity ?? $Order->quantity;
+            if($Order->update()){
                 return response([
                     "status" => "success",
-                    "message" => "Admin Successfully Update"
+                    "message" => "Order Successfully Update"
                 ]);
             }
         }catch (Exception $e){
@@ -174,12 +148,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         try{
-            $user = User::find($id);
-            if($user){
-                $user->delete();
+            $Order = Order::find($id);
+            if($Order){
+                $Order->delete();
                 return response([
                     "status" => "success",
-                    "message" => "User Successfully Delete"
+                    "message" => "Order Successfully Delete"
                 ], 200);
             }else {
                 return response([

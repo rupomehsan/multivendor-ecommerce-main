@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\slider;
+namespace App\Http\Controllers\Api\recurring;
 
 use App\Http\Controllers\Controller;
-use App\Models\Slider;
+use App\Models\Recurring;
 use Illuminate\Http\Request;
 use Validator;
 
-class SliderController extends Controller
+class RecurringController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class SliderController extends Controller
     public function index()
     {
         try {
-            $getSlider = Slider::paginate(5);
+            $getRecurring = Recurring::paginate(5);
             return response([
                 "status" => 'success',
-                "data" => $getSlider
+                "data" => $getRecurring
             ],200);
         }catch (Exception $e){
             return response([
@@ -37,11 +37,7 @@ class SliderController extends Controller
      */
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            "title"=> "required",
-            "description"=> "required",
-            "offer"=> "required",
-        ]);
+
 
     }
 
@@ -55,24 +51,33 @@ class SliderController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "title"=> "required",
-                "description"=> "required",
-                "offer"=> "required",
+                "name"=> "required",
+                "price"=> "required",
+                "duration"=> "required",
+                "cycle"=> "required",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
 //        dd($request->all());
-            $slider = new Slider();
-            $slider->title = $request->title;
-            $slider->description = $request->description;
-            $slider->image = $request->image;
-            $slider->offer = $request->offer;
-            if($slider->save()){
+            $Recurring = new Recurring();
+            $Recurring->language_id = $request->language_id;
+            $Recurring->name = $request->name;
+            $Recurring->price = $request->price;
+            $Recurring->frequency = $request->frequency;
+            $Recurring->duration = $request->duration;
+            $Recurring->cycle = $request->cycle;
+            $Recurring->trial_status = $request->trial_status;
+            $Recurring->trial_price = $request->trial_price;
+            $Recurring->trial_frequency = $request->trial_frequency;
+            $Recurring->trial_duration = $request->trial_duration;
+            $Recurring->trial_cycle = $request->trial_cycle;
+            $Recurring->sort_order = $request->sort_order;
+            if($Recurring->save()){
                 return response([
                     "status" => "success",
-                    "message" => "Slider Successfully Create"
+                    "message" => "Recurring Successfully Create"
                 ]);
             }
         }catch (Exception $e){
@@ -104,11 +109,11 @@ class SliderController extends Controller
     public function edit($id)
     {
         try {
-            $getSlider = Slider::where("id",$id)->first();
-            if($getSlider){
+            $getRecurring = Recurring::where("id",$id)->first();
+            if($getRecurring){
                 return response([
                     "status" => "success",
-                    "data" => $getSlider
+                    "data" => $getRecurring
                 ]);
             }else{
                 return response([
@@ -135,24 +140,32 @@ class SliderController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-                "title"=> "required",
-                "description"=> "required",
-                "offer"=> "required",
+                "name"=> "required",
+                "price"=> "required",
+                "duration"=> "required",
+                "cycle"=> "required",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $slider = Slider::where("id",$id)->first();
-            $slider->title = $request->title ??  $slider->title ;
-            $slider->description = $request->description ?? $slider->description;
-            $slider->offer = $request->offer ?? $slider->offer;
-            $slider->image = $request->image ?? $slider->image;
-            $slider->status = $request->status ??  $slider->status ;
-            if($slider->update()){
+            $Recurring = Recurring::where("id",$id)->first();
+            $Recurring->language_id = $request->language_id ?? $Recurring->language_id;
+            $Recurring->name = $request->name ?? $Recurring->name;
+            $Recurring->price = $request->price ?? $Recurring->price;
+            $Recurring->frequency = $request->frequency ?? $Recurring->frequency;
+            $Recurring->duration = $request->duration ?? $Recurring->duration;
+            $Recurring->cycle = $request->cycle ?? $Recurring->cycle;
+            $Recurring->trial_status = $request->trial_status ?? $Recurring->trial_status;
+            $Recurring->trial_price = $request->trial_price ?? $Recurring->trial_price;
+            $Recurring->trial_frequency = $request->trial_frequency ??  $Recurring->trial_frequency;
+            $Recurring->trial_duration = $request->trial_duration ?? $Recurring->trial_duration;
+            $Recurring->trial_cycle = $request->trial_cycle ??  $Recurring->trial_cycle;
+            $Recurring->sort_order = $request->sort_order ?? $Recurring->sort_order;
+            if($Recurring->update()){
                 return response([
                     "status" => "success",
-                    "message" => "Slider Successfully Update"
+                    "message" => "Recurring Successfully Update"
                 ]);
             }
         }catch (Exception $e){
@@ -174,12 +187,12 @@ class SliderController extends Controller
     {
 
         try{
-            $slider = Slider::find($id);
-            if($slider){
-                $slider->delete();
+            $Recurring = Recurring::find($id);
+            if($Recurring){
+                $Recurring->delete();
                 return response([
                     "status" => "success",
-                    "message" => "Slider Successfully Delete"
+                    "message" => "Recurring Successfully Delete"
                 ], 200);
             }else {
                 return response([
