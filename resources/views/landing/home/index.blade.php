@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div id="home-section">
+    <div id="home-section" class="bg-white">
         <!-- ***** Hero Section ***** -->
         <div id="hero" class="hero">
             <div class="swiper hero-slider">
@@ -66,24 +66,24 @@
 
         <!-- ***** Pick Up Section ***** -->
         <div id="pickup-section" class="py-4 pickup-section bg-athens-gray ">
-            <div class="container d-flex align-items-center justify-content-around">
+            <div class="container">
                 <div class="text-center">
-                <span class="iconify" data-icon="carbon:delivery" style="color: #da333d;" data-width="55"
-                      data-height="55"></span>
-                    <p>24/7 Nationwide Delivery</p>
+                    <span class="iconify" data-icon="carbon:delivery" style="color: #da333d;" data-width="55"
+                          data-height="55"></span>
+                        <p>24/7 Nationwide Delivery</p>
                 </div>
 
                 <div class="vl"></div>
 
                 <div class="text-center">
-                <span class="iconify" data-icon="bi:shield-check" style="color: #da333d;" data-width="55"
+                    <span class="iconify" data-icon="bi:shield-check" style="color: #da333d;" data-width="55"
                       data-height="55"></span>
                     <p>Warranty On All Products</p>
                 </div>
 
                 <div class="vl"></div>
                 <div class="text-center">
-                <span class="iconify" data-icon="gg:arrows-exchange" style="color: #da333d;" data-width="55"
+                    <span class="iconify" data-icon="gg:arrows-exchange" style="color: #da333d;" data-width="55"
                       data-height="55"></span>
                     <p>Easy 90 Days Return Policy</p>
                 </div>
@@ -511,33 +511,33 @@
         </div>
 
         <!-- ***** Advertisement Section ***** -->
-        <div class="wrapper py-2">
-            <div class="row row-cols-3">
-                <div class="col">
-                    <img src="{{asset('assets/image/a.png')}}" alt="">
-                </div>
-                <div class="col">
-                    <img src="{{asset('assets/image/a.png')}}" alt="">
-                </div>
-                <div class="col">
-                    <img src="{{asset('assets/image/a.png')}}" alt="">
-                </div>
-            </div>
-        </div>
+{{--        <div class="wrapper py-2">--}}
+{{--            <div class="row row-cols-3">--}}
+{{--                <div class="col">--}}
+{{--                    <img src="{{asset('assets/image/a.png')}}" alt="">--}}
+{{--                </div>--}}
+{{--                <div class="col">--}}
+{{--                    <img src="{{asset('assets/image/a.png')}}" alt="">--}}
+{{--                </div>--}}
+{{--                <div class="col">--}}
+{{--                    <img src="{{asset('assets/image/a.png')}}" alt="">--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
 
         <!-- ***** Deals Product Section ***** -->
         <div id="deal-product" class="deal-product py-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-1"></div>
-                    <div class="col-9">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-9 col-12">
                         <div class="text-center">
                             <h2 class="portion-title"><span>deal </span>of The Day</h2>
                             <span class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br/> Adipisci amet aperiam beatae dolore excepturi odio praesentium rem sed soluta vero.</span>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-lg-2 col-12">
                         <div class="bg-valencia text-white d-flex align-items-center justify-content-center py-3">
                             <span class="mx-2">End of:</span>
                             <span class='timer d-flex' data-minutes-left='1440'></span>
@@ -1001,12 +1001,27 @@
             },
         });
         let categorySwiper = new Swiper(".category-slider", {
-            slidesPerView: 3,
-            spaceBetween: 60,
+
             loop: true,
             autoplay: {
                 delay: 2500,
                 disableOnInteraction: false,
+            },
+
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+
+                1170: {
+                    slidesPerView: 3,
+                    spaceBetween: 60,
+                }
             },
             navigation: {
                 nextEl: ".swiper-button-next",
