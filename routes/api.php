@@ -96,11 +96,14 @@ Route::prefix('v1')->group(function () {
     */
     Route::resource('notifications', \App\Http\Controllers\Api\notification\NotificationController::class);
     Route::post('notifications/store', [\App\Http\Controllers\Api\notification\NotificationController::class, "sendNotification"]);
+    Route::post('notifications/manage-notifications/store', [\App\Http\Controllers\Api\notification\NotificationController::class, "manageNotification"]);
+    Route::get('notifications/manage-notifications/get', [\App\Http\Controllers\Api\notification\NotificationController::class, "getManageNotification"]);
+    Route::post('notifications/file-upload', [\App\Http\Controllers\Api\notification\NotificationController::class,"fileUploader"]);
     /* Settings
     index,store,update,edit,
     */
     Route::resource('settings', \App\Http\Controllers\Api\setting\SettingController::class);
-    Route::post('setting/file-upload', [\App\Http\Controllers\Api\setting\SettingController::class,"fileUploader"]);
+    Route::post('settings/file-upload', [\App\Http\Controllers\Api\setting\SettingController::class,"fileUploader"]);
 
     /* Smtp
     store,index,

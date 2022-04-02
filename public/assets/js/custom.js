@@ -60,8 +60,6 @@ function formSubmit(type, btn, form, headers = null) {
     } else {
         toastr.error('Sorry You Are Demo Use')
     }
-
-
 }
 
 function deleteItem(url) {
@@ -80,10 +78,7 @@ function deleteItem(url) {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: baseUrl,
-                    type: 'DELETE',
-                    dataType: "json",
-                    success: function (res) {
+                    url: baseUrl, type: 'DELETE', dataType: "json", success: function (res) {
                         console.log(res);
                         Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
                         setInterval(function () {
@@ -106,31 +101,42 @@ function deleteItem(url) {
 /**
  * GET Single Data for Edit
  */
-function getEditData(url) {
+function getEditData(url, dropzone = null) {
     var baseUrl = window.origin + url
     // alert(baseUrl)
     $.ajax({
-        type: 'GET',
-        url: baseUrl,
-        success: function (response) {
+        type: 'GET', url: baseUrl, success: function (response) {
             if (response.status === 'success') {
                 //  var data = JSON.parse(response.data.logo)
                 // $('#imageShow').attr('src',data[0])
-                 // data.forEach(function(item){
-                 //     $('#imageShow').attr('src',"${item}")
-                 // })
+                // data.forEach(function(item){
+                //     $('#imageShow').attr('src',"${item}")
+                // })
                 // console.log(data);
-                if(response.data !== null){
-                $('#submit-button').text("Update")
+                if (response.data !== null) {
+                    $('#submit-button').text("Update")
                 }
                 Object.entries(response.data).forEach((item) => {
                     //for all input filed
                     // console.log("data",item);
                     $('#' + item[0]).val(item[1]);
+
                     if (item[0] === "logo") {
-                       var logo = JSON.parse(item[1])
-                        $('.dz-image img').attr('src',logo[0])
+                        if (dropzone) {
+                            let mockFile = {name: 'image', size: 600,};
+                            var logo = JSON.parse(item[1])
+                            let imageUrl = logo
+                            imageUrl.forEach(item => {
+                                console.log(item)
+                                dropzone.displayExistingFile(mockFile, item);
+                                // dropzone.options.addedfile.call(dropzone, mockFile);
+                                dropzone.options.thumbnail.call(dropzone, mockFile, item);
+
+                            })
+                        }
+
                     }
+
                     //for admin access input filed
                     //for admin access input filed
                     if (item[0] === 'access') {
@@ -176,8 +182,7 @@ function getEditData(url) {
                 })
 
             }
-        },
-        error: function (xhr, resp, text) {
+        }, error: function (xhr, resp, text) {
             console.log(xhr, resp)
         }
     });
@@ -401,14 +406,11 @@ function clearError(input) {
 }
 
 // get category
-function getCategory(url,id) {
+function getCategory(url, id) {
     let baseUrl = window.origin + url
     // alert(baseUrl)
     $.ajax({
-        type: 'GET',
-        url: baseUrl,
-        dataType: 'json',
-        success: function (res) {
+        type: 'GET', url: baseUrl, dataType: 'json', success: function (res) {
             console.log(res)
             if (res.status === 'success') {
                 res.data.forEach((item) => {
@@ -417,8 +419,7 @@ function getCategory(url,id) {
                     `)
                 })
             }
-        },
-        error: function (err) {
+        }, error: function (err) {
             console.log(err);
         }
     })

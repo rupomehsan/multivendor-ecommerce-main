@@ -22,6 +22,32 @@
 <!-- ===== Custom JS Files ===== -->
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('assets/js/custom.js')}}"></script>
+<script src="{{asset('assets/js/imageUploader.js')}}"></script>
+{{--preloader--}}
+{{--preloader--}}
+<script type="text/javascript">
+    $(window).load(function() { // makes sure the whole site is loaded
+        $('#status').fadeOut(); // will first fade out the loading animation
+        $('#preloader').delay(50).fadeOut(100); // will fade out the white DIV that covers the website.
+        $('body').delay(50).css({'overflow':'visible'});
+    })
+</script>
+{{--one signal--}}
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+        OneSignal.init({
+            appId: "f45a0b83-4ebe-435d-971d-8fa9ed4dda6e",
+            safari_web_id: "web.onesignal.auto.13f7d09c-87f4-478e-9a86-b96c3b883b5b",
+            notifyButton: {
+                enable: true,
+            },
+            allowLocalhostAsSecureOrigin: true,
+        });
+    });
+</script>
+<!-- ===== Custom JS blade Files ===== -->
 @stack('custom-js')
 </body>
 </html>

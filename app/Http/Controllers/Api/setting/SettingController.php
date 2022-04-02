@@ -98,10 +98,10 @@ class SettingController extends Controller
         }else{
             try {
                 $validate = Validator::make(request()->all(), [
-                    "system_name" => 'required',
-                    "app_version" => 'required',
-                    "mail_address" => 'required',
-                    "update_app" => 'required',
+//                    "system_name" => 'required',
+//                    "app_version" => 'required',
+//                    "mail_address" => 'required',
+//                    "update_app" => 'required',
 //                    'image' => 'required'
                 ]);
 
@@ -122,7 +122,7 @@ class SettingController extends Controller
                 $setting->twitter = $request->twitter ?? $setting->twitter;
                 $setting->youtube = $request->youtube ?? $setting->youtube;
                 $setting->copyright = $request->copyright ?? $setting->copyright;
-                $setting->image = $request->image ?? $setting->image;
+                $setting->logo = $request->logo ?? $setting->logo;
                 $setting->description = $request->description ?? $setting->description;
                 $setting->privacy_policy = $request->privacy_policy ?? $setting->privacy_policy;
                 $setting->cookies_policy = $request->cookies_policy ?? $setting->cookies_policy;
@@ -150,7 +150,10 @@ class SettingController extends Controller
      */
     public function show($id)
     {
+        return response([
+            'status' => 'server_error',
 
+        ], 500);
     }
 
     /**
@@ -190,42 +193,7 @@ class SettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            $validator = Validator::make($request->all(),[
-                'system_name' => "required",
-            ]);
-            if ($validator->fails()){
-                $errors = $validator->errors()->messages();
-                return validateError($errors);
-            }
-            $Setting = Setting::where("id",$id)->first();
-            $Setting->system_name = $request->system_name ?? $Setting->system_name;
-            $Setting->app_version = $request->app_version ?? $Setting->app_version;
-            $Setting->mail_address = $request->mail_address ?? $Setting->mail_address;
-            $Setting->update_app = $request->update_app ?? $Setting->update_app;
-            $Setting->developed_by = $request->developed_by ?? $Setting->developed_by;
-            $Setting->facebook = $request->facebook ?? $Setting->facebook;
-            $Setting->instagram = $request->instagram ?? $Setting->instagram;
-            $Setting->twitter = $request->twitter  ?? $Setting->twitter;
-            $Setting->youtube = $request->youtube  ?? $Setting->youtube;
-            $Setting->copyright = $request->copyright  ?? $Setting->copyright;
-            $Setting->logo = $request->logo  ?? $Setting->logo;
-            $Setting->description = $request->description  ?? $Setting->description;
-            $Setting->privacy_policy = $request->privacy_policy  ?? $Setting->privacy_policy;
-            $Setting->cookies_policy = $request->cookies_policy  ?? $Setting->cookies_policy;
-            $Setting->terms_policy = $request->terms_policy  ?? $Setting->terms_policy;
-            if($Setting->update()){
-                return response([
-                    "status" => "success",
-                    "message" => "Settings Successfully Update"
-                ]);
-            }
-        }catch (Exception $e){
-            return response([
-                "status" => 'server_error',
-                "data" => $e->getMessage()
-            ],500);
-        }
+
     }
 
     /**
@@ -242,7 +210,7 @@ class SettingController extends Controller
 
     public function fileUploader(Request $request)
     {
-
+//      dd($request->all());
         $validate = Validator::make(request()->only('file'), [
             'file' => 'required|max:10240',
         ]);

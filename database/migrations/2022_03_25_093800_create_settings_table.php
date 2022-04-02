@@ -25,7 +25,7 @@ class CreateSettingsTable extends Migration
             $table->string('twitter')->nullable();
             $table->string('youtube')->nullable();
             $table->string('copyright')->nullable();
-            $table->string('logo')->nullable();
+            $table->json('logo')->nullable();
             $table->text('description')->nullable();
             $table->text('privacy_policy')->nullable();
             $table->text('cookies_policy')->nullable();

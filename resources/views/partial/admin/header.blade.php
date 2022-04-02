@@ -26,3 +26,8 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
+{{--preloader--}}
+<div id="preloader" class="d-none">
+    <div id="status">
+    </div>
+</div>

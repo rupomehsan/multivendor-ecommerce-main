@@ -34,82 +34,84 @@
 
 
             <!-- Add Notification Modal -->
-            <form action="">
+            <form action="{{url('api/v1/notifications')}}" name="form" id="form" novalidate>
                 <div class="modal fade" id="notificationModal">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header border-0">
-                                <h5 class="modal-title text-uppercase">add notification</h5>
+                                <h5 class="modal-title text-uppercase">Add notification</h5>
                             </div>
                             <div class="modal-body">
-
                                 <div class="form-group my-3">
                                     <label for="title" id="title_label" class="form-label">Title</label>
                                     <input type="text" id="title" name="title" placeholder="Notification Title"
                                            class="form-control">
-                                    <span class="text-danger" id="title_error">Error Msg</span>
+                                    <span class="text-danger" id="title_error"></span>
                                 </div>
-
                                 <div class="form-group my-3">
-                                    <label for="description" id="description_label" class="form-label">Description</label>
-                                    <textarea type="text" id="description" name="description" placeholder="Notification Description"
+                                    <label for="description" id="description_label"
+                                           class="form-label">Description</label>
+                                    <textarea type="text" id="description" name="description"
+                                              placeholder="Notification Description"
                                               class="form-control"></textarea>
-                                    <span class="text-danger" id="description_error">Error Msg</span>
+                                    <span class="text-danger" id="description_error"></span>
                                 </div>
-
-                              <div class="form-group my-3">
-                                  <label for="" class="form-label">Upload Image</label>
-                                  <div class="dropzone" id="image-box"></div>
-                                  <input type="hidden" id="image" name="logo">
-                              </div>
-
+                                <div class="form-group my-3">
+                                    <label for="" class="form-label">Upload Image</label>
+                                    <div class="dropzone" id="image-box"></div>
+                                    <input type="hidden" id="image" name="image">
+                                </div>
                                 <div class="form-group my-3">
                                     <label for="link" id="link_label" class="form-label">External Link</label>
                                     <input type="text" id="link" name="link" placeholder="External Link"
                                            class="form-control">
-                                    <span class="text-danger" id="link_error">Error Msg</span>
+                                    <span class="text-danger" id="link_error"></span>
                                 </div>
-
                             </div>
                             <div class="modal-footer border-0 justify-content-start">
-                                <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-base-primary">Save</button>
+                                <button type="button" class="btn btn-outline-base" data-bs-dismiss="modal">Cancel
+                                </button>
+                                <button id="submit-button2" type="submit" class="btn btn-base-primary">Save</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
 
-
             <!-- OneSignal Notification API Modal -->
-            <form action="">
+            <form action="{{url('api/v1/notifications/manage-notifications/store')}}" name="form2" id="form2"
+                  novalidate>
                 <div class="modal fade" id="notificationAPIModal">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
+
                             <div class="modal-header border-0">
                                 <h5 class="modal-title text-uppercase">Add OneSignal API</h5>
                             </div>
                             <div class="modal-body">
-
                                 <div class="form-group mb-3">
-                                    <label for="app_id" id="app_id_label" class="form-label">OneSignal APP ID</label>
+                                    <label for="app_id" id="app_id_label" class="form-label">OneSignal APP
+                                        ID</label>
                                     <input type="text" id="app_id" name="app_id" placeholder="OneSignal APP ID"
                                            class="form-control">
-                                    <span class="text-danger" id="app_id_error">Error Msg</span>
+                                    <span class="text-danger" id="app_id_error"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="api_key" id="api_key_label" class="form-label">OneSignal API KEY</label>
+                                    <label for="api_key" id="api_key_label" class="form-label">OneSignal API
+                                        KEY</label>
                                     <input type="text" id="api_key" name="api_key" placeholder="OneSignal API KEY"
                                            class="form-control">
-                                    <span class="text-danger" id="api_key_error">Error Msg</span>
+                                    <span class="text-danger" id="api_key_error"></span>
                                 </div>
 
                             </div>
                             <div class="modal-footer border-0 justify-content-start">
-                                <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-base-primary">Save</button>
+                                <button type="button" class="btn btn-outline-base" data-bs-dismiss="modal">Cancel
+                                </button>
+                                <button id="submit-button" type="submit" class="btn btn-base-primary">Save</button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -157,6 +159,9 @@
 @push('custom-js')
 
     <script>
+        function redirectPage() {
+            window.location.href = window.origin + "/admin/notification"
+        }
         $(document).ready(function () {
             $('#notificationTable').DataTable({
                 "searching": false,
@@ -165,35 +170,49 @@
             });
         });
 
+        // imageUploader
         let image = new Dropzone("#image-box", {
-
-            url: window.origin + "/api/v1/uploads.php",
+            url: window.origin + '/api/v1/notifications/file-upload',
             method: "post",
-            uploadMultiple: false,
+            uploadMultiple: true,
             createImageThumbnails: true,
             paramName: "file",
             clickable: true,
-
-
-            init: function () {
-                this.on('addedfile', function (file) {
-                    if (this.files.length > 1) {
-                        this.removeFile(this.files[0]);
-                    }
-                });
-
-            },
-
+            maxFiles: 10,
+            parallelUploads: 10,
+            addRemoveLinks: true,
             success: function (file, res) {
-                // let defaultExistFile = $('.dz-preview.dz-complete.dz-image-preview')
-                //
-                // if (defaultExistFile) {
-                //     defaultExistFile.remove()
-                // }
-                //
-                // $('#' + hiddenId).val(res.data)
-                // data = res.data;
+                if (res.status === "success") {
+                    toastr.success(res.message)
+                    let defaultExistFile = $('.dz-preview.dz-complete.dz-image-preview')
+                    if (defaultExistFile) {
+                        defaultExistFile.remove()
+                    }
+                    $('#image').val(res.data)
+
+                }
             },
+            error: function (err) {
+                console.log(err)
+            }
         });
+        // get data //
+        var mngNtfurl = "/api/v1/notifications/manage-notifications/get";
+        getEditData(mngNtfurl);
+        // store data //
+        $('#form').submit(function (e) {
+            e.preventDefault();
+            let form = $(this);
+            formSubmit("post", "submit-button", form);
+        })
+        $('#form2').submit(function (e) {
+            e.preventDefault();
+            let form = $(this);
+            formSubmit("post", "submit-button2", form);
+        })
+        //page pageRestricted //
+        let page = "{{request()->segment(2)}}";
+        pageRestricted(page);
+        // end  pageRestricted //
     </script>
 @endpush
