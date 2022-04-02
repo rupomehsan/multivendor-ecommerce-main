@@ -19,9 +19,9 @@
                             <h2 class="percentage">
                                 25% OFF!
                             </h2>
-                            <span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit ut volutpat egestas.
-                        </span>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit ut volutpat egestas.
+                            </p>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -990,6 +990,11 @@
     <script>
         let heroSlider = new Swiper(".hero-slider", {
             direction: "vertical",
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
@@ -998,7 +1003,11 @@
         let categorySwiper = new Swiper(".category-slider", {
             slidesPerView: 3,
             spaceBetween: 60,
-
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
             navigation: {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",

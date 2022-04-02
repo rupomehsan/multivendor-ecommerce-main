@@ -100,16 +100,15 @@ Route::prefix('v1')->group(function () {
     index,store,update,edit,
     */
     Route::resource('settings', \App\Http\Controllers\Api\setting\SettingController::class);
-    /* Settings
-    index,store,update,edit,
+    Route::post('setting/file-upload', [\App\Http\Controllers\Api\setting\SettingController::class,"fileUploader"]);
+
+    /* Smtp
+    store,index,
     */
     Route::resource('smtps', \App\Http\Controllers\Api\smtp\SmtpController::class);
     /* Settings
     store,update,edit,show
     */
     Route::resource('carts', \App\Http\Controllers\Api\cart\CartController::class);
-    /* Settings
-    store,update,edit,show
-    */
-    Route::resource('carts', \App\Http\Controllers\Api\cart\CartController::class);
+
 });

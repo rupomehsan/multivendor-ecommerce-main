@@ -85,6 +85,12 @@
             </a>
         </li>
 
+        <li class="sidebar-item {{ $currentControllerName == '' || '' ? 'active' : '' }} ">
+            <a href="{{url('admin/products')}}" class="sidebar-link">
+                <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
+                Products
+            </a>
+        </li>
 
         <li class="sidebar-sub-item">
             <div class="sub-menu-btn homepage-menu">

@@ -53,6 +53,8 @@
         Route::view('/pos/orders-list', 'admin.pos.order_list');
         Route::view('/attributes', 'admin.attributes.index');
         Route::view('/brands', 'admin.brand.index');
+        Route::view('/products', 'admin.products.index');
+        Route::view('/add-product', 'admin.products.add-product');
         Route::view('/homepage/slider', 'admin.homepage.slider');
         Route::view('/homepage/carousel', 'admin.homepage.carousel');
         Route::view('/homepage/offers', 'admin.homepage.offer');
@@ -72,5 +74,17 @@
         Route::view('/notification', 'admin.notification.index');
         Route::view('/setting', 'admin.basic_setting.index');
         Route::view('/smtp', 'admin.smtp.index');
+    });
+
+    Route::prefix('seller')->group(function (){
+        Route::view('/dashboard', 'admin.dashboard.vendor');
+        Route::view('/products', 'admin.products.index');
+        Route::view('/add-product', 'admin.products.add-product');
+        Route::view('/orders', 'admin.orders.seller.index');
+        Route::view('/return-orders', 'admin.orders.seller.return');
+        Route::view('/return-policy', 'admin.orders.seller.return-policy');
+        Route::view('/orders/view', 'admin.orders.seller.view');
+        Route::view('/payout-requests', 'admin.payout_requests.seller.index');
+        Route::view('/shop-setting', 'admin.shop.seller.setting');
     });
 

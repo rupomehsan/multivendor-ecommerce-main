@@ -5,8 +5,8 @@
             <img class="img-fluid" src="{{asset('assets/image/logo-black.png')}}" alt="">
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler bg-valencia" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon text-white"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="menu">
