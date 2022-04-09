@@ -22,7 +22,7 @@
 
     <ul class="sidebar-nav">
 
-        <li class="sidebar-item {{ $currentControllerName == 'dashboard' || '' ? 'active' : '' }} ">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'dashboard' || '' ? 'active' : '' }} ">
             <a href="{{url('admin/dashboard')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Dashboard
@@ -32,45 +32,51 @@
         <li class="sidebar-nav-heading text-uppercase ms-3 my-2" >Manage</li>
 
 
-        <li class="sidebar-item {{ $currentControllerName == 'pos' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'pos' || '' ? 'active' : '' }}">
             <a href="{{url('admin/pos')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 POS
             </a>
         </li>
-
-        <li class="sidebar-sub-item">
-            <div class="sub-menu-btn category-menu">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'category' || '' ? 'active' : '' }}">
+            <a href="{{url('admin/category')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
-                <span>Category</span>
-
-                <span class="iconify sub-menu-indicator" data-icon="dashicons:arrow-down-alt2" data-width="20" data-height="20"></span>
-            </div>
-
-            <ul class="sub-menu-list category-list d-none">
-                <li class="sub-list-item">
-                    <a href="{{url('admin/category')}}" class="sub-list-link {{ $currentControllerName == 'category' || '' ? 'active' : '' }}">
-                        Category
-                    </a>
-                </li>
-
-                <li class="sub-list-item">
-                    <a href="{{url('admin/category/sub-category')}}" class="sub-list-link">
-                        Sub Category
-                    </a>
-                </li>
-
-                <li class="sub-list-item">
-                    <a href="{{url('admin/category/sub-sub-category')}}" class="sub-list-link {{ $currentControllerName == 'sub-category' || '' ? 'active' : '' }}">
-                        Sub Sub Category
-                    </a>
-                </li>
-            </ul>
+               Category
+            </a>
         </li>
 
+{{--        <li class="sidebar-sub-item">--}}
+{{--            <div class="sub-menu-btn category-menu">--}}
+{{--                <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>--}}
+{{--                <span>Category</span>--}}
+
+{{--                <span class="iconify sub-menu-indicator" data-icon="dashicons:arrow-down-alt2" data-width="20" data-height="20"></span>--}}
+{{--            </div>--}}
+
+{{--            <ul class="sub-menu-list category-list d-none">--}}
+{{--                <li class="sub-list-item">--}}
+{{--                    <a href="{{url('admin/category')}}" class="sub-list-link {{ $currentControllerName == 'category' || '' ? 'active' : '' }}">--}}
+{{--                        Category--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+
+{{--                <li class="sub-list-item">--}}
+{{--                    <a href="{{url('admin/category/sub-category')}}" class="sub-list-link">--}}
+{{--                        Sub Category--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+
+{{--                <li class="sub-list-item">--}}
+{{--                    <a href="{{url('admin/category/sub-sub-category')}}" class="sub-list-link {{ $currentControllerName == 'sub-category' || '' ? 'active' : '' }}">--}}
+{{--                        Sub Sub Category--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            </ul>--}}
+{{--        </li>--}}
 
 
-        <li class="sidebar-item {{ $currentControllerName == 'attributes' || '' ? 'active' : '' }}">
+
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'attributes' || '' ? 'active' : '' }}">
             <a href="{{url('admin/attributes')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Attributes
@@ -78,14 +84,14 @@
         </li>
 
 
-        <li class="sidebar-item {{ $currentControllerName == 'brands' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'brands' || '' ? 'active' : '' }}">
             <a href="{{url('admin/brands')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Brands
             </a>
         </li>
 
-        <li class="sidebar-item {{ $currentControllerName == '' || '' ? 'active' : '' }} ">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == '' || '' ? 'active' : '' }} ">
             <a href="{{url('admin/products')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Products
@@ -122,7 +128,7 @@
 
 
 
-        <li class="sidebar-item {{ $currentControllerName == 'brands' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'brands' || '' ? 'active' : '' }}">
             <a href="{{url('admin/vendors')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Vendors
@@ -160,21 +166,21 @@
 
 
 
-        <li class="sidebar-item {{ $currentControllerName == 'payments' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'payments' || '' ? 'active' : '' }}">
             <a href="{{url('admin/payments')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Payments
             </a>
         </li>
 
-        <li class="sidebar-item {{ $currentControllerName == 'coupons' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'coupons' || '' ? 'active' : '' }}">
             <a href="{{url('admin/coupons')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Coupons
             </a>
         </li>
 
-        <li class="sidebar-item {{ $currentControllerName == 'payout-requests' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'payout-requests' || '' ? 'active' : '' }}">
             <a href="{{url('admin/payout-requests')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Payout Requests
@@ -182,14 +188,14 @@
         </li>
 
 
-        <li class="sidebar-item {{ $currentControllerName == 'help' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'help' || '' ? 'active' : '' }}">
             <a href="{{url('admin/help')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Help
             </a>
         </li>
 
-        <li class="sidebar-item {{ $currentControllerName == 'subscriber' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'subscriber' || '' ? 'active' : '' }}">
             <a href="{{url('admin/subscriber')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Subscriber
@@ -197,7 +203,7 @@
         </li>
 
 
-        <li class="sidebar-item {{ $currentControllerName == 'delivery-person' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'delivery-person' || '' ? 'active' : '' }}">
             <a href="{{url('admin/delivery-person')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Delivery Person
@@ -206,7 +212,7 @@
 
 
         <li class="sidebar-nav-heading text-uppercase ms-3 my-2" >Manage Admin</li>
-        <li class="sidebar-item {{ $currentControllerName == 'manage_admin' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'manage_admin' || '' ? 'active' : '' }}">
             <a href="{{url('admin/manage_admin')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Manage Admin
@@ -214,7 +220,7 @@
         </li>
 
         <li class="sidebar-nav-heading text-uppercase ms-3 my-2" >Manage User</li>
-        <li class="sidebar-item {{ $currentControllerName == 'user' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'user' || '' ? 'active' : '' }}">
             <a href="{{url('admin/user')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Manage User
@@ -225,28 +231,28 @@
         <li class="sidebar-nav-heading text-uppercase ms-3 my-2" >Settings</li>
 
 
-        <li class="sidebar-item {{ $currentControllerName == 'advertisement' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'advertisement' || '' ? 'active' : '' }}">
             <a href="{{url('admin/advertisement')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Advertisement
             </a>
         </li>
 
-        <li class="sidebar-item {{ $currentControllerName == 'notification' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'notification' || '' ? 'active' : '' }}">
             <a href="{{url('admin/notification')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Notifications
             </a>
         </li>
 
-        <li class="sidebar-item {{ $currentControllerName == 'setting' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'setting' || '' ? 'active' : '' }}">
             <a href="{{url('admin/setting')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Basic Setting
             </a>
         </li>
 
-        <li class="sidebar-item {{ $currentControllerName == 'smtp' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'smtp' || '' ? 'active' : '' }}">
             <a href="{{url('admin/smtp')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 SMTP

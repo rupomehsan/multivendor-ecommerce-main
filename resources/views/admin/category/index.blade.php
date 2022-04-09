@@ -6,126 +6,87 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title text-base-color">Category</h4>
-
                     <div class="row justify-content-between align-items-center">
-                        <div class="col-lg-4 col-sm-6 col-12 my-3">
-                            <form class="search-form">
-                                <input class="search-field" type="text" placeholder="Search">
-                                <span class="iconify search-icon" data-icon="carbon:search" data-width="25"
-                                      data-height="25"></span>
-                            </form>
-                        </div>
-
-                        <div class="col-lg-2 col-sm-2 col-12">
-                            <button class="btn btn-base btn-base-primary" data-bs-target="#categoryModal" data-bs-toggle="modal">
-                                <span class="iconify me-2" data-icon="carbon:add-filled" style="color: white;"
-                                      data-width="20" data-height="20"></span>
-                                Add Category
-                            </button>
-                        </div>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="categoryModal">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header border-0">
-                                        <h5 class="modal-title">ADD CATEGORY</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                       <div class="form-group">
-                                           <label for="name" id="name_label" class="form-label">Category Name</label>
-                                           <input type="text" id="name" name="name" placeholder="Category Name" class="form-control">
-                                           <span class="text-danger" id="name_error">Error Msg</span>
-                                       </div>
-                                    </div>
-                                    <div class="modal-footer border-0 justify-content-start">
-                                        <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-base-primary">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="col-lg-12 col-sm-12 col-12">
-                            <table class="table table-striped" id="category-table">
+                            <a href="{{url('admin/category/create')}}"
+                               class="btn btn-base btn-base-primary float-lg-end my-3">
+                                 <span class="iconify me-2" data-icon="carbon:add-filled" style="color: white;"
+                                       data-width="20" data-height="20"></span>
+                                Add Category
+                            </a>
+                        </div>
+                        <!-- Modal -->
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <table class="table table-bordered data-table mt-3">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Category Name</th>
+                                    <th>image</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Baby & Toddler</td>
-                                    <td>
-                                        <label class="switch">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <span class="iconify" data-icon="bxs:edit" data-width="20"
-                                              data-height="20"></span>
-                                        <span class="iconify" data-icon="ant-design:delete-outlined"
-                                              data-width="20" data-height="20"></span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>1</td>
-                                    <td>Baby & Toddler</td>
-                                    <td>
-                                        <label class="switch">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <span class="iconify" data-icon="bxs:edit" data-width="20"
-                                              data-height="20"></span>
-                                        <span class="iconify" data-icon="ant-design:delete-outlined"
-                                              data-width="20" data-height="20"></span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>1</td>
-                                    <td>Baby & Toddler</td>
-                                    <td>
-                                        <label class="switch">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <span class="iconify" data-icon="bxs:edit" data-width="20"
-                                              data-height="20"></span>
-                                        <span class="iconify" data-icon="ant-design:delete-outlined"
-                                              data-width="20" data-height="20"></span>
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
+
                         </div>
+
+                        </nav>
                     </div>
                 </div>
             </div>
-        </div>
     </main>
 @endsection
 
 @push('custom-js')
+
     <script>
-        $(document).ready(function () {
-            $('#category-table').DataTable({
-                "searching": false,
-                "lengthChange": false,
-                "ordering": false,
+        // get call
+        // get call
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var table = $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{url('api/v1/categories')}}",
+                columns: [
+                    {data: 'name', name: 'name'},
+                    {data: 'image', name: 'image'},
+                    {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ]
             });
         });
+        // Edit call
+        // Edit call
+        $('body').on('click', '.editItem', function () {
+            var id = $(this).data('id');
+            window.location.href = "{{url('admin/category/edit')}}" + "/" + id;
+        });
+        ///Delete Call
+        ///Delete Call
+        $('body').on('click', '.deleteItem', function () {
+            var id = $(this).data("id");
+            url = "{{url('api/v1/categories')}}" + "/" + id;
+            deleteItem(url)
+        });
+        ///approval  Call
+        ///approval Call
+        $(document).on('change', '#approval', function () {
+            var id = $(this).attr('data-id')
+            var status = ''
+            if ($(this).prop("checked")) {
+                status = 'active'
+            } else {
+                status = 'inactive'
+            }
+            url = "{{url('api/v1/manage-category-approval')}}"
+            approvalData(url, id, status)
+        })
     </script>
 @endpush

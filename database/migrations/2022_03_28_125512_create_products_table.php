@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->integer('language_id')->nullable();
             $table->integer('vendors_id')->nullable();
             $table->text('description')->nullable();
+            $table->string('product_code')->nullable();
             $table->string('tag')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

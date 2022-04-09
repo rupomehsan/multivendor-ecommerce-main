@@ -5,8 +5,6 @@ use App\Http\Controllers\Api\attribute\AttributeController;
 use App\Http\Controllers\Api\brand\BrandController;
 use App\Http\Controllers\Api\carousels\CarouselsController;
 use App\Http\Controllers\Api\category\CategoryController;
-use App\Http\Controllers\Api\category\SubCategoryController;
-use App\Http\Controllers\Api\category\SubSubCategoryController;
 use App\Http\Controllers\Api\coupon\CouponController;
 use App\Http\Controllers\Api\customer\CustomerController;
 use App\Http\Controllers\Api\deliveryPerson\DeliveryPersonController;
@@ -31,14 +29,9 @@ Route::prefix('v1')->group(function () {
     index,store,update,edit,delete
     */
     Route::resource('categories', CategoryController::class);
-    /*sub-Category
-    index,store,update,edit,delete
-    */
-    Route::resource('sub-categories', SubCategoryController::class);
-    /*sub-sub-Category
-    index,store,update,edit,delete
-    */
-    Route::resource('sub-sub-categories', SubSubCategoryController::class);
+    Route::post('categories/file-upload', [\App\Http\Controllers\Api\category\CategoryController::class,"fileUploader"]);
+    Route::post('manage-category-approval', [\App\Http\Controllers\Api\category\CategoryController::class,"manageApproval"]);
+    Route::get('search-category', [\App\Http\Controllers\Api\category\CategoryController::class,"searchCategory"]);
     /*Brand
     index,store,update,edit,delete
     */

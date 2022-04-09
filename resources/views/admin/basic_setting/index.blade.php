@@ -160,7 +160,9 @@
 @endsection
 
 @push('custom-js')
+
     <script>
+
         let descriptionEditor;
         ClassicEditor.create(document.querySelector('#description'))
             .then(editor => {

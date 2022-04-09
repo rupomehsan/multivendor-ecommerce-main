@@ -63,7 +63,7 @@ function formSubmit(type, btn, form, headers = null) {
 }
 
 function deleteItem(url) {
-    let baseUrl = window.origin + url
+    let baseUrl = url
     // alert(baseUrl)
     var dmeoUser = JSON.parse(localStorage.getItem('userData'))
     if (dmeoUser.email !== "demoadmin@ecommerce.com") {
@@ -95,14 +95,13 @@ function deleteItem(url) {
     } else {
         toastr.error('Sorry You Are Demo Use')
     }
-
 }
 
 /**
  * GET Single Data for Edit
  */
 function getEditData(url, dropzone = null) {
-    var baseUrl = window.origin + url
+    var baseUrl = url
     // alert(baseUrl)
     $.ajax({
         type: 'GET', url: baseUrl, success: function (response) {
@@ -116,12 +115,13 @@ function getEditData(url, dropzone = null) {
                 if (response.data !== null) {
                     $('#submit-button').text("Update")
                 }
+                editDataParentId = response.data.parent_id;
                 Object.entries(response.data).forEach((item) => {
                     //for all input filed
-                    // console.log("data",item);
+                   // console.log("item",item)
                     $('#' + item[0]).val(item[1]);
-
                     if (item[0] === "logo") {
+                        // console.log("logo")
                         if (dropzone) {
                             let mockFile = {name: 'image', size: 600,};
                             var logo = JSON.parse(item[1])
@@ -131,11 +131,24 @@ function getEditData(url, dropzone = null) {
                                 dropzone.displayExistingFile(mockFile, item);
                                 // dropzone.options.addedfile.call(dropzone, mockFile);
                                 dropzone.options.thumbnail.call(dropzone, mockFile, item);
-
                             })
                         }
-
+                    } else if (item[0] === "image") {
+                        console.log("iamge", item[1])
+                        if (dropzone) {
+                            let mockFile = {name: 'image', size: 600,};
+                            var logo = JSON.parse(item[1])
+                            console.log("image")
+                            let imageUrl = logo
+                            imageUrl.forEach(item => {
+                                console.log(item)
+                                dropzone.displayExistingFile(mockFile, item);
+                                // dropzone.options.addedfile.call(dropzone, mockFile);
+                                dropzone.options.thumbnail.call(dropzone, mockFile, item);
+                            })
+                        }
                     }
+
 
                     //for admin access input filed
                     //for admin access input filed
@@ -151,7 +164,7 @@ function getEditData(url, dropzone = null) {
                     //for editor
                     //for editor
                     if (item[0] === 'description') {
-                        descriptionEditor.setData(item[1])
+                        description.setData(item[1])
                     } else if (item[0] === 'privacy_policy') {
                         privacyEditor.setData(item[1])
                     } else if (item[0] === 'cookies_policy') {
@@ -159,7 +172,6 @@ function getEditData(url, dropzone = null) {
                     } else if (item[0] === 'terms_policy') {
                         termsEditor.setData(item[1])
                     }
-
                     //for submit button to update button
                     //for submit button to update button
                     if (item[0] === 'host' || item[0] === 'api_key') {
@@ -194,37 +206,38 @@ function getEditData(url, dropzone = null) {
 function generateTable(id, headers, data, actions = []) {
     let container = document.getElementById(id)
     container.innerHTML = "";
-    console.log(headers);
-    data.forEach(function (item) {
-        let tableRow = document.createElement('tr')
 
+    data.data.forEach(function (item) {
+        let tableRow = document.createElement('tr')
         headers.forEach((header) => {
             Object.keys(item).forEach((key) => {
                 if (key === header.field) {
-                    let tableData = document.createElement('td')
 
+                    let tableData = document.createElement('td')
+                    tableData.innerHTML = item[key]
                     if (key === 'image') {
                         if (item[key] !== null) {
-                            let imageUrls = item[key].split('/')
-                            let imageUrl = ''
-                            imageUrls.forEach((item, i) => {
-                                if (i > 0) imageUrl += '/' + item
-                            })
-
-                            let imageTag = document.createElement('img')
-                            imageTag.setAttribute('src', imageUrl)
-                            imageTag.setAttribute('style', "width: 60px; height: 60px;")
+                            // console.log("yes")
+                            let image = JSON.parse(item[key])
+                            console.log("iamge", image)
+                            let imageDiv = `<div class="sidebar-logo"><img src="${image[0]}" class="" alt="logo.png" height="40" width="70"></div>`
+                            let imageTag = document.createElement('div')
+                            imageTag.innerHTML = imageDiv
                             tableData.appendChild(imageTag)
                         } else {
-                            let imageTag = document.createElement('img')
-                            imageTag.setAttribute('src', '/assets/img/default.png')
-                            imageTag.setAttribute('style', "width: 60px; height: 60px;")
+                            // console.log("no")
+                            let imageDiv = `<div class="sidebar-logo"><img src="" class="logo-lg" alt="logo.png"></div>`
+                            let imageTag = document.createElement('div')
+                            imageTag.innerHTML = imageDiv
                             tableData.appendChild(imageTag)
                         }
-                    } else {
-                        tableData.innerHTML = item[key]
                     }
-
+                    if (key === 'status') {
+                        let div = `<div class="switch"> <label class=""> <input class="form-check-input" ${item[key] === "active" ? 'checked' : ''}  id="approval" data-id="${item.id}" type="checkbox"  > <div class="slider round"></div></label></div>`
+                        let status = document.createElement('div')
+                        status.innerHTML = div
+                        tableData.appendChild(status)
+                    }
                     tableRow.appendChild(tableData)
                 }
             })
@@ -263,17 +276,20 @@ function generateTable(id, headers, data, actions = []) {
 
         container.appendChild(tableRow)
     })
+
+
 }
 
 /**
  * GET Table Data
  */
-function getTableData(url, id, headers, actions = []) {
+function getTableData(url, id, headers, actions = [], searchData = null,) {
     $.ajax({
-        type: 'GET', url: url, success: function (response) {
+        type: 'GET', url: url, data: {
+            'searchData': searchData
+        }, dataType: 'json', success: function (response) {
             if (response.status === 'success') {
                 let data = response.data
-
                 generateTable(id, headers, data, actions)
             }
         }, error: function (xhr, resp, text) {
@@ -286,7 +302,7 @@ function getTableData(url, id, headers, actions = []) {
  * Approval   Data
  */
 
-function approvalData(url, id, properties) {
+function approvalData(url, id, status) {
     var dmeoUser = JSON.parse(localStorage.getItem('userData'))
     if (dmeoUser.email !== "demoadmin@ecommerce.com") {
         $("#preloader").removeClass('d-none');
@@ -294,7 +310,7 @@ function approvalData(url, id, properties) {
             url: url, type: "POST", dataType: "json", headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, data: {
-                id: id, status: properties,
+                id: id, status: status,
             }, success: function (res) {
                 console.log(res)
                 if (res) {
@@ -312,69 +328,6 @@ function approvalData(url, id, properties) {
         toastr.error('Sorry You Are Demo Use')
     }
 }
-
-function fetchData(res) {
-    res.data.forEach(function (item) {
-        $('#fetchCategory').append(`
-                               <div class="col-lg-4 col-12">
-                                    <div class="card">
-                                        <img src="${item.image}" class="card-img-top rounded-3 border"
-                                             alt="">
-                                              <input class="form-check-input select-input chkSelect" type="checkbox" name="chkSelect[]"  value="${item.id}">
-                                             <div class="row mt-3">
-                                                   <div class="col-md-6">
-                                                     <p class="catName ml-3">${item.name}</p>
-                                                     <p class="catName ml-3">${item.quotes_count} Quotes</p>
-                                                     </div>
-                                                  <div class="col-md-6">   <div class="switch">
-                                            <label class="">
-                                                <input class="form-check-input" data-id="${item.id}" name="category_status" type="checkbox"
-                                                       id="approval" ${item.status === "active" ? 'checked' : ''}>
-                                                <div class="slider round"></div>
-                                            </label>
-                                        </div></div>
-                                          </div>
-
-                                                                    <div class="content-actions m-2">
-
-                                                <a href="/admin/category/edit/${item.id}" class="button">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ant-design" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024" data-icon="ant-design:edit-filled"><path fill="currentColor" d="M880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32zm-622.3-84c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9z"></path></svg>
-                                                    Edit
-                                                </a>
-
-                                                <button type="submit" title="" id="" onclick="deleteItem('/api/v1/category/delete/${item.id}')">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ant-design" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024" data-icon="ant-design:delete-filled"><path fill="currentColor" d="M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-200 0H360v-72h304v72z"></path></svg>
-                                                    Delete
-                                                </button>
-
-                                        </div>
-                                        </div>
-                                        </div>
-
-                                </div>
-                        `)
-    })
-}
-
-
-function editCategory(url) {
-
-
-    $.ajax({
-        url: url, method: 'GET', dataType: 'JSON', success: function (res) {
-            if (res.status === "success") {
-                $('#categoryEdit').empty()
-                $('#categoryEdit').append(`
-
-                `)
-            }
-        }, error: function (err) {
-            console.log(err)
-        },
-
-    })
-}
-
 
 let userData = JSON.parse(localStorage.getItem('userData'))
 if (userData) {
@@ -424,4 +377,5 @@ function getCategory(url, id) {
         }
     })
 }
+
 

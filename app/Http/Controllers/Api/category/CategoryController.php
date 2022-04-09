@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Validator;
+use DataTables;
 use function response;
 use function validateError;
 
@@ -19,20 +21,38 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        try {
-            $getcategory = Category::paginate(5);
-            return response([
-                "status" => 'success',
-                "data" => $getcategory
-            ], 200);
-        } catch (Exception $e) {
-            return response([
-                "status" => 'server_error',
-                "data" => $e->getMessage()
-            ], 500);
+        $category = Category::latest()->get();
+        if ($request->ajax()) {
+            return Datatables::of($category)
+                ->addIndexColumn()
+                ->addColumn('image',function($row){
+                    if($row->image && count(json_decode($row->image)) > 0){
+                        $imageUrl = json_decode($row->image)[0];
+                    }else{
+                        $imageUrl = asset('/assets/image/logo.png');
+                    }
+                    return '<img src="'.$imageUrl.'" height="40" width="100" />';
+                })
+                ->addColumn('status',function($row){
+                    $activeStatus = $row->status === 'active' ? 'checked' : '';
+                    $status = '<label class="switch"><input type="checkbox" id="approval" data-id="'.$row->id.'" '.$activeStatus.' /><span class="slider"></span></label>';
+                    return $status;
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                    return $btn;
+                })
+                ->rawColumns(['image','action','status'])
+                ->make(true);
         }
+//        return response([
+//            "status" => 'success',
+//            "data"=>$category
+//        ]);
+
     }
 
     /**
@@ -54,15 +74,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+//       dd($request->all());
         try {
             $validator = Validator::make($request->all(), [
                 "name" => "required",
+                "meta_tag_title" => "required",
             ]);
             if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-//        dd($request->all());
+//
             $category = new Category();
             $category->name = $request->name;
             $category->description = $request->description;
@@ -78,6 +100,7 @@ class CategoryController extends Controller
             $category->store_id = $request->store_id;
             $category->layout_id = $request->layout_id;
             $category->image = $request->image;
+            $category->keyword = $request->keyword;
             if ($category->save()) {
                 return response([
                     "status" => "success",
@@ -90,7 +113,6 @@ class CategoryController extends Controller
                 "data" => $e->getMessage()
             ], 500);
         }
-
     }
 
     /**
@@ -101,7 +123,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $getEditdata = Category::where('id',$id)->first();
+        return response([
+           "status" => "success",
+           "data" => $getEditdata
+        ]);
     }
 
     /**
@@ -164,6 +190,7 @@ class CategoryController extends Controller
             $category->store_id = $request->store_id ?? $category->store_id;
             $category->layout_id = $request->layout_id ?? $category->layout_id;
             $category->status = $request->status ?? $category->status ;
+            $category->keyword = $request->keyword;
 
             if ($category->update()) {
                 return response([
@@ -190,16 +217,8 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::find($id);
-            $subCategory = SubCategory::where('category_id', $id);
-            $subSubCategory = SubSubCategory::where('sub_category_id', $id);
             if ($category) {
                 $category->delete();
-                if ($subCategory) {
-                    $subCategory->delete();
-                }
-                if ($subSubCategory) {
-                    $subSubCategory->delete();
-                }
                 return response([
                     "status" => "success",
                     "message" => "Category Successfully Delete"
@@ -217,4 +236,93 @@ class CategoryController extends Controller
             ], 500);
         }
     }
+
+
+    public function fileUploader(Request $request)
+    {
+//      dd($request->all());
+        $validate = Validator::make(request()->only('file'), [
+            'file' => 'required|max:10240',
+        ]);
+        if ($validate->fails()) {
+            return response([
+                'status' => 'validation_error',
+                'data'   => $validate->errors(),
+            ], 422);
+        }
+        try {
+            if (request()->hasFile('file')) {
+
+                foreach ($request->file('file') as $imagedata){
+
+                    $folder    = $request->folder ?? 'all';
+                    $imageName = $folder . "/" . time() . '.' . $imagedata->getClientOriginalName();
+                    if (config('app.env') === 'production') {
+                        $imagedata->move('uploads/' . $folder, $imageName);
+                    } else {
+                        $imagedata->move(public_path('/uploads/' . $folder), $imageName);
+                    }
+                    $protocol = request()->secure() ? 'https://' : 'http://';
+                    $mainProtocol = $protocol . $_SERVER['HTTP_HOST'] . '/uploads/' . $imageName;
+                    $data[] = $mainProtocol;
+                }
+                $finalImage = json_encode($data);
+                return response([
+                    'status'  => 'success',
+                    'message' => 'File uploaded successfully',
+                    'data'    => $finalImage
+                ], 200);
+            }
+        } catch (\Exception$e) {
+            return response([
+                'status'  => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function manageApproval(Request $request)
+    {
+//        dd($request->all());
+        try {
+            $target         = Category::where('id', $request->id)->first();
+            $target->status = $request->status;
+            if ($target->update()) {
+                return response([
+                    'status'  => 'success',
+                    'message' => 'Successfully Update',
+                ], 200);
+            }
+        }catch (\Exception $e){
+            return response([
+                'status'  => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
+    public function  searchCategory(Request $request){
+        try {
+        $searchCategory =Category::where('name','LIKE','%'.$request->searchData.'%')->paginate(20);
+        if ($searchCategory){
+        return response([
+            "status" => 'success',
+            "data"=> $searchCategory
+        ]);
+        }else{
+            return response([
+                'status' => 'error',
+                'message'=> "Data Not Found"
+            ]);
+        }
+        }catch (\Exception $e){
+           return response([
+               'status'=> 'server_error',
+               'message'=> $e->getMessage()
+           ]);
+        }
+    }
+
+
 }

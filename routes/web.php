@@ -49,8 +49,9 @@
     Route::prefix('admin')->group(function () {
         Route::view('/dashboard', 'admin.dashboard.index');
         Route::view('/category', 'admin.category.index');
-        Route::view('/category/sub-category', 'admin.category.sub_category');
-        Route::view('/category/sub-sub-category', 'admin.category.sub_sub_category');
+        Route::view('/category/test', 'admin.category.test');
+        Route::view('/category/create', 'admin.category.create');
+        Route::view('/category/edit/{id}', 'admin.category.edit');
         Route::view('/pos', 'admin.pos.index');
         Route::view('/pos/orders-list', 'admin.pos.order_list');
         Route::view('/attributes', 'admin.attributes.index');

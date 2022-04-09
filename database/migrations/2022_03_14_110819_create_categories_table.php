@@ -29,6 +29,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('store_id')->nullable();
             $table->integer('layout_id')->nullable();
             $table->json('image')->nullable();
+            $table->string('keyword')->nullable();
             $table->string('status')->nullable()->default('active');
             $table->timestamps();
         });
