@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
 use Validator;
+use DataTables;
+use function response;
+use function validateError;
 
 class AttributeController extends Controller
 {
@@ -14,33 +17,31 @@ class AttributeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        try {
-            $getAttribute = Attribute::paginate(5);
-            return response([
-                "status" => 'success',
-                "data" => $getAttribute
-            ], 200);
-        } catch (Exception $e) {
-            return response([
-                "status" => 'server_error',
-                "data" => $e->getMessage()
-            ], 500);
+        $attributes = Attribute::latest()->get();
+        if ($request->ajax()) {
+            return Datatables::of($attributes)
+                ->addIndexColumn()
+                ->addColumn('status',function($row){
+                    $activeStatus = $row->status === 'active' ? 'checked' : '';
+                    $status = '<label class="switch"><input type="checkbox" id="approval" data-id="'.$row->id.'" '.$activeStatus.' /><span class="slider"></span></label>';
+                    return $status;
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                    return $btn;
+                })
+                ->rawColumns(['image','action','status'])
+                ->make(true);
         }
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
-
-
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -83,7 +84,25 @@ class AttributeController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $getAttribute = Attribute::where("id", $id)->first();
+            if ($getAttribute) {
+                return response([
+                    "status" => "success",
+                    "data" => $getAttribute
+                ]);
+            } else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
+            }
+        } catch (Exception $e) {
+            return response([
+                "status" => "server_error",
+                "message" => $e->getMessage()
+            ]);
+        }
+
     }
 
     /**
@@ -94,6 +113,7 @@ class AttributeController extends Controller
      */
     public function edit($id)
     {
+
         try {
             $getAttribute = Attribute::where("id", $id)->first();
             if ($getAttribute) {
@@ -134,7 +154,6 @@ class AttributeController extends Controller
             }
             $attribute = Attribute::where("id", $id)->first();
             $attribute->name = $request->name ?? $attribute->name;
-            $attribute->status = $request->status ?? $attribute->status;
             if ($attribute->update()) {
                 return response([
                     "status" => "success",
@@ -178,4 +197,28 @@ class AttributeController extends Controller
             ], 500);
         }
     }
+
+    public function manageApproval(Request $request)
+    {
+//        dd($request->all());
+        try {
+            $target         = Attribute::where('id', $request->id)->first();
+            $target->status = $request->status;
+            if ($target->update()) {
+                return response([
+                    'status'  => 'success',
+                    'message' => 'Successfully Update',
+                ], 200);
+            }
+        }catch (\Exception $e){
+            return response([
+                'status'  => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
+
+
 }

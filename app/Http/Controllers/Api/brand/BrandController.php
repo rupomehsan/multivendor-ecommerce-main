@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Validator;
+use DataTables;
 use function response;
 use function validateError;
 
@@ -17,20 +18,34 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        try {
-            $getBrand = Brand::paginate(5);
-            return response([
-                "status" => 'success',
-                "data" => $getBrand
-            ], 200);
-        } catch (Exception $e) {
-            return response([
-                "status" => 'server_error',
-                "data" => $e->getMessage()
-            ], 500);
+        $brands = Brand::latest()->get();
+        if ($request->ajax()) {
+            return Datatables::of($brands)
+                ->addIndexColumn()
+                ->addColumn('image',function($row){
+                    if($row->image && count(json_decode($row->image)) > 0){
+                        $imageUrl = json_decode($row->image)[0];
+                    }else{
+                        $imageUrl = asset('/assets/image/logo.png');
+                    }
+                    return '<img src="'.$imageUrl.'" height="40" width="100" />';
+                })
+                ->addColumn('status',function($row){
+                    $activeStatus = $row->status === 'active' ? 'checked' : '';
+                    $status = '<label class="switch"><input type="checkbox" id="approval" data-id="'.$row->id.'" '.$activeStatus.' /><span class="slider"></span></label>';
+                    return $status;
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                    return $btn;
+                })
+                ->rawColumns(['image','action','status'])
+                ->make(true);
         }
+
     }
 
     /**
@@ -55,7 +70,7 @@ class BrandController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 "name" => "required",
-                "brand_category" => "required",
+//                "brand_category" => "required",
             ]);
             if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
@@ -89,9 +104,25 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $getBrand = Brand::where("id", $id)->first();
+            if ($getBrand) {
+                return response([
+                    "status" => "success",
+                    "data" => $getBrand
+                ]);
+            } else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
+            }
+        } catch (Exception $e) {
+            return response([
+                "status" => "server_error",
+                "message" => $e->getMessage()
+            ]);
+        }
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -133,7 +164,7 @@ class BrandController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 "name" => "required",
-                "brand_category" => "required",
+//                "brand_category" => "required",
             ]);
             if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
@@ -184,6 +215,70 @@ class BrandController extends Controller
             return response([
                 "status" => "server_error",
                 "message" => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function manageApproval(Request $request)
+    {
+//        dd($request->all());
+        try {
+            $target         = Brand::where('id', $request->id)->first();
+            $target->status = $request->status;
+            if ($target->update()) {
+                return response([
+                    'status'  => 'success',
+                    'message' => 'Successfully Update',
+                ], 200);
+            }
+        }catch (\Exception $e){
+            return response([
+                'status'  => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
+    public function fileUploader(Request $request)
+    {
+//      dd($request->all());
+        $validate = Validator::make(request()->only('file'), [
+            'file' => 'required|max:10240',
+        ]);
+        if ($validate->fails()) {
+            return response([
+                'status' => 'validation_error',
+                'data'   => $validate->errors(),
+            ], 422);
+        }
+        try {
+            if (request()->hasFile('file')) {
+
+                foreach ($request->file('file') as $imagedata){
+
+                    $folder    = $request->folder ?? 'all';
+                    $imageName = $folder . "/" . time() . '.' . $imagedata->getClientOriginalName();
+                    if (config('app.env') === 'production') {
+                        $imagedata->move('uploads/' . $folder, $imageName);
+                    } else {
+                        $imagedata->move(public_path('/uploads/' . $folder), $imageName);
+                    }
+                    $protocol = request()->secure() ? 'https://' : 'http://';
+                    $mainProtocol = $protocol . $_SERVER['HTTP_HOST'] . '/uploads/' . $imageName;
+                    $data[] = $mainProtocol;
+                }
+                $finalImage = json_encode($data);
+                return response([
+                    'status'  => 'success',
+                    'message' => 'File uploaded successfully',
+                    'data'    => $finalImage
+                ], 200);
+            }
+        } catch (\Exception$e) {
+            return response([
+                'status'  => 'server_error',
+                'message' => $e->getMessage(),
             ], 500);
         }
     }

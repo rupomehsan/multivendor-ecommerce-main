@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Validator;
+use DataTables;
 
 class ProductController extends Controller
 {
@@ -14,21 +15,35 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        try {
-            $getProduct = Product::paginate(5);
-            return response([
-                "status" => 'success',
-                "data" => $getProduct
-            ], 200);
-        } catch (Exception $e) {
-            return response([
-                "status" => 'server_error',
-                "data" => $e->getMessage()
-            ], 500);
+        $products = Product::latest()->get();
+        if ($request->ajax()) {
+            return Datatables::of($products)
+                ->addIndexColumn()
+                ->addColumn('image',function($row){
+                    if($row->image && count(json_decode($row->image)) > 0){
+                        $imageUrl = json_decode($row->image)[0];
+                    }else{
+                        $imageUrl = asset('/assets/image/logo.png');
+                    }
+                    return '<img src="'.$imageUrl.'" height="40" width="100" />';
+                })
+                ->addColumn('status',function($row){
+                    $activeStatus = $row->status === 'active' ? 'checked' : '';
+                    $status = '<label class="switch"><input type="checkbox" id="approval" data-id="'.$row->id.'" '.$activeStatus.' /><span class="slider"></span></label>';
+                    return $status;
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                    return $btn;
+                })
+                ->rawColumns(['image','action','status'])
+                ->make(true);
         }
     }
+
 
     /**
      * Show the form for creating a new resource.

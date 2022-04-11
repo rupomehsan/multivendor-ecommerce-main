@@ -123,11 +123,23 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $getEditdata = Category::where('id',$id)->first();
-        return response([
-           "status" => "success",
-           "data" => $getEditdata
-        ]);
+        try {
+            $getCategory = Category::where("id", $id)->first();
+            if ($getCategory) {
+                return response([
+                    "status" => "success",
+                    "data" => $getCategory
+                ]);
+            } else {
+                return response(redirect(url('/not-found')), 404);
+            }
+        } catch (Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+
     }
 
     /**

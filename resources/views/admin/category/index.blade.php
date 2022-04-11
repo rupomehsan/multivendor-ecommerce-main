@@ -1,7 +1,6 @@
 @extends('layouts.admin.index')
 @section('content')
     <main id="category-list-content">
-
         <div class="wrapper">
             <div class="card">
                 <div class="card-body">
@@ -38,7 +37,6 @@
             </div>
     </main>
 @endsection
-
 @push('custom-js')
 
     <script>

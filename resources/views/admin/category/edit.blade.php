@@ -160,7 +160,6 @@ $id = request()->segment(4);
                         defaultExistFile.remove()
                     }
                     $('#image').val(res.data)
-
                 }
             },
             error: function (err) {

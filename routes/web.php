@@ -48,16 +48,26 @@
 
     Route::prefix('admin')->group(function () {
         Route::view('/dashboard', 'admin.dashboard.index');
+
         Route::view('/category', 'admin.category.index');
         Route::view('/category/test', 'admin.category.test');
         Route::view('/category/create', 'admin.category.create');
         Route::view('/category/edit/{id}', 'admin.category.edit');
+
         Route::view('/pos', 'admin.pos.index');
         Route::view('/pos/orders-list', 'admin.pos.order_list');
+
         Route::view('/attributes', 'admin.attributes.index');
+        Route::view('/attributes/create', 'admin.attributes.create');
+        Route::view('/attributes/edit/{id}', 'admin.attributes.edit');
+
         Route::view('/brands', 'admin.brand.index');
+        Route::view('/brands/create', 'admin.brand.create');
+        Route::view('/brands/edit/{id}', 'admin.brand.edit');
+
         Route::view('/products', 'admin.products.index');
-        Route::view('/add-product', 'admin.products.add-product');
+        Route::view('/products/create', 'admin.products.create');
+        Route::view('/add-product-fg', 'admin.products.add-product');
         Route::view('/homepage/slider', 'admin.homepage.slider');
         Route::view('/homepage/carousel', 'admin.homepage.carousel');
         Route::view('/homepage/offers', 'admin.homepage.offer');

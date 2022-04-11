@@ -36,10 +36,13 @@ Route::prefix('v1')->group(function () {
     index,store,update,edit,delete
     */
     Route::resource('brands', BrandController::class);
+    Route::post('brands/file-upload', [\App\Http\Controllers\Api\brand\BrandController::class,"fileUploader"]);
+    Route::post('manage-brands-approval', [\App\Http\Controllers\Api\brand\BrandController::class,"manageApproval"]);
     /*Attribute
       index,store,update,edit,delete
       */
     Route::resource('attributes', AttributeController::class);
+    Route::post('manage-attributes-approval', [\App\Http\Controllers\Api\attribute\AttributeController::class,"manageApproval"]);
     /* Product
       index,store,update,edit,delete
       */
