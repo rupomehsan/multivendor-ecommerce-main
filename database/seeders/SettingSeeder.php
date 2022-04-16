@@ -26,7 +26,6 @@ class SettingSeeder extends Seeder
             "twitter" => "twitter.com",
             "youtube" => "youtube.com",
             "copyright" => "cpyright",
-            "logo" => "",
             "description" => "description",
             "privacy_policy" => "privecy policy",
             "cookies_policy" => "cookies pilicy",

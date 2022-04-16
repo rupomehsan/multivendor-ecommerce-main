@@ -47,6 +47,8 @@ Route::prefix('v1')->group(function () {
       index,store,update,edit,delete
       */
     Route::resource('products', \App\Http\Controllers\Api\product\ProductController::class);
+    Route::post('manage-products-approval', [\App\Http\Controllers\Api\product\ProductController::class,"manageApproval"]);
+    Route::post('products/file-upload', [\App\Http\Controllers\Api\product\ProductController::class,"fileUploader"]);
     /* Recurrings
       index,store,update,edit,delete
       */
@@ -67,6 +69,8 @@ Route::prefix('v1')->group(function () {
      index,store,update,edit,delete
      */
     Route::resource('vendors', VendorController::class);
+    Route::post('manage-vendors-approval', [\App\Http\Controllers\Api\vendor\VendorController::class,"manageApproval"]);
+    Route::post('vendors/file-upload', [\App\Http\Controllers\Api\vendor\VendorController::class,"fileUploader"]);
     /*Coupon
     index,store,update,edit,delete
     */
@@ -79,10 +83,24 @@ Route::prefix('v1')->group(function () {
     index,store,update,edit,delete
    */
     Route::resource('admins', AdminController::class);
-    /*user
+    /*Customer
     index,store,update,edit,delete
     */
     Route::resource('customers', CustomerController::class);
+    Route::post('manage-customers-approval', [\App\Http\Controllers\Api\customer\CustomerController::class,"manageApproval"]);
+    Route::post('customers/file-upload', [\App\Http\Controllers\Api\customer\CustomerController::class,"fileUploader"]);
+    /*Supplier
+    index,store,update,edit,delete
+    */
+    Route::resource('suppliers', \App\Http\Controllers\Api\supplier\SupplierController::class);
+    Route::post('manage-suppliers-approval', [\App\Http\Controllers\Api\supplier\SupplierController::class,"manageApproval"]);
+    Route::post('suppliers/file-upload', [\App\Http\Controllers\Api\supplier\SupplierController::class,"fileUploader"]);
+    /*Purchase
+    index,store,update,edit,delete
+    */
+    Route::resource('purchase', \App\Http\Controllers\Api\purchase\PurchaseController::class);
+    Route::post('manage-purchase-approval', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"manageApproval"]);
+    Route::post('purchase/file-upload', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"fileUploader"]);
     /*Advertisement
     index,store,update,edit,
     */

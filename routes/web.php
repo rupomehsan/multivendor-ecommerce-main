@@ -67,11 +67,29 @@
 
         Route::view('/products', 'admin.products.index');
         Route::view('/products/create', 'admin.products.create');
+        Route::view('/products/edit/{id}', 'admin.products.edit');
         Route::view('/add-product-fg', 'admin.products.add-product');
+
         Route::view('/homepage/slider', 'admin.homepage.slider');
         Route::view('/homepage/carousel', 'admin.homepage.carousel');
         Route::view('/homepage/offers', 'admin.homepage.offer');
+
         Route::view('/vendors', 'admin.vendors.index');
+        Route::view('/vendors/create', 'admin.vendors.create');
+        Route::view('/vendors/edit/{id}', 'admin.vendors.edit');
+
+        Route::view('/customers', 'admin.customers.index');
+        Route::view('/customers/create', 'admin.customers.create');
+        Route::view('/customers/edit/{id}', 'admin.customers.edit');
+
+        Route::view('/suppliers', 'admin.supplier.index');
+        Route::view('/suppliers/create', 'admin.supplier.create');
+        Route::view('/suppliers/edit/{id}', 'admin.supplier.edit');
+
+        Route::view('/purchase', 'admin.purchase.index');
+        Route::view('/purchase/create', 'admin.purchase.create');
+        Route::view('/purchase/edit/{id}', 'admin.supplier.edit');
+
         Route::view('/vendors/view', 'admin.vendors.view');
         Route::view('/orders/all', 'admin.orders.all');
         Route::view('/orders/view', 'admin.orders.view');

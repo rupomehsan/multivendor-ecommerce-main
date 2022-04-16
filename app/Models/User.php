@@ -45,7 +45,12 @@ class User extends Authenticatable
         'user_role'=>'array'
     ];
 
+
+    public function store_details(){
+        return $this->hasOne(StoreDetails::class);
+    }
     public function customer_details(){
         return $this->hasOne(CustomerDetails::class);
     }
+
 }

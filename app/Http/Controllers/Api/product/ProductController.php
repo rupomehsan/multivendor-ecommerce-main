@@ -67,11 +67,11 @@ class ProductController extends Controller
 //        dd($request->all());
         try {
             $validator = Validator::make($request->all(), [
-                "name" => "required",
-                "description" => "required",
-                "model" => "required",
-                "brand_id" => "required",
-                "category_id" => "required",
+//                "name" => "required",
+//                "description" => "required",
+//                "model" => "required",
+//                "brand_id" => "required",
+//                "category_id" => "required",
             ]);
             if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
@@ -90,6 +90,7 @@ class ProductController extends Controller
             $Product->sku = $request->sku;
             $Product->upc = $request->upc;
             $Product->jan = $request->jan;
+            $Product->mpn = $request->mpn;
             $Product->isbn = $request->isbn;
             $Product->location = $request->location;
             $Product->quantity = $request->quantity;
@@ -112,7 +113,7 @@ class ProductController extends Controller
             $Product->category_id = $request->category_id;
             $Product->filters = $request->filters;
             $Product->related_product_id = $request->related_product_id;
-            $Product->attributes = $request->attributes;
+            $Product->attributes = $request->attribute;
             $Product->option = $request->option;
             $Product->recurring = $request->recurring;
             $Product->discount = $request->discount;
@@ -145,17 +146,6 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
         try {
             $getProduct = Product::where("id", $id)->first();
             if ($getProduct) {
@@ -172,6 +162,17 @@ class ProductController extends Controller
                 "data" => $e->getMessage()
             ], 500);
         }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+
 
     }
 
@@ -184,6 +185,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request->discount);
         try {
             $validator = Validator::make($request->all(), [
                 "name" => "required",
@@ -224,9 +226,9 @@ class ProductController extends Controller
             $Product->minimum = $request->minimum ?? $Product->minimum;
             $Product->sort_order = $request->sort_order ?? $Product->sort_order;
             $Product->category_id = $request->category_id ??  $Product->category_id;
-            $Product->filters = $request->filters ?? $Product->filters;
+            $Product->filter_id = $request->filter_id ?? $Product->filter_id;
             $Product->related_product_id = $request->related_product_id ?? $Product->related_product_id;
-            $Product->attributes = $request->attributes ?? $Product->attributes;
+            $Product->attributes = $request->attribute ?? $Product->attribute;
             $Product->option = $request->option ?? $Product->option;
             $Product->recurring = $request->recurring ?? $Product->recurring;
             $Product->discount = $request->discount ?? $Product->discount;
@@ -278,6 +280,70 @@ class ProductController extends Controller
             return response([
                 "status" => "server_error",
                 "message" => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function manageApproval(Request $request)
+    {
+//        dd($request->all());
+        try {
+            $target         = Product::where('id', $request->id)->first();
+            $target->status = $request->status;
+            if ($target->update()) {
+                return response([
+                    'status'  => 'success',
+                    'message' => 'Successfully Update',
+                ], 200);
+            }
+        }catch (\Exception $e){
+            return response([
+                'status'  => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
+    public function fileUploader(Request $request)
+    {
+//      dd($request->all());
+        $validate = Validator::make(request()->only('file'), [
+            'file' => 'required|max:10240',
+        ]);
+        if ($validate->fails()) {
+            return response([
+                'status' => 'validation_error',
+                'data'   => $validate->errors(),
+            ], 422);
+        }
+        try {
+            if (request()->hasFile('file')) {
+
+                foreach ($request->file('file') as $imagedata){
+
+                    $folder    = $request->folder ?? 'all';
+                    $imageName = $folder . "/" . time() . '.' . $imagedata->getClientOriginalName();
+                    if (config('app.env') === 'production') {
+                        $imagedata->move('uploads/' . $folder, $imageName);
+                    } else {
+                        $imagedata->move(public_path('/uploads/' . $folder), $imageName);
+                    }
+                    $protocol = request()->secure() ? 'https://' : 'http://';
+                    $mainProtocol = $protocol . $_SERVER['HTTP_HOST'] . '/uploads/' . $imageName;
+                    $data[] = $mainProtocol;
+                }
+                $finalImage = json_encode($data);
+                return response([
+                    'status'  => 'success',
+                    'message' => 'File uploaded successfully',
+                    'data'    => $finalImage
+                ], 200);
+            }
+        } catch (\Exception$e) {
+            return response([
+                'status'  => 'server_error',
+                'message' => $e->getMessage(),
             ], 500);
         }
     }

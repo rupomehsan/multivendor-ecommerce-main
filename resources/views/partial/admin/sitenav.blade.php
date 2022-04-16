@@ -91,7 +91,7 @@
             </a>
         </li>
 
-        <li class="sidebar-item mt-1 {{ $currentControllerName == '' || '' ? 'active' : '' }} ">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'products' || '' ? 'active' : '' }} ">
             <a href="{{url('admin/products')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Products
@@ -102,17 +102,14 @@
             <div class="sub-menu-btn homepage-menu">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 <span>Homepage</span>
-
                 <span class="iconify sub-menu-indicator" data-icon="dashicons:arrow-down-alt2" data-width="20" data-height="20"></span>
             </div>
-
             <ul class="sub-menu-list homepage-list d-none">
                 <li class="sub-list-item">
                     <a href="{{url('admin/homepage/slider')}}" class="sub-list-link {{ $currentControllerName == 'category' || '' ? 'active' : '' }}">
                         Slider
                     </a>
                 </li>
-
                 <li class="sub-list-item">
                     <a href="{{url('admin/homepage/carousel')}}" class="sub-list-link">
                       Carousel
@@ -126,12 +123,30 @@
             </ul>
         </li>
 
-
-
-        <li class="sidebar-item mt-1 {{ $currentControllerName == 'brands' || '' ? 'active' : '' }}">
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'vendors' || '' ? 'active' : '' }}">
             <a href="{{url('admin/vendors')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Vendors
+            </a>
+        </li>
+
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'customers' || '' ? 'active' : '' }}">
+            <a href="{{url('admin/customers')}}" class="sidebar-link">
+                <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
+                Customers
+            </a>
+        </li>
+
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'suppliers' || '' ? 'active' : '' }}">
+            <a href="{{url('admin/suppliers')}}" class="sidebar-link">
+                <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
+                Suppliers
+            </a>
+        </li>
+        <li class="sidebar-item mt-1 {{ $currentControllerName == 'purchase' || '' ? 'active' : '' }}">
+            <a href="{{url('admin/purchase')}}" class="sidebar-link">
+                <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
+                Purchase
             </a>
         </li>
 
@@ -139,7 +154,6 @@
             <div class="sub-menu-btn order-menu">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 <span>Orders</span>
-
                 <span class="iconify sub-menu-indicator" data-icon="dashicons:arrow-down-alt2" data-width="20" data-height="20"></span>
             </div>
 
@@ -162,9 +176,6 @@
                 </li>
             </ul>
         </li>
-
-
-
 
         <li class="sidebar-item mt-1 {{ $currentControllerName == 'payments' || '' ? 'active' : '' }}">
             <a href="{{url('admin/payments')}}" class="sidebar-link">
@@ -202,14 +213,12 @@
             </a>
         </li>
 
-
         <li class="sidebar-item mt-1 {{ $currentControllerName == 'delivery-person' || '' ? 'active' : '' }}">
             <a href="{{url('admin/delivery-person')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>
                 Delivery Person
             </a>
         </li>
-
 
         <li class="sidebar-nav-heading text-uppercase ms-3 my-2" >Manage Admin</li>
         <li class="sidebar-item mt-1 {{ $currentControllerName == 'manage_admin' || '' ? 'active' : '' }}">
@@ -227,10 +236,7 @@
             </a>
         </li>
 
-
         <li class="sidebar-nav-heading text-uppercase ms-3 my-2" >Settings</li>
-
-
         <li class="sidebar-item mt-1 {{ $currentControllerName == 'advertisement' || '' ? 'active' : '' }}">
             <a href="{{url('admin/advertisement')}}" class="sidebar-link">
                 <span class="iconify" data-icon="ic:sharp-space-dashboard" data-width="25" data-height="25"></span>

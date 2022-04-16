@@ -1,16 +1,14 @@
-<?php /** @noinspection ALL */
+<?php
 
-namespace App\Http\Controllers\Api\customer;
+namespace App\Http\Controllers\Api\supplier;
 
 use App\Http\Controllers\Controller;
-use App\Models\CustomerDetails;
-use App\Models\User;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Validator;
 use DataTables;
 
-class CustomerController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +18,7 @@ class CustomerController extends Controller
     public function index(Request  $request)
     {
         try {
-
-            $getCustomer = User::with(['customer_details'])->whereJsonContains('user_role',"4")->get();
+            $getCustomer = Supplier::latest()->get();
             if ($request->ajax()) {
                 return Datatables::of($getCustomer)
                     ->addIndexColumn()
@@ -75,54 +72,31 @@ class CustomerController extends Controller
     {
         try {
             $validator = Validator::make($request->all(),[
-//                "name" => "required|min:5",
-//                "email"=> 'required|email:rfc,dns|unique:users',
-//                "phone"=> "required",
-//                "password"=> "required|min:6|confirmed",
-
+                "name" => "required|min:5",
+                "email"=> 'required|email:rfc,dns|unique:suppliers',
+                "phone"=> "required",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
 //        dd($request->all());
-            $customer = new User();
-            $customer->name = $request->name;
-            $customer->password = Hash::make($request->description);
-            $customer->phone = $request->phone;
-            $customer->email = $request->email;
-            $customer->image = $request->image;
-            $customer->user_role= ["4"];
-            if($customer->save()){
-                $customerDetails = new CustomerDetails();
-                $customerDetails->user_id = $customer->id;
-                $customerDetails->customer_group_id = $request->customer_group_id;
-                $customerDetails->language_id =$request->language_id;
-                $customerDetails->firstname =$request->name;
-                $customerDetails->lastname =$request->lastname;
-                $customerDetails->fax =$request->fax;
-                $customerDetails->wishlist =$request->wishlist;
-                $customerDetails->newsletter =$request->newsletter;
-                $customerDetails->address =$request->address;
-                $customerDetails->custom_field =$request->custom_field;
-                $customerDetails->token =$request->token;
-                $customerDetails->safe =$request->safe;
-                $customerDetails->code =$request->code;
-                $customerDetails->company_name =$request->company_name;
-                $customerDetails->website =$request->website;
-                $customerDetails->tracking_code =$request->tracking_code;
-                $customerDetails->commission =$request->commission;
-                $customerDetails->tax_id =$request->tax_id;
-                $customerDetails->payment_method =$request->payment_method;
-                $customerDetails->cheque_payee_name =$request->cheque_payee_name;
-                $customerDetails->save();
-                if($customerDetails->save()){
-                    return response([
-                        "status" => "success",
-                        "message" => "Cutomer Successfully Create"
-                    ]);
-                }
-
+            $supplier = new Supplier();
+            $supplier->name = $request->name;
+            $supplier->code_name = $request->code_name;
+            $supplier->phone = $request->phone;
+            $supplier->email = $request->email;
+            $supplier->address = $request->address;
+            $supplier->city = $request->city;
+            $supplier->state = $request->state;
+            $supplier->country = $request->country;
+            $supplier->store = $request->store;
+            $supplier->details = $request->details;
+            if($supplier->save()){
+                return response([
+                    "status" => "success",
+                    "message" => "Supplier Successfully Create"
+                ]);
             }
         }catch (Exception $e){
             return response([
@@ -141,11 +115,11 @@ class CustomerController extends Controller
     public function show($id)
     {
         try {
-            $getCustomer = User::with('customer_details')->where("id",$id)->first();
-            if($getCustomer){
+            $getSupplier = Supplier::where("id",$id)->first();
+            if($getSupplier){
                 return response([
                     "status" => "success",
-                    "data" => $getCustomer
+                    "data" => $getSupplier
                 ]);
             }else{
                 return response([
@@ -193,39 +167,22 @@ class CustomerController extends Controller
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $customer = User::where("id",$id)->first();
-            $customer->name = $request->name ??  $customer->name ;
-            $customer->phone = $request->phone ?? $customer->phone;
-            $customer->image = $request->image ?? $customer->image;
-            $customer->update();
-            $customerDetails = CustomerDetails::where('user_id',$id)->first();
-
-            $customerDetails->customer_group_id = $request->customer_group_id;
-            $customerDetails->language_id =$request->language_id;
-            $customerDetails->firstname =$request->name;
-            $customerDetails->lastname =$request->lastname;
-            $customerDetails->fax =$request->fax;
-            $customerDetails->wishlist =$request->wishlist;
-            $customerDetails->newsletter =$request->newsletter;
-            $customerDetails->address =$request->address;
-            $customerDetails->custom_field =$request->custom_field;
-            $customerDetails->token =$request->token;
-            $customerDetails->safe =$request->safe;
-            $customerDetails->code =$request->code;
-            $customerDetails->company_name =$request->company_name;
-            $customerDetails->website =$request->website;
-            $customerDetails->tracking_code =$request->tracking_code;
-            $customerDetails->commission =$request->commission;
-            $customerDetails->tax_id =$request->tax_id;
-            $customerDetails->payment_method =$request->payment_method;
-            $customerDetails->cheque_payee_name =$request->cheque_payee_name;
-
-//            dd($customerDetails);
-            $customerDetails->update();
-                return response([
-                    "status" => "success",
-                    "message" => "Customer Successfully Update"
-                ]);
+            $supplier = Supplier::where("id",$id)->first();
+            $supplier->name = $request->name;
+            $supplier->code_name = $request->code_name;
+            $supplier->phone = $request->phone;
+            $supplier->email = $request->email;
+            $supplier->address = $request->address;
+            $supplier->city = $request->city;
+            $supplier->state = $request->state;
+            $supplier->country = $request->country;
+            $supplier->store = $request->store;
+            $supplier->details = $request->details;
+            $supplier->update();
+            return response([
+                "status" => "success",
+                "message" => "Supplier Successfully Update"
+            ]);
 
         }catch (Exception $e){
             return response([
@@ -244,16 +201,12 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         try{
-            $customer = User::find($id);
-            if($customer){
-                $customer->delete();
-                $customerDetails = CustomerDetails::where('user_id',$id);
-                if($customerDetails){
-                    $customerDetails->delete();
-                }
+            $supplier = Supplier::find($id);
+            if($supplier){
+                $supplier->delete();
                 return response([
                     "status" => "success",
-                    "message" => "Customer Successfully Delete"
+                    "message" => "Supplier Successfully Delete"
                 ], 200);
             }else {
                 return response([
@@ -273,7 +226,7 @@ class CustomerController extends Controller
     {
 //        dd($request->all());
         try {
-            $target         = User::where('id', $request->id)->first();
+            $target         = Supplier::where('id', $request->id)->first();
             $target->status = $request->status;
             if ($target->update()) {
                 return response([
@@ -333,3 +286,5 @@ class CustomerController extends Controller
         }
     }
 }
+
+

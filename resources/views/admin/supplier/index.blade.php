@@ -4,14 +4,14 @@
         <div class="wrapper">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title text-base-color">All Vendors</h4>
+                    <h4 class="card-title text-base-color">All Supplier</h4>
                     <div class="row justify-content-between align-items-center">
                         <div class="col-lg-12 col-sm-12 col-12">
-                            <a href="{{url('admin/vendors/create')}}"
+                            <a href="{{url('admin/suppliers/create')}}"
                                class="btn btn-base btn-base-primary float-lg-end my-3">
                                  <span class="iconify me-2" data-icon="carbon:add-filled" style="color: white;"
                                        data-width="20" data-height="20"></span>
-                                Add Vendor
+                                Add Supplier
                             </a>
                         </div>
                         <!-- Modal -->
@@ -51,7 +51,7 @@
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{url('api/v1/vendors')}}",
+                ajax: "{{url('api/v1/suppliers')}}",
                 columns: [
                     {data: 'name', name: 'name'},
                     {data: 'image', name: 'image'},
@@ -64,13 +64,13 @@
         // Edit call
         $('body').on('click', '.editItem', function () {
             var id = $(this).data('id');
-            window.location.href = "{{url('admin/vendors/edit')}}" + "/" + id;
+            window.location.href = "{{url('admin/suppliers/edit')}}" + "/" + id;
         });
         ///Delete Call
         ///Delete Call
         $('body').on('click', '.deleteItem', function () {
             var id = $(this).data("id");
-            url = "{{url('api/v1/vendors')}}" + "/" + id;
+            url = "{{url('api/v1/suppliers')}}" + "/" + id;
             deleteItem(url)
         });
         ///approval  Call
@@ -83,7 +83,7 @@
             } else {
                 status = 'inactive'
             }
-            url = "{{url('api/v1/manage-vendors-approval')}}"
+            url = "{{url('api/v1/manage-suppliers-approval')}}"
             approvalData(url, id, status)
         })
     </script>

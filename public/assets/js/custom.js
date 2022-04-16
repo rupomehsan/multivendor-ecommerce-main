@@ -5,7 +5,7 @@ function formSubmit(type, btn, form, headers = null) {
     var dmeoUser = JSON.parse(localStorage.getItem('userData'))
     if (dmeoUser.email !== "demoadmin@ecommerce.com") {
         let url = form.attr('action');
-        // alert(url);
+        alert(url);
         let form_data = JSON.stringify(form.serializeJSON());
         formData = JSON.parse(form_data);
         $('#preloader').removeClass('d-none')
@@ -106,20 +106,108 @@ function getEditData(url, dropzone = null) {
     $.ajax({
         type: 'GET', url: baseUrl, success: function (response) {
             if (response.status === 'success') {
-                //  var data = JSON.parse(response.data.logo)
-                // $('#imageShow').attr('src',data[0])
-                // data.forEach(function(item){
-                //     $('#imageShow').attr('src',"${item}")
-                // })
-                // console.log(data);
-                if (response.data !== null) {
-                    $('#submit-button').text("Update")
-                }
                 editDataParentId = response.data.parent_id;
+                editDataCategoryId = response.data.category_id;
+                editDataBrandId = response.data.brand_id;
+                editDataStoreId = response.data.store_id;
+                editDataFilterId = response.data.filter_id;
+                // console.log("category",editDataCategoryId)
                 Object.entries(response.data).forEach((item) => {
                     //for all input filed
-                   // console.log("item",item)
+                    console.log("item",response.data)
                     $('#' + item[0]).val(item[1]);
+                    if (item[0] === 'attributes') {
+                        // console.log("attribute",item[1])
+                        if (item[1].name) {
+                            $('#attribute-name').empty()
+                            $('#attribute-name').append(`
+                                 <input type="text"  name="attribute[name][]"
+                                                   class="form-control col-8 mt-1"
+                                                   placeholder="Enter product attribute Name" value="${item[1].name[0]}">
+                                            <span class="iconify col-1 mt-1" id="addattr"
+                                                  data-icon="akar-icons:circle-plus-fill" style="cursor: pointer"
+                                                  data-width="35"></span>
+                                `)
+                            item[1].name.forEach(function (value, index) {
+                                // alert(index)
+                                if (index !== 0) {
+                                    $("#attribute-name").append(`<section> <div class="row"><input type="text" name="attribute[name][]" placeholder="Enter product attribute Name" class="form-control col-8 mt-2" value="${value}"/> <span class="iconify col-1 mt-3 remove-sec"  data-icon="ant-design:minus-circle-filled"  style="cursor: pointer" data-width="35"></span></div></section>`);
+
+                                }
+                            })
+                        }
+
+                        if (item[1].color) {
+                            $('#color').empty()
+                            $('#color').append(`
+                                  <input type="text" id="color" name="attribute[color][]"
+                                                   class="form-control col-8"
+                                                   placeholder="Enter product color Name" value="${item[1].color[0]}">
+                                            <span class="iconify col-1" id="addColor"
+                                                  data-icon="akar-icons:circle-plus-fill" style="cursor: pointer"
+                                                  data-width="35"></span>
+                                `)
+                            item[1].color.forEach(function (value, index) {
+                                // alert(index)
+                                if (index !== 0) {
+                                    $("#color").append(`<section> <div class="row"><input type="text" name="attribute[color][]" placeholder="Enter product color Name" class="form-control col-8 mt-2 " value="${value}"/> <span class="iconify col-1 mt-3 remove-sec"  data-icon="ant-design:minus-circle-filled"  style="cursor: pointer" data-width="35"></span></div></section>`);
+
+                                }
+                            })
+                        }
+                    }
+                    if (item[0] === 'discount') {
+                        console.log("discount", item[1])
+                        var section = ' <section><div class="row">'
+                        var endSection = ' <span class="iconify col-1 mt-3 remove-dis"  data-icon="ant-design:minus-circle-filled"  style="cursor: pointer" data-width="35"></span></div></section>'
+
+                        $('#discount').empty()
+                        $('#discount').append(`
+                        <input type="number" id="" name="discount[quantity][]"
+                                                   class="form-control col-3 mr-1"
+                                                   placeholder="Quantity" value="${item[1].quantity[0]}">
+                                            <input type="text" id="" name="discount[price][]"
+                                                   class="form-control col-3 mr-1"
+                                                   placeholder="Price" value="${item[1].price[0]}">
+                                            <input placeholder="start Date" value="${item[1].start_date[0]}" class="form-control col-2 mr-1" type="text" name="discount[start_date][]" onfocus="(this.type='date')" id="date">
+                                            <input placeholder="End Date" value="${item[1].end_date[0]}" class="textbox-n form-control col-2 mr-1" name="discount[end_date][]" type="text" onfocus="(this.type='date')" id="date">
+                                            <span class="iconify col-1" id="addDiscount"
+                                                  data-icon="akar-icons:circle-plus-fill" style="cursor: pointer"
+                                                  data-width="35"></span>
+                        `)
+                        item[1].quantity.forEach(function (value, index) {
+                            if (index !== 0) {
+                                $("#discount").append(`
+                                              ${section}
+                                              <input type="number" id="discount" name="discount[quantity][]" class="form-control col-3 mt-1 mr-1"  placeholder="Quantity" value="${value}">
+                                             `)
+                            }
+                        })
+                        item[1].price.forEach(function (value, index) {
+                            if (index !== 0) {
+                                $("#discount section div").append(`
+                                             <input type="text" id="" name="discount[price][]" class="form-control col-3 mt-1 mr-1" placeholder="Price" value="${value}">
+                                             `)
+                            }
+                        })
+                        item[1].start_date.forEach(function (value, index) {
+                            if (index !== 0) {
+                                $("#discount section div").append(`
+                                              <input type="date" id="" name="discount[start_date][]" class="form-control col-2 mt-1 mr-1" placeholder="Start Date" value="${value}">
+
+                                             `)
+                            }
+                        })
+                        item[1].end_date.forEach(function (value, index) {
+                            if (index !== 0) {
+                                $("#discount section div").append(`
+                                              <input type="date" id="" name="discount[end_date][]" class="form-control col-2 mt-1 mr-1"placeholder="End Date" value="${value}">
+                                            ${endSection}
+                                             `)
+                            }
+                        })
+
+                    }
                     if (item[0] === "logo") {
                         // console.log("logo")
                         if (dropzone) {
@@ -127,33 +215,49 @@ function getEditData(url, dropzone = null) {
                             var logo = JSON.parse(item[1])
                             let imageUrl = logo
                             imageUrl.forEach(item => {
-                                console.log(item)
+                                // console.log(item)
                                 dropzone.displayExistingFile(mockFile, item);
                                 // dropzone.options.addedfile.call(dropzone, mockFile);
                                 dropzone.options.thumbnail.call(dropzone, mockFile, item);
                             })
                         }
                     } else if (item[0] === "image") {
-                        console.log("iamge", item[1])
+                        // console.log("iamge", item[1])
                         if (dropzone) {
                             let mockFile = {name: 'image', size: 600,};
                             var logo = JSON.parse(item[1])
-                            console.log("image")
+                            // console.log("image")
                             let imageUrl = logo
                             imageUrl.forEach(item => {
-                                console.log(item)
+                                // console.log(item)
                                 dropzone.displayExistingFile(mockFile, item);
                                 // dropzone.options.addedfile.call(dropzone, mockFile);
                                 dropzone.options.thumbnail.call(dropzone, mockFile, item);
                             })
                         }
                     }
+                    //for vendor
+                    if(response.data.store_details){
+                        Object.entries(response.data.store_details).forEach((item)=>{
+                            $('#' + item[0]).val(item[1]);
+                            if (item[0] === 'description') {
+                                description.setData(item[1])
+                            }
+                        })
+                    }
 
+                    //for customer
 
+                    if(response.data.customer_details){
+                        Object.entries(response.data.customer_details).forEach((item)=>{
+                            $('#' + item[0]).val(item[1]);
+
+                        })
+                    }
                     //for admin access input filed
                     //for admin access input filed
                     if (item[0] === 'access') {
-                        console.log("data", item[1])
+                        // console.log("data", item[1])
                         if (item[1] !== '') {
                             let data = JSON.parse(item[1])
                             data.forEach(val => {
@@ -174,10 +278,8 @@ function getEditData(url, dropzone = null) {
                     }
                     //for submit button to update button
                     //for submit button to update button
-                    if (item[0] === 'host' || item[0] === 'api_key') {
-                        $('.submit-btn').text('Update')
-                        // $('.smtpBtn').text('Update')
-                        $('.smtp-card-title').text('Edit SMTP')
+                    if (response.data !== null) {
+                        $('#submit-button').text("Update")
                     }
                     //for user access role id hide show
                     //for user access role id hide show
@@ -189,10 +291,7 @@ function getEditData(url, dropzone = null) {
                             $('#access_control').show();
                         }
                     }
-
-
                 })
-
             }
         }, error: function (xhr, resp, text) {
             console.log(xhr, resp)
@@ -346,7 +445,6 @@ if (userData) {
             window.location.href = "dashboard"
         }
     }
-
 }
 
 
