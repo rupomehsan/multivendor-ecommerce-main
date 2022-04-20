@@ -2,16 +2,16 @@
  * Submit Form (AJAX)
  */
 function formSubmit(type, btn, form, headers = null) {
-    var dmeoUser = JSON.parse(localStorage.getItem('userData'))
-    if (dmeoUser.email !== "demoadmin@ecommerce.com") {
+    // var dmeoUser = JSON.parse(localStorage.getItem('userData'))
+    // if (dmeoUser.email !== "demoadmin@ecommerce.com") {
         let url = form.attr('action');
-        alert(url);
+        // alert(url);
         let form_data = JSON.stringify(form.serializeJSON());
         formData = JSON.parse(form_data);
         $('#preloader').removeClass('d-none')
         $.ajax({
             type: type, url: url, data: formData, headers: headers, beforeSend: function () {
-                $('#' + btn).prop('disabled', true);
+                // $('#' + btn).prop('disabled', true);
             }, success: function (response) {
                 if (response.status === 'success') {
                     $('#preloader').addClass('d-none')
@@ -54,12 +54,12 @@ function formSubmit(type, btn, form, headers = null) {
                     console.log("err 3")
                 }
             }, complete: function (xhr, status) {
-                $('#' + btn).prop('disabled', false);
+                // $('#' + btn).prop('disabled', false);
             }
         });
-    } else {
-        toastr.error('Sorry You Are Demo Use')
-    }
+    // } else {
+    //     toastr.error('Sorry You Are Demo Use')
+    // }
 }
 
 function deleteItem(url) {

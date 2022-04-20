@@ -105,7 +105,7 @@
                 </span>
 
                 <div class="input-group ">
-                    <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <input type="text" class="form-control" placeholder="" aria-label="ProductPurchaseTable text with button addon" aria-describedby="button-addon1">
                     <button class="btn btn-valencia" type="button" id="button-addon1">Subscribe</button>
                 </div>
             </div>

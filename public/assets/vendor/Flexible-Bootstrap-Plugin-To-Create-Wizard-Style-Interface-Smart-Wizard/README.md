@@ -23,9 +23,9 @@ Easy implementation,  Bootstrap compatiblity, customizable toolbars, themes, eve
 
 Demos
 -----
-+ [Basic Example](http://techlaboratory.net/projects/demo/jquery-smart-wizard/v5)
-+ [Ajax Example](http://techlaboratory.net/projects/demo/jquery-smart-wizard/v5/ajax)
-+ [Multiple Wizard Example](http://techlaboratory.net/projects/demo/jquery-smart-wizard/v5/multiple)
++ [Basic ProductPurchaseTable](http://techlaboratory.net/projects/demo/jquery-smart-wizard/v5)
++ [Ajax ProductPurchaseTable](http://techlaboratory.net/projects/demo/jquery-smart-wizard/v5/ajax)
++ [Multiple Wizard ProductPurchaseTable](http://techlaboratory.net/projects/demo/jquery-smart-wizard/v5/multiple)
 
 Screenshots
 -----

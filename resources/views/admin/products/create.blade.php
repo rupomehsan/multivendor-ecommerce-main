@@ -164,6 +164,14 @@
                                         <span class="text-danger" id="tax_class_id_error"></span>
                                     </div>
                                     <div class="form-group mb-3">
+                                        <label for="model" id="model_label" class="form-label">Available Stock</label>
+
+                                        <input type="text" id="available_stock" name="available_stock"
+                                               class="form-control"
+                                               placeholder="Model">
+                                        <span class="text-danger" id="available_stock_error"></span>
+                                    </div>
+                                    <div class="form-group mb-3">
                                         <label for="model" id="model_label" class="form-label">Out Of Stock
                                             Status</label>
                                         <input type="text" id="stock_status_id" name="stock_status_id"

@@ -92,8 +92,8 @@
                         </tr>
 
                         <tr>
-                            <th colspan="2">Payment Method</th>
-                            <th colspan="6">Total Due</th>
+                            <th colSpan="2">Payment Method</th>
+                            <th colSpan="6">Total Due</th>
                         </tr>
 
 
@@ -101,32 +101,32 @@
 
                         <tfoot>
                         <tr>
-                            <td colspan="2">COD</td>
-                            <td colspan="5">SUBTOTAL</td>
+                            <td colSpan="2">COD</td>
+                            <td colSpan="5">SUBTOTAL</td>
                             <td>$5,200.00</td>
                         </tr>
                         <tr>
-                            <td colspan="2"></td>
-                            <td colspan="5" class="">TAX 25%</td>
+                            <td colSpan="2"></td>
+                            <td colSpan="5" class="">TAX 25%</td>
                             <td>$1,300.00</td>
                         </tr>
                         <tr>
-                            <td colspan="2"></td>
-                            <td colspan="5">Shipping charges</td>
+                            <td colSpan="2"></td>
+                            <td colSpan="5">Shipping charges</td>
                             <td>$6,500.00</td>
                         </tr>
                         <tr>
-                            <td colspan="2"></td>
-                            <td colspan="5">total</td>
+                            <td colSpan="2"></td>
+                            <td colSpan="5">total</td>
                             <td>$6,500.00</td>
                         </tr>
 
                         <tr>
-                            <td colspan="2">Terms & Condition</td>
+                            <td colSpan="2">Terms & Condition</td>
                         </tr>
 
                         <tr>
-                            <td colspan="8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus pretium
+                            <td colSpan="8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus pretium
                                 porta leo pellentesque faucibus tempor sed neque, ultrices. Tortor ut aliquet risus
                                 tristique sit volutpat ultricies sed.
                             </td>

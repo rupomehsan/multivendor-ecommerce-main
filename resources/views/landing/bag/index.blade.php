@@ -119,8 +119,8 @@
 
                         <tfoot>
                         <tr>
-                            <td colspan="3"></td>
-                            <td colspan="2" class="tfoot p-3">
+                            <td colSpan="3"></td>
+                            <td colSpan="2" class="tfoot p-3">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span>Sub Total</span>
                                     <span>$114</span>
@@ -134,17 +134,17 @@
                         </tr>
 
                         <tr>
-                            <td colspan="3">
+                            <td colSpan="3">
 
                                 <button class="btn">Continue Shopping</button>
 
                             </td>
 
-                            <td colspan="1">
+                            <td colSpan="1">
                                 <h6>Total: </h6>
                             </td>
 
-                            <td colspan="1" class="text-end">$1,210</td>
+                            <td colSpan="1" class="text-end">$1,210</td>
                         </tr>
                         </tfoot>
                     </table>

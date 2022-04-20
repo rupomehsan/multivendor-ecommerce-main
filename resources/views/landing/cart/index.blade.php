@@ -175,18 +175,18 @@
 
                     <tfoot>
                     <tr>
-                        <td colspan="3" class=""></td>
+                        <td colSpan="3" class=""></td>
                         <th class="text-black-50 border-start">sub-total</th>
                         <th class="text-end border-end">300</th>
                     </tr>
                     <tr>
-                        <td colspan="3"></td>
+                        <td colSpan="3"></td>
                         <th class="text-black-50 border-start border-bottom">Delivery charge</th>
                         <th class="text-end border-end border-bottom">80</th>
                     </tr>
 
                     <tr class="border-bottom bottom-shadow">
-                        <td colspan="3">
+                        <td colSpan="3">
                             <a href="" class="text-valencia">continue with shopping</a>
                         </td>
                         <th>total</th>

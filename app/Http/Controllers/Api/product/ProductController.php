@@ -95,6 +95,7 @@ class ProductController extends Controller
             $Product->location = $request->location;
             $Product->quantity = $request->quantity;
             $Product->stock_status_id = $request->stock_status_id;
+            $Product->available_stock = $request->available_stock;
             $Product->brand_id = $request->brand_id;
             $Product->shipping = $request->shipping;
             $Product->price = $request->price;
@@ -210,6 +211,7 @@ class ProductController extends Controller
             $Product->location = $request->location ??  $Product->location;
             $Product->quantity = $request->quantity ?? $Product->quantity;
             $Product->stock_status_id = $request->stock_status_id ?? $Product->stock_status_id;
+            $Product->available_stock = $request->available_stock ?? $Product->available_stock;
             $Product->brand_id = $request->brand_id ?? $Product->brand_id;
             $Product->shipping = $request->shipping ??  $Product->shipping ;
             $Product->price = $request->price ?? $Product->price ;

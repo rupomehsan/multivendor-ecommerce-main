@@ -175,6 +175,14 @@ $id = request()->segment(4);
                                         <span class="text-danger" id="stock_status_id_error"></span>
                                     </div>
                                     <div class="form-group mb-3">
+                                        <label for="model" id="model_label" class="form-label">Available Stock</label>
+
+                                        <input type="text" id="available_stock" name="available_stock"
+                                               class="form-control"
+                                               placeholder="Model">
+                                        <span class="text-danger" id="available_stock_error"></span>
+                                    </div>
+                                    <div class="form-group mb-3">
                                         <label for="model" id="model_label" class="form-label">Requires Shipping</label>
                                         <select name="shipping" id="shipping" class="form-control">
                                             <option value="1">Yes</option>

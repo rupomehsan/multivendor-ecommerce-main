@@ -36,6 +36,7 @@ class CreateProductsTable extends Migration
             $table->integer('brand_id')->nullable();
             $table->tinyInteger('shipping')->nullable();
             $table->decimal('price')->nullable();
+            $table->string('available_stock')->nullable();
             $table->integer('points')->nullable();
             $table->integer('tax_class_id')->nullable();
             $table->date('date_available')->nullable();

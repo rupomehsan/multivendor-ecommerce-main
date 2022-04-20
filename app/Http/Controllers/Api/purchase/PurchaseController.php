@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api\purchase;
 
 use App\Http\Controllers\Controller;
-use App\Models\Purchase;
+use App\Models\Purchases;
+use App\Models\PurchaseProduct;
 use Illuminate\Http\Request;
 use Validator;
 use DataTables;
@@ -16,7 +17,7 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
-        $Purchase = Purchase::latest()->get();
+        $Purchase = Purchases::latest()->get();
         if ($request->ajax()) {
             return Datatables::of($Purchase)
                 ->addIndexColumn()
@@ -67,7 +68,7 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-//       dd($request->all());
+
         try {
             $validator = Validator::make($request->all(), [
                 "date" => "required",
@@ -77,34 +78,47 @@ class PurchaseController extends Controller
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-//
-            $Purchase = new Purchase();
+
+
+
+
+            $Purchase = new Purchases();
+            $Purchase->supplier_id = $request->supplier_id;
+            $Purchase->product_id = $request->product_id;
             $Purchase->date = $request->date;
             $Purchase->ref_no = $request->ref_no;
             $Purchase->note = $request->note;
             $Purchase->image = $request->image;
             $Purchase->payment_status = $request->payment_status;
             $Purchase->created_by = $request->created_by;
-            $Purchase->cost = $request->cost;
-            $Purchase->sub_total = $request->sub_total;
             $Purchase->order_tax = $request->order_tax;
             $Purchase->shipping_charge = $request->shipping_charge;
             $Purchase->other_charge = $request->other_charge;
             $Purchase->discount = $request->discount;
             $Purchase->paid_amount = $request->paid_amount;
-            $Purchase->quantity = $request->quantity;
-            $Purchase->sell_price = $request->sell_price;
-            $Purchase->item_tax = $request->item_tax;
-            $Purchase->quantity = $request->quantity;
-            $Purchase->invoice_id = $request->invoice_id;
-            $Purchase->available_stock = $request->available_stock;
             $Purchase->status = $request->status;
-            if ($Purchase->save()) {
+            $Purchase->save();
+            if($request->product){
+//                dd($request->all());
+                $PurchaseProduct = new PurchaseProduct();
+                foreach ($request->product as $itemProduct){
+                    dd($itemProduct[product_id]);
+                    $PurchaseProduct->product_id = $itemProduct->product_id;
+                    $PurchaseProduct->invoice_id =$itemProduct->ref_no;
+                    $PurchaseProduct->cost = $itemProduct->cost;
+                    $PurchaseProduct->item_total = $itemProduct->item_total;
+                    $PurchaseProduct->quantity = $itemProduct->quantity;
+                    $PurchaseProduct->sell_price = $itemProduct->sell_price;
+                    $PurchaseProduct->item_tax = $itemProduct->item_tax;
+                    $PurchaseProduct->save();
+                }
                 return response([
                     "status" => "success",
-                    "message" => "Purchase Successfully Create"
+                    "message" => "Product Successfully Purchase "
                 ]);
+
             }
+
         } catch (Exception $e) {
             return response([
                 "status" => 'server_error',
@@ -122,7 +136,7 @@ class PurchaseController extends Controller
     public function show($id)
     {
         try {
-            $getPurchase = Purchase::where("id", $id)->first();
+            $getPurchase = Purchases::where("id", $id)->first();
             if ($getPurchase) {
                 return response([
                     "status" => "success",
@@ -149,7 +163,7 @@ class PurchaseController extends Controller
     public function edit($id)
     {
         try {
-            $getPurchase = Purchase::where("id", $id)->first();
+            $getPurchase = Purchases::where("id", $id)->first();
             if ($getPurchase) {
                 return response([
                     "status" => "success",
@@ -184,7 +198,7 @@ class PurchaseController extends Controller
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $Purchase = Purchase::where("id", $id)->first();
+            $Purchase = Purchases::where("id", $id)->first();
             $Purchase->name = $request->name ?? $Purchase->name;
             $Purchase->description = $request->description ?? $Purchase->description;
             $Purchase->meta_tag_title = $request->meta_tag_title ?? $Purchase->meta_tag_title;
@@ -226,7 +240,7 @@ class PurchaseController extends Controller
     public function destroy($id)
     {
         try {
-            $Purchase = Purchase::find($id);
+            $Purchase = Purchases::find($id);
             if ($Purchase) {
                 $Purchase->delete();
                 return response([
@@ -295,7 +309,7 @@ class PurchaseController extends Controller
     {
 //        dd($request->all());
         try {
-            $target         = Purchase::where('id', $request->id)->first();
+            $target         = Purchases::where('id', $request->id)->first();
             $target->status = $request->status;
             if ($target->update()) {
                 return response([
@@ -314,7 +328,7 @@ class PurchaseController extends Controller
 
     public function  searchPurchase(Request $request){
         try {
-            $searchPurchase =Purchase::where('name','LIKE','%'.$request->searchData.'%')->paginate(20);
+            $searchPurchase =Purchases::where('name','LIKE','%'.$request->searchData.'%')->paginate(20);
             if ($searchPurchase){
                 return response([
                     "status" => 'success',
