@@ -17,29 +17,29 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
-        $Purchase = Purchases::latest()->get();
+        $Purchase = Purchases::all();
         if ($request->ajax()) {
             return Datatables::of($Purchase)
                 ->addIndexColumn()
-                ->addColumn('image',function($row){
-                    if($row->image && count(json_decode($row->image)) > 0){
-                        $imageUrl = json_decode($row->image)[0];
+                ->addColumn('payment_status',function($row){
+                    if ($row->payment_status ==="Due"){
+                        $btn = '<span class="alert alert-danger border py-2 px-3 m-2">'.$row->payment_status.'</span>';
+
+                        $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editPayment">PayNow</a>';
+//                        $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">PayNow</a>';
+                        return $btn;
                     }else{
-                        $imageUrl = asset('/assets/image/logo.png');
+                        $btn = '<span class="alert alert-danger border py-2 px-3 m-2">Paid</span>';
+                        return $btn;
                     }
-                    return '<img src="'.$imageUrl.'" height="40" width="100" />';
-                })
-                ->addColumn('status',function($row){
-                    $activeStatus = $row->status === 'active' ? 'checked' : '';
-                    $status = '<label class="switch"><input type="checkbox" id="approval" data-id="'.$row->id.'" '.$activeStatus.' /><span class="slider"></span></label>';
-                    return $status;
+
                 })
                 ->addColumn('action', function($row){
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
                     return $btn;
                 })
-                ->rawColumns(['image','action','status'])
+                ->rawColumns(['action','payment_status'])
                 ->make(true);
         }
 //        return response([
@@ -68,48 +68,48 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-
+//       dd($request->all());
         try {
             $validator = Validator::make($request->all(), [
                 "date" => "required",
-                "ref_no" => "required",
+                "invoice_id" => "required|unique:purchase_products",
             ]);
             if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-
-
-
-
             $Purchase = new Purchases();
             $Purchase->supplier_id = $request->supplier_id;
             $Purchase->product_id = $request->product_id;
             $Purchase->date = $request->date;
-            $Purchase->ref_no = $request->ref_no;
+            $Purchase->invoice_id = $request->invoice_id;
             $Purchase->note = $request->note;
             $Purchase->image = $request->image;
-            $Purchase->payment_status = $request->payment_status;
             $Purchase->created_by = $request->created_by;
             $Purchase->order_tax = $request->order_tax;
             $Purchase->shipping_charge = $request->shipping_charge;
             $Purchase->other_charge = $request->other_charge;
             $Purchase->discount = $request->discount;
             $Purchase->paid_amount = $request->paid_amount;
+            $Purchase->sub_total = $request->sub_total;
+            $Purchase->grand_total = $request->payable_amount;
+            $Purchase->due_amount = $request->due_amount;
+            $Purchase->payment_method = $request->payment_method;
+            if ($request->due_amount > 0 ){
+                $Purchase->payment_status = "Due";
+            }
             $Purchase->status = $request->status;
             $Purchase->save();
             if($request->product){
-//                dd($request->all());
-                $PurchaseProduct = new PurchaseProduct();
-                foreach ($request->product as $itemProduct){
-                    dd($itemProduct[product_id]);
-                    $PurchaseProduct->product_id = $itemProduct->product_id;
-                    $PurchaseProduct->invoice_id =$itemProduct->ref_no;
-                    $PurchaseProduct->cost = $itemProduct->cost;
-                    $PurchaseProduct->item_total = $itemProduct->item_total;
-                    $PurchaseProduct->quantity = $itemProduct->quantity;
-                    $PurchaseProduct->sell_price = $itemProduct->sell_price;
-                    $PurchaseProduct->item_tax = $itemProduct->item_tax;
+                foreach ($request->product as $itemProduct ){
+                    $PurchaseProduct = new PurchaseProduct();
+                    $PurchaseProduct->product_id = $itemProduct['product_id'];
+                    $PurchaseProduct->invoice_id = $request->invoice_id;
+                    $PurchaseProduct->cost = $itemProduct['cost'];
+                    $PurchaseProduct->item_total = $itemProduct['item_total'];
+                    $PurchaseProduct->quantity = $itemProduct['quantity'];
+                    $PurchaseProduct->sell = $itemProduct['sell'];
+                    $PurchaseProduct->item_tax = $itemProduct['item_tax'];
                     $PurchaseProduct->save();
                 }
                 return response([
@@ -346,5 +346,62 @@ class PurchaseController extends Controller
                 'message'=> $e->getMessage()
             ]);
         }
+    }
+
+    public  function getPurchaseProduct($id){
+        $getPurchaseProduct = Purchases::with(['purchase_products.product',])->where('id', $id)->first();
+        return response([
+            "status" => "success",
+            "data" => $getPurchaseProduct
+        ]);
+
+    }
+
+    public  function purchaseDue(Request $request){
+//        dd($request->all());
+        try {
+            $validator = Validator::make($request->all(), [
+                "due_payable_amount" => "required",
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+
+            $duepayment = Purchases::where('id',$request->purchase_id)->first();
+
+            if ($duepayment){
+                if ($request->due_payable_amount > $duepayment->due_amount){
+                    return response([
+                        "status" => "success",
+                        "message" => "Your Amount is greater then Due amount"
+                    ]);
+                }
+                $duepayment->paid_amount    = $duepayment->paid_amount + $request->due_payable_amount ;
+                $duepayment->due_amount     =    $duepayment->due_amount - $request->due_payable_amount;
+                if($duepayment->due_amount== 0){
+                    $duepayment->payment_status = "Paid";
+                    $duepayment->update();
+                    return response([
+                        "status" => "success",
+                        "message" => "Payment Complete Remaining Due Amount ".$duepayment->due_amount."$"
+                    ]);
+                }else{
+                    $duepayment->update();
+                    return response([
+                        "status" => "success",
+                        "message" => "Your Payment Successfully Complete"
+                    ]);
+                }
+            }
+        }catch (\Exception $e){
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+
+
+
     }
 }

@@ -19,7 +19,7 @@ class CreatePurchaseProductsTable extends Migration
             $table->bigInteger('product_id')->nullable();
             $table->float('cost')->nullable();
             $table->bigInteger('quantity')->nullable();
-            $table->float('sell_price')->nullable();
+            $table->float('sell')->nullable();
             $table->bigInteger('item_tax')->nullable();
             $table->bigInteger('item_total')->nullable();
             $table->string('status')->nullable();

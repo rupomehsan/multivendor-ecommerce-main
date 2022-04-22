@@ -18,10 +18,11 @@ class CreatePurchasesTable extends Migration
             $table->bigInteger('supplier_id')->nullable();
             $table->bigInteger('product_id')->nullable();
             $table->string('date')->nullable();
-            $table->string('ref_no')->nullable();
+            $table->string('invoice_id')->nullable();
             $table->text('note')->nullable();
             $table->json('image')->nullable();
             $table->bigInteger('sub_total')->nullable();
+            $table->bigInteger('grand_total')->nullable();
             $table->bigInteger('order_tax')->nullable();
             $table->bigInteger('shipping_charge')->nullable();
             $table->bigInteger('other_charge')->nullable();
@@ -29,6 +30,7 @@ class CreatePurchasesTable extends Migration
             $table->bigInteger('paid_amount')->nullable();
             $table->bigInteger('due_amount')->nullable();
             $table->string('payment_status')->nullable();
+            $table->string('payment_method')->nullable();
             $table->string('created_by')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

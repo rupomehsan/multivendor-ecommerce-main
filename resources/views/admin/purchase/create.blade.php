@@ -44,10 +44,10 @@
                                         <span class="text-danger" id="date_error"></span>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="host" id="host_label" class="form-label">Ref No</label>
-                                        <input type="text" id="ref_no" name="ref_no" class="form-control"
+                                        <label for="host" id="host_label" class="form-label">Invoice Id</label>
+                                        <input type="text" id="invoice_id" name="invoice_id" class="form-control"
                                                placeholder="Code Name">
-                                        <span class="text-danger" id="ref_no_error"></span>
+                                        <span class="text-danger" id="invoice_id_error"></span>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="host" id="address" class="form-label">Note</label>
@@ -86,10 +86,7 @@
 
                                         <tr>
                                             <td colSpan="6" style="text-align: right">Subtotal</td>
-                                            <td colSpan="1" style="text-align: center" id="subtotal">
-                                                <input type="hidden" name="subtotal" id="itemsubtotal">
-                                                00
-                                            </td>
+                                            <td colSpan="1" style="text-align: center"><input readonly name="sub_total" class="form-control" id="itemsubtotal" value="0"></td>
                                         </tr>
                                         <tr>
                                             <td colSpan="6" style="text-align: right">Order Tax (%)</td>
@@ -241,11 +238,11 @@
                     $('.product-item').append(`
                       <tr>
                         <td>${productInfo.name} <input type="hidden" name="[product][${productInfo.id}][product_id]" value="${productInfo.id}"></td>
-                        <td>${productInfo.quantity} </td>
+                        <td>${productInfo.available_stock} </td>
                         <td> <input type="number" id="quantity${productInfo.id}" name="[product][${productInfo.id}][quantity]" min="1" class="form-control quantity" value=""></td>
                         <td> <input type="number" id="cost${productInfo.id}" name="[product][${productInfo.id}][cost]" min="1" class="form-control cost" value=""> </td>
                         <td> <input type="number" name="[product][${productInfo.id}][sell]" min="1" class="form-control sell"> </td>
-                        <td> 0 </td>
+                        <td> <input type="number" id="item_tax${productInfo.id}" name="[product][${productInfo.id}][item_tax]" min="1" class="form-control sell" value="0"></td>
                         <td  style="text-align: center" ><input type="hidden" id="itemTotal${productInfo.id}" name="[product][${productInfo.id}][item_total]"> <p readonly id="totalItem${productInfo.id}" class="itemTotal">  00 </p></td>
                     </tr>
                     `)
@@ -270,7 +267,6 @@
                             var itemPrice = parseInt(item.textContent)
                             subTotalPrice += itemPrice
                         })
-                        $('#subtotal').text(subTotalPrice)
                         $('#itemsubtotal').val(subTotalPrice)
                         creaatePayment()
                     }
@@ -285,7 +281,7 @@
         })
         function creaatePayment(){
             var orderTax = $('#order_tax').val()
-            var subTotal = parseInt($('#subtotal').text());
+            var subTotal = parseInt($('#itemsubtotal').val());
             var orderTaxCount = (subTotal * orderTax) / 100;
             var shippingCharge = parseInt($('#shipping_charge').val())
             var otherCharge = parseInt($('#other_charge').val())

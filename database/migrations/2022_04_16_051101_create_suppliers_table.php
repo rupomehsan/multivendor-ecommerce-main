@@ -23,7 +23,7 @@ class CreateSuppliersTable extends Migration
             $table->string("state")->nullable();
             $table->string("country")->nullable();
             $table->json("store")->nullable();
-            $table->string("details")->nullable();
+            $table->text("details")->nullable();
             $table->json("image")->nullable();
             $table->enum('status',['active','inactive']);
             $table->timestamps();

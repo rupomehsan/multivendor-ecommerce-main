@@ -19,8 +19,10 @@
                             <table class="table table-bordered data-table mt-3">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>image</th>
+                                    <th>Invoice id</th>
+                                    <th>Grand Total</th>
+                                    <th>Paid Amount</th>
+                                    <th>Due Amount</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -32,6 +34,14 @@
                         </div>
 
                         </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- Extra large modal -->
+            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        ...
                     </div>
                 </div>
             </div>
@@ -53,9 +63,11 @@
                 serverSide: true,
                 ajax: "{{url('api/v1/purchase')}}",
                 columns: [
-                    {data: 'name', name: 'name'},
-                    {data: 'image', name: 'image'},
-                    {data: 'status', name: 'status'},
+                    {data: 'invoice_id', name: 'invoice_id'},
+                    {data: 'grand_total', name: 'grand_total'},
+                    {data: 'paid_amount', name: 'paid_amount'},
+                    {data: 'due_amount', name: 'due_amount'},
+                    {data: 'payment_status', name: 'payment_status'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });
@@ -65,6 +77,12 @@
         $('body').on('click', '.editItem', function () {
             var id = $(this).data('id');
             window.location.href = "{{url('admin/purchase/edit')}}" + "/" + id;
+        });
+        // Edit call
+        // Edit call
+        $('body').on('click', '.editPayment', function () {
+            var id = $(this).data('id');
+            window.location.href = "{{url('admin/purchase/payment')}}" + "/" + id;
         });
         ///Delete Call
         ///Delete Call

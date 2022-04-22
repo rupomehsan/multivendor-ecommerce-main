@@ -9,4 +9,12 @@ class PurchaseProduct extends Model
 {
     use HasFactory;
     protected $guarded=[];
+
+    public function purchase(){
+        return $this->belongsTo(Purchases::Class,'invoice_id','invoice_id');
+    }
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

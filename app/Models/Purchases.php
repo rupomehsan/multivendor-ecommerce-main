@@ -9,4 +9,10 @@ class Purchases extends Model
 {
     use HasFactory;
     protected $guarded=[];
+
+    public  function purchase_products(){
+        return $this->hasMany(PurchaseProduct::class,'invoice_id','invoice_id');
+    }
+
+
 }

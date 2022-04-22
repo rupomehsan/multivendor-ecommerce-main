@@ -23,4 +23,8 @@ class Product extends Model
         'design' => 'array',
         'image' => 'array',
     ];
+
+    public function prchase_products(){
+        return $this->hasMany(PurchaseProduct::class);
+    }
 }

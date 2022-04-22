@@ -99,6 +99,8 @@ Route::prefix('v1')->group(function () {
     index,store,update,edit,delete
     */
     Route::resource('purchase', \App\Http\Controllers\Api\purchase\PurchaseController::class);
+    Route::get('purchase/payment/get-for-due-payment/{id}', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"getPurchaseProduct"]);
+    Route::post('purchase/payment/purchase-due', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"purchaseDue"]);
     Route::post('manage-purchase-approval', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"manageApproval"]);
     Route::post('purchase/file-upload', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"fileUploader"]);
     /*Advertisement

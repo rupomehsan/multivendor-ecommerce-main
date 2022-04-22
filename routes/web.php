@@ -88,6 +88,7 @@
 
         Route::view('/purchase', 'admin.purchase.index');
         Route::view('/purchase/create', 'admin.purchase.create');
+        Route::view('/purchase/payment/{id}', 'admin.purchase.payment');
         Route::view('/purchase/edit/{id}', 'admin.supplier.edit');
 
         Route::view('/vendors/view', 'admin.vendors.view');
