@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api\purchase;
 
 use App\Http\Controllers\Controller;
-use App\Models\Purchases;
+use App\Models\Product;
 use App\Models\PurchaseProduct;
+use App\Models\Purchases;
+use App\Models\ReturnProduct;
+use DataTables;
 use Illuminate\Http\Request;
 use Validator;
-use DataTables;
+
 class PurchaseController extends Controller
 {
     /**
@@ -21,25 +24,26 @@ class PurchaseController extends Controller
         if ($request->ajax()) {
             return Datatables::of($Purchase)
                 ->addIndexColumn()
-                ->addColumn('payment_status',function($row){
-                    if ($row->payment_status ==="Due"){
-                        $btn = '<span class="alert alert-danger border py-2 px-3 m-2">'.$row->payment_status.'</span>';
+                ->addColumn('payment_status', function ($row) {
+                    if ($row->payment_status === "Due") {
+                        $btn = '<span class="alert alert-danger border py-2 px-3 m-2">' . $row->payment_status . '</span>';
 
-                        $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editPayment">PayNow</a>';
+                        $btn = $btn . '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editPayment">PayNow</a>';
 //                        $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">PayNow</a>';
                         return $btn;
-                    }else{
+                    } else {
                         $btn = '<span class="alert alert-danger border py-2 px-3 m-2">Paid</span>';
                         return $btn;
                     }
 
                 })
-                ->addColumn('action', function($row){
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm viewItem mr-1">View</a>';
+                    $btn = $btn . '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm returnItem">Return</a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
                     return $btn;
                 })
-                ->rawColumns(['action','payment_status'])
+                ->rawColumns(['action', 'payment_status'])
                 ->make(true);
         }
 //        return response([
@@ -95,14 +99,17 @@ class PurchaseController extends Controller
             $Purchase->grand_total = $request->payable_amount;
             $Purchase->due_amount = $request->due_amount;
             $Purchase->payment_method = $request->payment_method;
-            if ($request->due_amount > 0 ){
+            if ($request->due_amount > 0) {
                 $Purchase->payment_status = "Due";
             }
             $Purchase->status = $request->status;
             $Purchase->save();
-            if($request->product){
-                foreach ($request->product as $itemProduct ){
+            if ($request->product) {
+                foreach ($request->product as $itemProduct) {
                     $PurchaseProduct = new PurchaseProduct();
+                    $product = Product::where('id', $itemProduct['product_id'])->first();
+                    $product->quantity = $product->quantity + $itemProduct['quantity'];
+                    $product->update();
                     $PurchaseProduct->product_id = $itemProduct['product_id'];
                     $PurchaseProduct->invoice_id = $request->invoice_id;
                     $PurchaseProduct->cost = $itemProduct['cost'];
@@ -190,45 +197,6 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            $validator = Validator::make($request->all(), [
-                "name" => "required",
-            ]);
-            if ($validator->fails()) {
-                $errors = $validator->errors()->messages();
-                return validateError($errors);
-            }
-            $Purchase = Purchases::where("id", $id)->first();
-            $Purchase->name = $request->name ?? $Purchase->name;
-            $Purchase->description = $request->description ?? $Purchase->description;
-            $Purchase->meta_tag_title = $request->meta_tag_title ?? $Purchase->meta_tag_title;
-            $Purchase->meta_tag_desc = $request->meta_tag_desc ?? $Purchase->meta_tag_desc;
-            $Purchase->meta_tag_keyword = $request->meta_tag_keyword ?? $Purchase->meta_tag_keyword;
-            $Purchase->image = $request->image ?? $Purchase->image;
-            $Purchase->parent_id = $request->parent_id ?? $Purchase->parent_id;
-            $Purchase->top = $request->top ?? $Purchase->top;
-            $Purchase->column = $request->column ?? $Purchase->column;
-            $Purchase->sort_order = $request->sort_order ?? $Purchase->sort_order;
-            $Purchase->filter_id = $request->filter_id ?? $Purchase->filter_id;
-            $Purchase->path_id = $request->path_id ?? $Purchase->path_id;
-            $Purchase->store_id = $request->store_id ?? $Purchase->store_id;
-            $Purchase->layout_id = $request->layout_id ?? $Purchase->layout_id;
-            $Purchase->status = $request->status ?? $Purchase->status ;
-            $Purchase->keyword = $request->keyword;
-
-            if ($Purchase->update()) {
-                return response([
-                    "status" => "success",
-                    "message" => "Purchase Successfully Update"
-                ]);
-            }
-        } catch (Exception $e) {
-            return response([
-                "status" => 'server_error',
-                "data" => $e->getMessage()
-            ], 500);
-        }
-
     }
 
     /**
@@ -271,15 +239,15 @@ class PurchaseController extends Controller
         if ($validate->fails()) {
             return response([
                 'status' => 'validation_error',
-                'data'   => $validate->errors(),
+                'data' => $validate->errors(),
             ], 422);
         }
         try {
             if (request()->hasFile('file')) {
 
-                foreach ($request->file('file') as $imagedata){
+                foreach ($request->file('file') as $imagedata) {
 
-                    $folder    = $request->folder ?? 'all';
+                    $folder = $request->folder ?? 'all';
                     $imageName = $folder . "/" . time() . '.' . $imagedata->getClientOriginalName();
                     if (config('app.env') === 'production') {
                         $imagedata->move('uploads/' . $folder, $imageName);
@@ -292,14 +260,14 @@ class PurchaseController extends Controller
                 }
                 $finalImage = json_encode($data);
                 return response([
-                    'status'  => 'success',
+                    'status' => 'success',
                     'message' => 'File uploaded successfully',
-                    'data'    => $finalImage
+                    'data' => $finalImage
                 ], 200);
             }
         } catch (\Exception$e) {
             return response([
-                'status'  => 'server_error',
+                'status' => 'server_error',
                 'message' => $e->getMessage(),
             ], 500);
         }
@@ -309,46 +277,48 @@ class PurchaseController extends Controller
     {
 //        dd($request->all());
         try {
-            $target         = Purchases::where('id', $request->id)->first();
+            $target = Purchases::where('id', $request->id)->first();
             $target->status = $request->status;
             if ($target->update()) {
                 return response([
-                    'status'  => 'success',
+                    'status' => 'success',
                     'message' => 'Successfully Update',
                 ], 200);
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response([
-                'status'  => 'server_error',
+                'status' => 'server_error',
                 'message' => $e->getMessage(),
             ], 500);
         }
 
     }
 
-    public function  searchPurchase(Request $request){
+    public function searchPurchase(Request $request)
+    {
         try {
-            $searchPurchase =Purchases::where('name','LIKE','%'.$request->searchData.'%')->paginate(20);
-            if ($searchPurchase){
+            $searchPurchase = Purchases::where('name', 'LIKE', '%' . $request->searchData . '%')->paginate(20);
+            if ($searchPurchase) {
                 return response([
                     "status" => 'success',
-                    "data"=> $searchPurchase
+                    "data" => $searchPurchase
                 ]);
-            }else{
+            } else {
                 return response([
                     'status' => 'error',
-                    'message'=> "Data Not Found"
+                    'message' => "Data Not Found"
                 ]);
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response([
-                'status'=> 'server_error',
-                'message'=> $e->getMessage()
+                'status' => 'server_error',
+                'message' => $e->getMessage()
             ]);
         }
     }
 
-    public  function getPurchaseProduct($id){
+    public function getPurchaseProduct($id)
+    {
         $getPurchaseProduct = Purchases::with(['purchase_products.product',])->where('id', $id)->first();
         return response([
             "status" => "success",
@@ -357,7 +327,28 @@ class PurchaseController extends Controller
 
     }
 
-    public  function purchaseDue(Request $request){
+    public function getReturnProduct($id)
+    {
+        $getReturnProduct = Purchases::with(['purchase_products.product',])->where('id', $id)->first();
+        return response([
+            "status" => "success",
+            "data" => $getReturnProduct
+        ]);
+
+    }
+
+    public function viewProduct($id)
+    {
+        $getReturnProduct = Purchases::with(['return_products.product','purchase_products.product','supplier'])->where('id', $id)->first();
+        return response([
+            "status" => "success",
+            "data" => $getReturnProduct
+        ]);
+
+    }
+
+    public function purchaseDue(Request $request)
+    {
 //        dd($request->all());
         try {
             $validator = Validator::make($request->all(), [
@@ -368,25 +359,25 @@ class PurchaseController extends Controller
                 return validateError($errors);
             }
 
-            $duepayment = Purchases::where('id',$request->purchase_id)->first();
+            $duepayment = Purchases::where('id', $request->purchase_id)->first();
 
-            if ($duepayment){
-                if ($request->due_payable_amount > $duepayment->due_amount){
+            if ($duepayment) {
+                if ($request->due_payable_amount > $duepayment->due_amount) {
                     return response([
                         "status" => "success",
                         "message" => "Your Amount is greater then Due amount"
                     ]);
                 }
-                $duepayment->paid_amount    = $duepayment->paid_amount + $request->due_payable_amount ;
-                $duepayment->due_amount     =    $duepayment->due_amount - $request->due_payable_amount;
-                if($duepayment->due_amount== 0){
+                $duepayment->paid_amount = $duepayment->paid_amount + $request->due_payable_amount;
+                $duepayment->due_amount = $duepayment->due_amount - $request->due_payable_amount;
+                if ($duepayment->due_amount == 0) {
                     $duepayment->payment_status = "Paid";
                     $duepayment->update();
                     return response([
                         "status" => "success",
-                        "message" => "Payment Complete Remaining Due Amount ".$duepayment->due_amount."$"
+                        "message" => "Payment Complete Remaining Due Amount " . $duepayment->due_amount . "$"
                     ]);
-                }else{
+                } else {
                     $duepayment->update();
                     return response([
                         "status" => "success",
@@ -394,14 +385,52 @@ class PurchaseController extends Controller
                     ]);
                 }
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response([
                 "status" => 'server_error',
                 "data" => $e->getMessage()
             ], 500);
         }
+    }
 
+    public function returnProduct(Request $request)
+    {
 
+        try {
+//            dd($request->all());
+            foreach ($request->product as $returnProduct) {
+                $prucahseProduct = PurchaseProduct::where("product_id", $returnProduct['product_id'])->where('invoice_id', $returnProduct['invoice_id'])->first();
+//                dd($prucahseProduct);
+                if ( $returnProduct['quantity']  > $prucahseProduct->quantity) {
+                    return response([
+                        "status" => "success",
+                        "message" => "Sorry.....Your Quantity More Then For Return Quantity"
+                    ]);
+                }
+
+                $prucahseProduct->quantity = $prucahseProduct->quantity - $returnProduct['quantity'];
+                $product = Product::where('id',$returnProduct['product_id'])->first();
+                $product->quantity = $product->quantity - $returnProduct['quantity'];
+                $product->update();
+                $prucahseProduct->update();
+                ReturnProduct::insert($request->product);
+            }
+            return response([
+                "status" => "success",
+                "message" => "Return Successfully Complete"
+            ]);
+        } catch (\Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+///        dd($request->all());
+//        $retunProduct = new ReturnProduct();
+//        $retunProduct::created();
+//          ReturnProduct::insert($request->product);
 
     }
+
+
 }

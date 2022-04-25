@@ -100,7 +100,10 @@ Route::prefix('v1')->group(function () {
     */
     Route::resource('purchase', \App\Http\Controllers\Api\purchase\PurchaseController::class);
     Route::get('purchase/payment/get-for-due-payment/{id}', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"getPurchaseProduct"]);
+    Route::get('purchase/payment/get-for-return-product/{id}', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"getReturnProduct"]);
+    Route::get('purchase/view/{id}', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"viewProduct"]);
     Route::post('purchase/payment/purchase-due', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"purchaseDue"]);
+    Route::post('purchase/product-return', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"returnProduct"]);
     Route::post('manage-purchase-approval', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"manageApproval"]);
     Route::post('purchase/file-upload', [\App\Http\Controllers\Api\purchase\PurchaseController::class,"fileUploader"]);
     /*Advertisement

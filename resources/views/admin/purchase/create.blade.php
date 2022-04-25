@@ -238,7 +238,7 @@
                     $('.product-item').append(`
                       <tr>
                         <td>${productInfo.name} <input type="hidden" name="[product][${productInfo.id}][product_id]" value="${productInfo.id}"></td>
-                        <td>${productInfo.available_stock} </td>
+                        <td>${productInfo.quantity} </td>
                         <td> <input type="number" id="quantity${productInfo.id}" name="[product][${productInfo.id}][quantity]" min="1" class="form-control quantity" value=""></td>
                         <td> <input type="number" id="cost${productInfo.id}" name="[product][${productInfo.id}][cost]" min="1" class="form-control cost" value=""> </td>
                         <td> <input type="number" name="[product][${productInfo.id}][sell]" min="1" class="form-control sell"> </td>

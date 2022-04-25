@@ -84,6 +84,18 @@
             var id = $(this).data('id');
             window.location.href = "{{url('admin/purchase/payment')}}" + "/" + id;
         });
+        // Edit call
+        // Edit call
+        $('body').on('click', '.returnItem', function () {
+            var id = $(this).data('id');
+            window.location.href = "{{url('admin/purchase/return')}}" + "/" + id;
+        });
+        // Edit call
+        // Edit call
+        $('body').on('click', '.viewItem', function () {
+            var id = $(this).data('id');
+            window.location.href = "{{url('admin/purchase/view')}}" + "/" + id;
+        });
         ///Delete Call
         ///Delete Call
         $('body').on('click', '.deleteItem', function () {

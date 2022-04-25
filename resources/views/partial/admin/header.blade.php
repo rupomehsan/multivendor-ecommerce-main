@@ -30,7 +30,7 @@
 {{--    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">--}}
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+{{--    <link rel="stylesheet" href="/resources/demos/style.css">--}}
 </head>
 <body>
 {{--preloader--}}

@@ -13,4 +13,8 @@ class Supplier extends Model
         'image' => 'array',
         'store' => 'array'
     ];
+
+    public function purchases(){
+        return $this->hasMany(Purchases::class);
+    }
 }

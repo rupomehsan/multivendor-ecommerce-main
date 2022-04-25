@@ -85,5 +85,6 @@
             url = "{{url('api/v1/manage-products-approval')}}"
             approvalData(url, id, status)
         })
+
     </script>
 @endpush
