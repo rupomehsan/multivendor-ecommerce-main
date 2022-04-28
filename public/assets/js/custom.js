@@ -396,7 +396,74 @@ function getTableData(url, id, headers, actions = [], searchData = null,) {
         }
     });
 }
+/**
+ * GET all product
+ */
 
+function getAllProduct(url,searchData=null,categoryId=null) {
+    $.ajax({
+        type: 'GET', url: url,data:{"searchData":searchData,"categoryId":categoryId}, dataType: 'json', success: function (response) {
+            if (response.status === 'success') {
+                let data = response.data
+                $('#productShow').empty()
+
+                data.forEach(function(item){
+                    $('#productShow').append(`
+                   <div class="col-lg-3 col-sm-6 col-12 pos-cards my-3 border ">
+                                        <div class="card bg-light-ash rounded-1 pos-card-item">
+                                            <div class="card-body">
+                                                <img class="pos-item-img" src="${(item.image) ? item.image[0]:'/assets/image/logo.png'}"
+                                                     alt="pos-item-img">
+
+                                                <div class="card">
+                                                    <div class="card-body text-center">
+                                                        <h5>${item.name.slice(0, 20)}</h5>
+                                                        <span>${item.category[0].name.slice(0, 10)}</span>
+                                                        <hr/>
+                                                        <span>$ ${item.price}</span>
+                                                    </div>
+                                                       <button class="btn btn-primary sm" onclick="addItem('${item.id}')"><span class="iconify" data-icon="akar-icons:circle-plus-fill"></span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                `)
+                })
+
+
+            }
+        }, error: function (xhr, resp, text) {
+            console.log(xhr, resp)
+        }
+    });
+}
+
+
+function getAllCategory(url){
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        success: function (response) {
+            let data = response.data
+            if (data.length>0) {
+                $('#category_list').empty()
+                $('#category_list').append(`
+                      <option selected disabled>All Category</option>
+                `)
+                data.forEach(function(item){
+                    $('#category_list').append(`
+                        <option value="${item.id}">${item.name}</option>
+                `)
+                })
+                console.log("product",data)
+            }
+        }, error: function (xhr, resp, text) {
+            console.log(xhr, resp)
+        }
+    });
+}
 /**
  * Approval   Data
  */

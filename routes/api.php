@@ -47,12 +47,18 @@ Route::prefix('v1')->group(function () {
       index,store,update,edit,delete
       */
     Route::resource('products', \App\Http\Controllers\Api\product\ProductController::class);
+    Route::get('get-all-products', [\App\Http\Controllers\Api\product\ProductController::class,"getAllProduct"]);
+    Route::get('get-search-products', [\App\Http\Controllers\Api\product\ProductController::class,"getSearchProduct"]);
     Route::post('manage-products-approval', [\App\Http\Controllers\Api\product\ProductController::class,"manageApproval"]);
     Route::post('products/file-upload', [\App\Http\Controllers\Api\product\ProductController::class,"fileUploader"]);
+    /* Order
+     store,update,edit,delete
+     */
+    Route::post('product/order', [\App\Http\Controllers\Api\order\OrderController::class,"orderProduct"]);
     /* Recurrings
       index,store,update,edit,delete
       */
-    Route::resource('recurrings', \App\Http\Controllers\Api\recurring\RecurringController::class);
+    Route::resource('recurrings',\App\Http\Controllers\Api\recurring\RecurringController::class);
     /*Slider
      index,store,update,edit,delete
      */

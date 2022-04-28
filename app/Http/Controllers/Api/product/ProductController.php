@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use DataTables;
 use Illuminate\Http\Request;
 use Validator;
-use DataTables;
 
 class ProductController extends Controller
 {
@@ -21,26 +21,81 @@ class ProductController extends Controller
         if ($request->ajax()) {
             return Datatables::of($products)
                 ->addIndexColumn()
-                ->addColumn('image',function($row){
-                    if($row->image && count(json_decode($row->image)) > 0){
+                ->addColumn('image', function ($row) {
+                    if ($row->image && count(json_decode($row->image)) > 0) {
                         $imageUrl = json_decode($row->image)[0];
-                    }else{
+                    } else {
                         $imageUrl = asset('/assets/image/logo.png');
                     }
-                    return '<img src="'.$imageUrl.'" height="40" width="100" />';
+                    return '<img src="' . $imageUrl . '" height="40" width="100" />';
                 })
-                ->addColumn('status',function($row){
+                ->addColumn('status', function ($row) {
                     $activeStatus = $row->status === 'active' ? 'checked' : '';
-                    $status = '<label class="switch"><input type="checkbox" id="approval" data-id="'.$row->id.'" '.$activeStatus.' /><span class="slider"></span></label>';
+                    $status = '<label class="switch"><input type="checkbox" id="approval" data-id="' . $row->id . '" ' . $activeStatus . ' /><span class="slider"></span></label>';
                     return $status;
                 })
-                ->addColumn('action', function($row){
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
                     return $btn;
                 })
-                ->rawColumns(['image','action','status'])
+                ->rawColumns(['image', 'action', 'status'])
                 ->make(true);
+        }
+    }
+
+
+    public function getAllProduct()
+    {
+        try {
+            $getProduct = Product::with(['category'])->limit(8)->get();
+            return response([
+                "status" => "success",
+                "data" => $getProduct
+            ]);
+        } catch (\Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getSearchProduct(Request $request)
+    {
+//        dd($request->all());
+        try {
+            if($request->searchData !== null){
+                $getProduct = Product::with(['category'])
+                    ->orwhere('name', 'LIKE', '%' . $request->searchData . '%')
+//                    ->orWhere('category_id',$request->categoryId)
+                    ->get();
+                return response([
+                    "status" => "success",
+                    "data" => $getProduct
+                ]);
+            }else if($request->searchData === null && $request->categoryId !== null ){
+                $getProduct = Product::with(['category'])
+//                    ->orwhere('name', 'LIKE', '%' . $request->searchData . '%')
+                    ->orWhere('category_id',$request->categoryId)
+                    ->get();
+                return response([
+                    "status" => "success",
+                    "data" => $getProduct
+                ]);
+            }else{
+                $getProduct = Product::with(['category'])->limit(8)->get();
+                return response([
+                    "status" => "success",
+                    "data" => $getProduct
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
         }
     }
 
@@ -196,7 +251,7 @@ class ProductController extends Controller
                 return validateError($errors);
             }
             $Product = Product::where("id", $id)->first();
-            $Product->name = $request->name ??  $Product->name;
+            $Product->name = $request->name ?? $Product->name;
             $Product->language_id = $request->language_id ?? $Product->language_id;
             $Product->description = $request->description ?? $Product->description;
             $Product->tag = $request->tag ?? $Product->tag;
@@ -208,26 +263,26 @@ class ProductController extends Controller
             $Product->upc = $request->upc ?? $Product->upc;
             $Product->jan = $request->jan ?? $Product->jan;
             $Product->isbn = $request->isbn ?? $Product->isbn;
-            $Product->location = $request->location ??  $Product->location;
+            $Product->location = $request->location ?? $Product->location;
             $Product->quantity = $request->quantity ?? $Product->quantity;
             $Product->stock_status_id = $request->stock_status_id ?? $Product->stock_status_id;
             $Product->available_stock = $request->available_stock ?? $Product->available_stock;
             $Product->brand_id = $request->brand_id ?? $Product->brand_id;
-            $Product->shipping = $request->shipping ??  $Product->shipping ;
-            $Product->price = $request->price ?? $Product->price ;
+            $Product->shipping = $request->shipping ?? $Product->shipping;
+            $Product->price = $request->price ?? $Product->price;
             $Product->points = $request->points ?? $Product->points;
-            $Product->tax_class_id = $request->tax_class_id ??  $Product->tax_class_id;
+            $Product->tax_class_id = $request->tax_class_id ?? $Product->tax_class_id;
             $Product->date_available = $request->date_available ?? $Product->date_available;
-            $Product->weight = $request->weight ??  $Product->weight;
+            $Product->weight = $request->weight ?? $Product->weight;
             $Product->weight_class_id = $request->weight_class_id ?? $Product->weight_class_id;
             $Product->length = $request->length ?? $Product->length;
-            $Product->width = $request->width ?? $Product->width  ;
+            $Product->width = $request->width ?? $Product->width;
             $Product->height = $request->height ?? $Product->height;
             $Product->length_class_id = $request->length_class_id ?? $Product->length_class_id;
-            $Product->subtract = $request->subtract ?? $Product->subtract ;
+            $Product->subtract = $request->subtract ?? $Product->subtract;
             $Product->minimum = $request->minimum ?? $Product->minimum;
             $Product->sort_order = $request->sort_order ?? $Product->sort_order;
-            $Product->category_id = $request->category_id ??  $Product->category_id;
+            $Product->category_id = $request->category_id ?? $Product->category_id;
             $Product->filter_id = $request->filter_id ?? $Product->filter_id;
             $Product->related_product_id = $request->related_product_id ?? $Product->related_product_id;
             $Product->attributes = $request->attribute ?? $Product->attribute;
@@ -236,9 +291,9 @@ class ProductController extends Controller
             $Product->discount = $request->discount ?? $Product->discount;
             $Product->special = $request->special ?? $Product->special;
             $Product->reward_point = $request->reward_point ?? $Product->reward_point;
-            $Product->seo_keywords = $request->seo_keywords ??$Product->seo_keywords  ;
+            $Product->seo_keywords = $request->seo_keywords ?? $Product->seo_keywords;
             $Product->design = $request->design ?? $Product->design;
-            $Product->viewed = $request->viewed ??  $Product->viewed;
+            $Product->viewed = $request->viewed ?? $Product->viewed;
             $Product->image = $request->image ?? $Product->image;
 
             if ($Product->update()) {
@@ -290,17 +345,17 @@ class ProductController extends Controller
     {
 //        dd($request->all());
         try {
-            $target         = Product::where('id', $request->id)->first();
+            $target = Product::where('id', $request->id)->first();
             $target->status = $request->status;
             if ($target->update()) {
                 return response([
-                    'status'  => 'success',
+                    'status' => 'success',
                     'message' => 'Successfully Update',
                 ], 200);
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response([
-                'status'  => 'server_error',
+                'status' => 'server_error',
                 'message' => $e->getMessage(),
             ], 500);
         }
@@ -316,15 +371,15 @@ class ProductController extends Controller
         if ($validate->fails()) {
             return response([
                 'status' => 'validation_error',
-                'data'   => $validate->errors(),
+                'data' => $validate->errors(),
             ], 422);
         }
         try {
             if (request()->hasFile('file')) {
 
-                foreach ($request->file('file') as $imagedata){
+                foreach ($request->file('file') as $imagedata) {
 
-                    $folder    = $request->folder ?? 'all';
+                    $folder = $request->folder ?? 'all';
                     $imageName = $folder . "/" . time() . '.' . $imagedata->getClientOriginalName();
                     if (config('app.env') === 'production') {
                         $imagedata->move('uploads/' . $folder, $imageName);
@@ -337,14 +392,14 @@ class ProductController extends Controller
                 }
                 $finalImage = json_encode($data);
                 return response([
-                    'status'  => 'success',
+                    'status' => 'success',
                     'message' => 'File uploaded successfully',
-                    'data'    => $finalImage
+                    'data' => $finalImage
                 ], 200);
             }
         } catch (\Exception$e) {
             return response([
-                'status'  => 'server_error',
+                'status' => 'server_error',
                 'message' => $e->getMessage(),
             ], 500);
         }
