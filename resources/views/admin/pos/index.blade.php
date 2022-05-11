@@ -253,7 +253,6 @@
                 dataType: "json",
                 success: function (res) {
                     if (res.status === "success") {
-
                         var cartTotalPriceItems = document.querySelectorAll('.existItem');
                         var allItem = []
                         cartTotalPriceItems.forEach(function (item) {
@@ -276,7 +275,6 @@
                         }
                         // console.log("allItem",allItem)
                         onLoadItemTotal()
-
                         function onLoadItemTotal() {
                             var quantity = $('#quantity' + res.data.id).val()
                             var price = $('#ItemPrice' + res.data.id).val()
@@ -284,7 +282,6 @@
                             setItemTotal(itemTotal)
                             generateTotalPrice()
                         }
-
                         $('#quantity' + res.data.id).keyup(function () {
                             var quantity = $(this).val()
                             var price = $("#ItemPrice" + res.data.id).val()
@@ -299,13 +296,10 @@
                             setItemTotal(itemTotal)
                             generateTotalPrice()
                         })
-
                         function setItemTotal(itemTotal) {
                             $("#itemTotal" + res.data.id).text(itemTotal)
                             $("#itemTotal" + res.data.id).val(itemTotal)
                         }
-
-
                         function generateTotalPrice() {
                             var cartTotalPriceItems = document.querySelectorAll('.itemTotal');
                             var subTotalPrice = 0
@@ -317,7 +311,6 @@
                             $('#subTotal').val(subTotalPrice)
                             grandTotal()
                         }
-
                         function grandTotal() {
                             var subTotal = parseInt($('#subTotal').val())
                             var discountNumber = parseInt($('#discount').val())
@@ -326,7 +319,6 @@
                             $('#grandTotal').val(grandtotal)
                             // $('.grandtotal').val(grandtotal)
                         }
-
                         $('.delteItem').click(function () {
                             $(this).parents('tr').remove();
                             generateTotalPrice()
@@ -337,10 +329,7 @@
                         $('#discount').keyup(function(){
                             generateTotalPrice()
                         })
-
-
                     }
-
                 },
                 error: function (err) {
                     console.log("rerror", err)

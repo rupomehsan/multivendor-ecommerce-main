@@ -20,8 +20,10 @@ class CreateCartsTable extends Migration
             $table->integer('session_id')->nullable();
             $table->integer('product_id')->nullable();
             $table->integer('recurring_id')->nullable();
+            $table->string('client_id')->nullable();
             $table->json('option')->nullable();
             $table->integer('quantity')->nullable();
+            $table->integer('price')->nullable();
             $table->timestamps();
         });
     }

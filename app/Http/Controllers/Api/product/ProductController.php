@@ -60,6 +60,23 @@ class ProductController extends Controller
             ], 500);
         }
     }
+   public function getRelatedProduct($id)
+    {
+        try {
+//            dd($id);
+            $getProduct = Product::find($id);
+            $relatedProduct = Product::with(['category'])->where("category_id",$getProduct->category_id)->get();
+            return response([
+                "status" => "success",
+                "data" => $relatedProduct
+            ]);
+        } catch (\Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+    }
 
     public function getSearchProduct(Request $request)
     {
@@ -203,7 +220,7 @@ class ProductController extends Controller
     public function show($id)
     {
         try {
-            $getProduct = Product::where("id", $id)->first();
+            $getProduct = Product::with(["category","reviews"])->where("id", $id)->first();
             if ($getProduct) {
                 return response([
                     "status" => "success",
@@ -404,4 +421,21 @@ class ProductController extends Controller
             ], 500);
         }
     }
+
+    public function  getPopularProduct(){
+        try {
+            $getPopularProduct = Product::with(["category"])->where("status","active")->latest(10)->get();
+            return response([
+                "status" => "success",
+                "data" => $getPopularProduct
+            ],200);
+        }catch (\Exception$e) {
+            return response([
+                'status' => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
 }

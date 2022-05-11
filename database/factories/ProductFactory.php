@@ -19,7 +19,7 @@ class ProductFactory extends Factory
             "model"=>$this->faker->numberBetween(1,10),
             "category_id"=>$this->faker->numberBetween(1,10),
             "brand_id"=>$this->faker->numberBetween(1,10),
-            "quantity"=>$this->faker->numberBetween(50,100),
+            "quantity"=>$this->faker->numberBetween(1,10),
             "price"=>$this->faker->numberBetween(100,500),
         ];
     }

@@ -48,6 +48,7 @@ Route::prefix('v1')->group(function () {
       */
     Route::resource('products', \App\Http\Controllers\Api\product\ProductController::class);
     Route::get('get-all-products', [\App\Http\Controllers\Api\product\ProductController::class,"getAllProduct"]);
+    Route::get('get-related-products/{id}', [\App\Http\Controllers\Api\product\ProductController::class,"getRelatedProduct"]);
     Route::get('get-search-products', [\App\Http\Controllers\Api\product\ProductController::class,"getSearchProduct"]);
     Route::post('manage-products-approval', [\App\Http\Controllers\Api\product\ProductController::class,"manageApproval"]);
     Route::post('products/file-upload', [\App\Http\Controllers\Api\product\ProductController::class,"fileUploader"]);
@@ -138,5 +139,13 @@ Route::prefix('v1')->group(function () {
     store,update,edit,show
     */
     Route::resource('carts', \App\Http\Controllers\Api\cart\CartController::class);
+    Route::get('cart/get-client-carts', [\App\Http\Controllers\Api\cart\CartController::class,"getClientCart"]);
+    Route::post('cart/client-cart-update', [\App\Http\Controllers\Api\cart\CartController::class,"ClientCartUpdate"]);
+    Route::post('cart/client-cart-item-delete', [\App\Http\Controllers\Api\cart\CartController::class,"ClientCartDelete"]);
+    /* compare
+   store,show
+   */
+    Route::post('add-to-compare',[\App\Http\Controllers\Api\compare\CompareListController::class,'store']);
+    Route::post('get-all-compare-list',[\App\Http\Controllers\Api\compare\CompareListController::class,'index']);
 
 });

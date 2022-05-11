@@ -107,54 +107,36 @@
 
                 <li class="nav-item badge">
                     <div class="dropdown">
-                        <a class="nav-link" href="#" data-bs-toggle="dropdown">
+{{--                        <a class="nav-link" href="{{url('/cart')}}" >--}}
+{{--                            <span class="iconify" data-icon="twemoji:shopping-cart" data-width="25"--}}
+{{--                                  data-height="25"></span>--}}
+{{--                            <span class="badge-count">1</span>--}}
+{{--                        </a>--}}
+                        <a class="nav-link"  data-bs-toggle="dropdown">
                             <span class="iconify" data-icon="twemoji:shopping-cart" data-width="25"
                                   data-height="25"></span>
-                            <span class="badge-count">1</span>
+                            <span class="badge-count" id="badgeCount">00</span>
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end p-4" style="width: 300px">
 
                             <li>
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <h6>2 items(2)</h6>
-                                    <a href="">view cart</a>
+                                    <h6>Total Items <span id="totatlItemCount" class="fw-bold">(00)</span> </h6>
+                                    <a href="{{url('/cart')}}">View Cart</a>
                                 </div>
                             </li>
                             <li class="dropdown-divider"></li>
-                            <li>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h6>Product Name</h6>
-                                        <h6 class="text-valencia fw-lighter">1X$100.00</h6>
-                                    </div>
+                            <div id="cartItem">
 
-                                    <img src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-                            </li>
-                            <li class="dropdown-divider"></li>
+                            </div>
 
-                            <li>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h6>Product Name</h6>
-                                        <h6 class="text-valencia fw-lighter">1X$100.00</h6>
-                                    </div>
 
-                                    <img src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-                            </li>
-                            <li class="dropdown-divider"></li>
-                            <li>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h6>Total</h6>
-                                    <h6 class="text-valencia">$200.00</h6>
-                                </div>
-                            </li>
 
                             <li class="mt-4">
-                                <button class="btn btn-valencia rounded-lg text-capitalize form-control">checkout
-                                </button>
+                                <a href="{{url("checkout")}}" class="btn btn-valencia rounded-lg text-capitalize form-control">checkout</a>
+
+
                             </li>
 
 

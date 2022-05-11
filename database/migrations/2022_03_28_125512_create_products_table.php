@@ -49,7 +49,7 @@ class CreateProductsTable extends Migration
             $table->tinyInteger('subtract')->nullable();
             $table->integer('minimum')->nullable();
             $table->integer('sort_order')->nullable();
-            $table->json('category_id')->nullable();
+            $table->integer('category_id')->nullable();
             $table->integer('filter_id')->nullable();
             $table->json('related_product_id')->nullable();
             $table->json('attributes')->nullable();

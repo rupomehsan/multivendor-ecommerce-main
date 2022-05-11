@@ -11,7 +11,6 @@ class Product extends Model
     protected $guarded=[];
     protected $casts = [
         'language_id' => 'array',
-        'category_id' => 'array',
         'filters' => 'array',
         'related_product_id' => 'array',
         'attributes' => 'array',
@@ -29,5 +28,15 @@ class Product extends Model
     }
     public function category(){
         return $this->hasMany(Category::class,'id','category_id');
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
+    public function brands(){
+        return $this->hasMany(Brand::class);
+    }
+    public function carts(){
+        return $this->hasMany(Brand::class);
     }
 }

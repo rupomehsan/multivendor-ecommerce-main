@@ -6,58 +6,9 @@
         <!-- ***** Hero Section ***** -->
         <div id="hero" class="hero">
             <div class="swiper hero-slider">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="{{asset('assets/image/hero.png')}}" alt="">
+                <div class="swiper-wrapper" id="slider">
 
-                        <div class="container overlay">
-                            <h1 class="title">
-                                Get
-                                <br/>
-                                <span>Stylish</span>
-                            </h1>
-                            <h2 class="percentage">
-                                25% OFF!
-                            </h2>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit ut volutpat egestas.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{{asset('assets/image/hero.png')}}" alt="">
 
-                        <div class="container overlay">
-                            <h1 class="title">
-                                Get
-                                <br/>
-                                <span>Stylish</span>
-                            </h1>
-                            <h2 class="percentage">
-                                25% OFF!
-                            </h2>
-                            <span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit ut volutpat egestas.
-                        </span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{{asset('assets/image/hero.png')}}" alt="">
-
-                        <div class="container overlay">
-                            <h1 class="title">
-                                Get
-                                <br/>
-                                <span>Stylish</span>
-                            </h1>
-                            <h2 class="percentage">
-                                25% OFF!
-                            </h2>
-                            <span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit ut volutpat egestas.
-                        </span>
-                        </div>
-                    </div>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -103,39 +54,7 @@
             <div class="container">
 
                 <div class="swiper category-slider">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="{{asset('assets/image/category.png')}}" alt="">
-
-                            <div class="overlay">
-                                <span>Sneakers</span>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="{{asset('assets/image/category.png')}}" alt="">
-
-                            <div class="overlay">
-                                <span>Sneakers</span>
-                            </div>
-                        </div>
-
-
-                        <div class="swiper-slide">
-                            <img src="{{asset('assets/image/category.png')}}" alt="">
-
-                            <div class="overlay">
-                                <span>Sneakers</span>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="{{asset('assets/image/category.png')}}" alt="">
-
-                            <div class="overlay">
-                                <span>Sneakers</span>
-                            </div>
-                        </div>
+                    <div class="swiper-wrapper" id="category">
 
                     </div>
                     <div class="swiper-button-next"></div>
@@ -162,349 +81,31 @@
                         <form action="" class="dropdown-menu dropdown-menu-end p-3 border-0 bottom-shadow">
                             <label for="customRange" class="form-label">Price</label>
                             <input type="range" class="form-range" id="customRange" name="points" min="0" max="4">
-
                             <h6>Categories</h6>
                             <div class="row row-cols-2">
                                 <div class="col">
                                     <input type="button" class="btn bg-outline-valencia form-control rounded-pill"
                                            value="PHone">
                                 </div>
-
                                 <div class="col">
                                     <input type="button"
                                            class="btn bg-valencia form-control text-white rounded-pill"
                                            value="PHone">
                                 </div>
                             </div>
-
                             <div class="my-2">
                                 <button type="submit" class="btn btn-valencia form-control">Search</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="row row-cols-lg-3">
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
+                <div class="row row-cols-lg-3" id="popularProduct">
 
 
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 offset-lg-5">
-                        <button class="btn btn-valencia form-control text-capitalize rounded-sm my-5">Load more products</button>
-                    </div>
+                <div class="col-lg-2 offset-lg-5">
+                    <button class="btn btn-valencia form-control text-capitalize rounded-sm my-5">Load more products</button>
                 </div>
 
             </div>
@@ -544,334 +145,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-lg-3">
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
+                <div class="row row-cols-lg-3" id="dealOfTheDay">
 
 
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-3">
-                        <div class="card bg-athens-gray rounded-sm product-card">
-                            <div class="card-body">
-
-                                <ul class="extra-list">
-                                    <li class="list-item">
-                                        <span class="iconify action-btn" data-icon="ant-design:heart-filled"
-                                              data-width="25" data-height="25"></span>
-                                    </li>
-
-                                    <li class="list-item">
-
-                                        <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
-                                              data-height="25"></span>
-                                    </li>
-                                </ul>
-                                <div class="text-center my-5">
-                                    <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <h5 class="fw-bold text-capitalize">Sneakers</h5>
-                                        <span class="fw-lighter text-capitalize">Shoes</span>
-                                        <hr>
-                                        <h5 class="fw-lighter">$14.99</h5>
-
-                                        <span class="d-flex align-items-center justify-content-center my-4">
-                                            <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
-                                                  data-width="20" data-height="20"></span>
-                                           <span class="text-warning fw-bold">4.2</span>
-                                            <span class="text-secondary fw-lighter mx-3">123 reviews</span>
-                                        </span>
-
-
-                                        <div class="row row-cols-2 my-2">
-                                            <div class="col">
-                                                <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center ">
-                                                    <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{url('/product-view')}}"
-                                                   class="btn form-control btn-outline-valencia">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 offset-lg-5">
-                        <button class="btn btn-valencia form-control text-capitalize rounded-sm my-5">Load more products</button>
-                    </div>
                 </div>
-
+                <div class="col-lg-2 offset-lg-5">
+                    <button class="btn btn-valencia form-control text-capitalize rounded-sm my-5">Load more products</button>
+                </div>
             </div>
         </div>
-
-
         <!-- ***** Contact Section ***** -->
         <div class="contact-section bg-athens-gray py-5">
             <div class="container">
@@ -1028,13 +310,252 @@
                 prevEl: ".swiper-button-prev",
             },
         });
-
-
         function updateTextInput(val) {
             document.getElementById('textInput').value = val;
         }
-
         $('.timer').startTimer();
+    </script>
+    <script>
+        $(document).ready(function (){
+            //get all slider
+            //get all slider
+            $.ajax({
+                url: "{{url('api/v1/sliders')}}",
+                method: "get",
+                dataType:"json",
+                success:function(res){
+                    console.log(res)
+                    if(res.status==="success"){
+                        $('#slider').empty()
+                       res.data.forEach(function(item){
+                           $('#slider').append(`
+                          <div class="swiper-slide">
+                                <img src="{{asset('assets/image/hero.png')}}" alt="">
+                                <div class="container overlay">
+                                    <h1 class="title">
+                                        Get
+                                        <br/>
+                                        <span>${item.title}</span>
+                                    </h1>
+                                    <h2 class="percentage">
+                                        ${item.offer} % OFF!
+                                    </h2>
+                                    <span>
+                                    ${item.description}
+                                </span>
+                                </div>
+                            </div>
+                        `)
+                       })
+                    }
+            },
+            error:function(err){
+                    console.log(err)
+            }
+            })
+            //get all categories
+            //get all categories
+            $.ajax({
+                url: "{{url('api/v1/categories')}}",
+                method: "get",
+                dataType:"json",
+                success:function(res){
+                    console.log(res)
+                    if(res.data.length>0){
+                        $('#category').empty()
+                        res.data.forEach(function(item){
+                            $('#category').append(`
+                          <div class="swiper-slide">
+                           ${item.image}
+                            <div class="overlay">
+                                <span>${item.name}</span>
+                            </div>
+                        </div>
+                        `)
+                        })
+                    }
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+            //get popular products
+            //get popular products
+            $.ajax({
+                url: "{{url('api/v1/get-all-products')}}",
+                method: "get",
+                dataType:"json",
+                success:function(res){
+                    console.log(res)
+                    if(res.status==="success"){
+                        $('#popularProduct').empty()
+                        res.data.forEach(function(item){
+                            $('#popularProduct').append(`
+                                <div class="col my-3">
+                                    <div class="card bg-athens-gray rounded-sm product-card">
+                                        <div class="card-body">
+
+                                            <ul class="extra-list">
+                                                <li class="list-item">
+                                                    <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                                          data-width="25" data-height="25"></span>
+                                                </li>
+
+                                                <li class="list-item">
+
+                                                    <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                                          data-height="25"></span>
+                                                </li>
+                                            </ul>
+                                            <div class="text-center my-5">
+                                                <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                            </div>
+
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <h5 class="fw-bold text-capitalize">${item.name}</h5>
+                                                    <span class="fw-lighter text-capitalize">${item.category[0].name}</span>
+                                                    <hr>
+                                                    <h5 class="fw-lighter">$ <span id="price${item.id}"> ${item.price} </span></h5>
+
+                                                    <span class="d-flex align-items-center justify-content-center my-4">
+                                                        <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                              data-width="20" data-height="20"></span>
+                                                       <span class="text-warning fw-bold">4.2</span>
+                                                        <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                                    </span>
+
+
+                                                    <div class="row row-cols-2 my-2">
+                                                        <div class="col">
+                                                            <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center " onclick="addToCart('${item.id}')">
+                                                                <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                                Add to cart
+                                                            </button>
+                                                        </div>
+                                                        <div class="col">
+                                                            <a href="{{url('/product-view')}}/${item.id}"
+                                                               class="btn form-control btn-outline-valencia">Details</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                        `)
+                        })
+                    }
+
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+            //dealOfTheDay
+            //dealOfTheDay
+            $.ajax({
+                url: "{{url('api/v1/get-all-products')}}",
+                method: "get",
+                dataType:"json",
+                success:function(res){
+                    console.log(res)
+                    if(res.status==="success"){
+                        $('#dealOfTheDay').empty()
+                        res.data.forEach(function(item){
+                            $('#dealOfTheDay').append(`
+                                <div class="col my-3">
+                                    <div class="card bg-athens-gray rounded-sm product-card">
+                                        <div class="card-body">
+                                            <ul class="extra-list">
+                                                <li class="list-item">
+                                                    <span class="iconify action-btn" data-icon="ant-design:heart-filled"
+                                                          data-width="25" data-height="25"></span>
+                                                </li>
+                                                <li class="list-item">
+                                                    <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                                          data-height="25"></span>
+                                                </li>
+                                            </ul>
+                                            <div class="text-center my-5">
+                                                <img class="product-img" src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <h5 class="fw-bold text-capitalize">${item.name}</h5>
+                                                    <span class="fw-lighter text-capitalize">${item.category[0].name}</span>
+                                                    <hr>
+                                                    <h5 class="fw-lighter">$ <span id="price${item.id}"> ${item.price} </span></h5>
+                                                    <span class="d-flex align-items-center justify-content-center my-4">
+                                                        <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
+                                                              data-width="20" data-height="20"></span>
+                                                       <span class="text-warning fw-bold">4.2</span>
+                                                        <span class="text-secondary fw-lighter mx-3">123 reviews</span>
+                                                    </span>
+                                                    <div class="row row-cols-2 my-2">
+                                                        <div class="col">
+                                                            <button class="btn btn-valencia form-control d-flex align-items-center justify-content-center " onclick="addToCart('${item.id}')">
+                                                                <span class="iconify me-2" data-icon="fa:cart-plus" data-width="20" data-height="20"></span>
+                                                                Add to cart
+                                                            </button>
+                                                        </div>
+                                                        <div class="col">
+                                                            <a href="{{url('/product-view')}}/${item.id}"
+                                                               class="btn form-control btn-outline-valencia">Details</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                        `)
+                        })
+                    }
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+             // add to cart
+             // add to cart
+
+        })
+
+        function addToCart(id){
+            var quantity = 1;
+            var price = $('#price'+id).text()
+            if (quantity<1) {
+                toastr.error('Minimum 1 item required')
+            } else {
+                $.ajax({
+                    url: '{{ url('api/v1/carts') }}',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'product_id': id,
+                        'quantity': quantity,
+                        'price': price
+                    },
+                    success: function(res) {
+                        console.log(res)
+                        if(res.status==="success"){
+                            toastr.success(res.message)
+                            getClientCartPublic()
+                        }else if(res.status==="error"){
+                            toastr.error(res.message)
+                        }
+                        // $('#quantity').val(0)
+                    },
+                    error: function(err) {
+                        console.log(err)
+                    }
+                })
+            }
+        }
 
     </script>
 @endpush

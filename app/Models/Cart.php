@@ -12,4 +12,8 @@ class Cart extends Model
     protected $casts = [
         'option' => 'array',
     ];
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }
