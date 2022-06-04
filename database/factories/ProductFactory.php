@@ -13,6 +13,7 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+
         return [
             "name"=>$this->faker->paragraph(1),
             "description"=>$this->faker->paragraph(),
@@ -21,6 +22,9 @@ class ProductFactory extends Factory
             "brand_id"=>$this->faker->numberBetween(1,10),
             "quantity"=>$this->faker->numberBetween(1,10),
             "price"=>$this->faker->numberBetween(100,500),
+            "vendors_id"=>$this->faker->numberBetween(4,6),
+            "product_code"=>$this->faker->regexify('[A-Z]{5}[0-4]{3}'),
+            "attributes"=>'[{"color":"red","size":"A"}]'
         ];
     }
 }

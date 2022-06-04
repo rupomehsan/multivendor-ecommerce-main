@@ -240,17 +240,11 @@ body {
 
 /* BUTTONS */
 .btn-base {
-    border-radius: 32px;
-    text-transform: capitalize;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
- th {
-    border: 1px solid #dddddd;
-    padding: 8px;
-    width: 25%;
-    text-align: center;
+  color: #FFFFFF;
+  border-radius: 32px;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
 }
 .btn-base:focus {
   box-shadow: none !important;
@@ -537,6 +531,7 @@ header {
 #pos-content .pos-cards .pos-card-item .pos-item-img {
   width: 100px;
   height: 60px;
+  margin: 50px 0;
 }
 
 /* ---------------------------------

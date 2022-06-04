@@ -12,26 +12,28 @@
 
                         <h4 class="my-3 text-uppercase">log in</h4>
 
-                        <form action="">
+                        <form action="{{url('api/v1/user/login')}}" id="form" name="form" enctype="multipart/form-data" novalidate>
                             <div class="form-group text-start my-3">
                                 <label for="email" id="email_label" class="form-label">Email</label>
                                 <input type="email" id="email" name="email" class="form-control py-2"
                                        placeholder="Enter Your Email">
-                                <span class="text-danger" id="email_error">Error message</span>
+                                <span class="text-danger" id="email_error"></span>
                             </div>
 
                             <div class="form-group text-start my-3">
                                 <label for="password" id="password_label" class="form-label">Password</label>
                                 <input type="password" id="password" name="password" class="form-control py-2"
                                        placeholder="Enter Your password">
-                                <span class="text-danger" id="password_error">Error message</span>
+                                <span class="text-danger" id="password_error"></span>
                             </div>
 
                             <div class="text-end">
                                 <a href="" class="btn text-capitalize text-secondary">forget password ?</a>
                             </div>
+                            <div class="d-flex justify-content-end my-3">
+                                <button id="submit-button" type="submit" class="btn btn-valencia form-control text-capitalize my-3">Log in</button>
+                            </div>
 
-                            <button class="btn btn-valencia form-control text-capitalize my-3">Log in</button>
 
                             <p class="my-3 text-uppercase">or</p>
 
@@ -52,3 +54,18 @@
     </div>
 @endsection
 
+@push('custom-js')
+    <script>
+        function redirectPage() {
+            window.location.href = window.origin + "/"
+        }
+
+        $('#form').submit(function(e){
+            e.preventDefault()
+            let form = $(this)
+            formSubmit("post","submit-button",form)
+        })
+
+
+    </script>
+@endpush

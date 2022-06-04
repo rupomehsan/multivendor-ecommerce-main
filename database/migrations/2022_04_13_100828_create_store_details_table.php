@@ -26,6 +26,8 @@ class CreateStoreDetailsTable extends Migration
             $table->text('meta_tag_title')->nullable();
             $table->text('meta_tag_desc')->nullable();
             $table->text('meta_tag_keyword')->nullable();
+            $table->string('image')->nullable();
+            $table->enum('status',['active',"inactive"])->default('active');
             $table->timestamps();
         });
     }

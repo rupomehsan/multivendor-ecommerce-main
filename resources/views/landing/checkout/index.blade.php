@@ -1,295 +1,328 @@
 @extends('layouts.landing.index')
-
 @section('content')
     <div class="container py-5">
-        <div class="row">
-            <div id="smartwizard">
-                <ul class="nav">
-                    <li>
-                        <a class="nav-link" href="#step-1">
-                            1 Address Information
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#step-2">
-                            2 Order Information
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#step-3">
-                            3 Payment Information
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="tab-content mt-4 d-flex justify-content-between" style="overflow-x: hidden !important;">
-                    <div class="w-100 me-2 ">
-                        <div id="step-1" class="tab-pane" role="tabpanel">
-
-                            <div class="card border rounded-0">
-                                <div class="card-body">
-                                    <h6 class="card-title">Address & Billing Information:</h6>
-                                    <hr/>
-
-                                    <div class="row">
-                                        <div class="col-lg-6 my-2">
-                                            <div class="form-group">
-                                                <input type="text" name="name" id="name" class="form-control"
-                                                       placeholder="Full Name *">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6 my-2">
-                                            <div class="form-group">
-                                                <input type="text" name="name" id="name" class="form-control"
-                                                       placeholder="Phone *">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6 my-2">
-                                            <div class="form-group">
-                                                <input type="text" name="name" id="name" class="form-control"
-                                                       placeholder="Email *">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-lg-6 my-2">
-                                            <div class="form-group">
-                                                <input type="text" name="name" id="name" class="form-control"
-                                                       placeholder="Address *">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-lg-12 my-2">
-                                            <textarea name="" id="" rows="10" class="form-control"
-                                                      placeholder="Additional Information"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="step-2" class="tab-pane" role="tabpanel">
-                            <div class="card border rounded-0" style="min-height: 500px">
-                                <div class="card-body">
-                                    <h6 class="card-title">Order Information:</h6>
-                                    <hr/>
-
-                                    <ul class="order_list">
-                                        <li class="order_list_item py-3">
-                                            <div class="d-flex">
-                                                <img class="img-fluid bottom-shadow me-5"
-                                                     src="{{asset('assets/image/pos-item.png')}}" alt="">
-
-                                                <ul class="text-capitalize fw-bold">
-                                                    <li>
-                                                        <h4 class="">Blue shirt</h4>
-                                                    </li>
-                                                    <li>
-                                                        <h6 class="text-secondary fw-bold">shirt: <span
-                                                                class="text-black-50 fw-lighter">blue</span></h6>
-                                                    </li>
-
-                                                    <li>
-                                                        <h6 class="text-secondary fw-bold">color: <span
-                                                                class="text-black-50 fw-lighter">blue</span></h6>
-                                                    </li>
-
-                                                    <li>
-                                                        <h6 class="text-secondary fw-bold">size: <span
-                                                                class="text-black-50 fw-lighter">m</span></h6>
-                                                    </li>
-
-                                                    <li>
-                                                        <h6 class="text-secondary fw-bold">quantity: <span
-                                                                class="text-black-50 fw-lighter">1</span></h6>
-                                                    </li>
-                                                    <li>
-                                                        <h6 class="text-secondary fw-bold">total price: <span
-                                                                class="text-black-50 fw-lighter">120</span></h6>
-                                                    </li>
-
-
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="step-3" class="tab-pane" role="tabpanel">
-                            <div class="card border rounded-0" style="min-height: 500px">
-                                <div class="card-body">
-                                    <h6 class="card-title">Delivery Info:</h6>
-                                    <hr/>
-
-                                    <ul class="text-capitalize text-valencia mb-3">
-                                        <li class="d-flex align-items-center">
-                                            <span class="iconify me-2" data-icon="bxs:user" data-width="20"
-                                                  data-height="20"></span>
-                                            <span>Ashiqur Rahman</span>
-                                        </li>
-                                        <li class="d-flex align-items-center">
-                                            <span class="iconify me-2" data-icon="bxs:user" data-width="20"
-                                                  data-height="20"></span>
-                                            <span>Ashiqur Rahman</span>
-                                        </li>
-
-                                        <li class="d-flex align-items-center">
-                                            <span class="iconify me-2" data-icon="bxs:user" data-width="20"
-                                                  data-height="20"></span>
-                                            <span>Ashiqur Rahman</span>
-                                        </li>
-                                        <li class="d-flex align-items-center">
-                                            <span class="iconify me-2" data-icon="bxs:user" data-width="20"
-                                                  data-height="20"></span>
-                                            <span>Ashiqur Rahman</span>
-                                        </li>
-
-                                    </ul>
-
-                                    <span class="card-title text-capitalize fs-5 fw-bold">payment method</span>
-                                    <hr/>
-
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_method" id="cod"
-                                                   value="cod">
-                                            <label class="form-check-label" for="cod">
-                                                Cash On Delivery
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_method"
-                                                   id="credit_card" value="credit">
-                                            <label class="form-check-label" for="credit_card">
-                                                Credit Card
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_method"
-                                                   id="mob" value="mob">
-                                            <label class="form-check-label" for="mob">
-                                                Mobile Banking
-                                            </label>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="d-none mt-4" id="mobile_banking_content">
-                                        <span class=" fs-6 my-2">Please choose your payment gateway</span>
-
-                                        <ul class="d-flex align-items-center">
-                                            <li>
-                                                <a href="">
-                                                    <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="">
-                                                    <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="d-none my-4" id="credit_content">
+        <form action="{{url('api/v1/product/order')}}" id="form" name="form" enctype="multipart/form-data"
+              novalidate>
+            <input type="hidden" name="store_id" id="store_id"/>
+            <div class="row">
+                <div id="smartwizard">
+                    <ul class="nav">
+                        <li>
+                            <a class="nav-link" href="#step-1">
+                                1 => Address Information
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#step-2">
+                                2 => Order Information
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#step-3">
+                                3 => Payment Information
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-4 d-flex justify-content-between" style="overflow-x: hidden !important;">
+                        <div class="w-100 me-2 ">
+                            <div id="step-1" class="tab-pane" role="tabpanel">
+                                <div class="card border rounded-0">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Address & Billing Information:</h6>
+                                        <hr/>
                                         <div class="row">
                                             <div class="col-lg-6 my-2">
-                                                <input type="text" class="form-control" placeholder="Card Name">
+                                                <div class="form-group">
+                                                    <input type="text" name="full_name" id="full_name"
+                                                           class="form-control"
+                                                           placeholder="Full Name *">
+                                                    <span class="text-danger" id="full_name_error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 my-2">
+                                                <div class="form-group">
+                                                    <select name="division" id="division" class="form-control">
+                                                        <option selected disabled>Select Your Division</option>
+
+                                                    </select>
+
+                                                    <span class="text-danger" id="phone_error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 my-2">
+                                                <div class="form-group">
+                                                    <input type="number" name="phone" id="phone" class="form-control"
+                                                           placeholder="Phone *">
+                                                    <span class="text-danger" id="phone_error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 my-2">
+                                                <div class="form-group">
+                                                    <select name="district" id="district" class="form-control">
+
+
+                                                    </select>
+
+                                                    <span class="text-danger" id="phone_error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 my-2">
+                                                <div class="form-group">
+                                                    <input type="email" name="email" id="email" class="form-control"
+                                                           placeholder="Email *">
+                                                    <span class="text-danger" id="email_error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 my-2">
+                                                <div class="form-group">
+                                                    <select name="station" id="station" class="form-control">
+
+
+                                                    </select>
+
+                                                    <span class="text-danger" id="phone_error"></span>
+                                                </div>
+                                            </div>
+{{--                                            <div class="col-lg-6 my-2">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <input type="text" name="address" id="address" class="form-control"--}}
+{{--                                                           placeholder="Address *">--}}
+{{--                                                    <span class="text-danger" id="email_error"></span>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+                                            <div class="col-lg-6 my-2">
+                                                <div class="form-group">
+                                                    <input type="text" name="" id="" class="form-control"
+                                                           placeholder="Colony / Suburb / Locality / Landmark">
+                                                    <span class="text-danger" id="phone_error"></span>
+                                                </div>
                                             </div>
 
-                                            <div class="col-lg-6 my-2">
-                                                <input type="text" class="form-control" placeholder="Cvv">
-                                            </div>
-                                            <div class="col-lg-6 my-2">
-                                                <input type="month" class="form-control">
+                                            <div class="col-lg-12 my-2">
+                                            <textarea name="additional_info" id="" rows="10" class="form-control"
+                                                      placeholder="Additional Information"></textarea>
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
+                            <div id="step-2" class="tab-pane" role="tabpanel">
+                                <div class="card border rounded-0" style="min-height: 500px">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Order Information:</h6>
+                                        <hr/>
+
+                                        <ul class="order_list" id="clientCartItem">
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-3" class="tab-pane" role="tabpanel">
+                                <div class="card border rounded-0" style="min-height: 500px">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Delivery Info:</h6>
+                                        <hr/>
+
+                                        <ul class="text-capitalize text-valencia mb-3">
+                                            <li class="d-flex align-items-center">
+                                            <span class="iconify me-2" data-icon="bxs:user" data-width="20"
+                                                  data-height="20"></span>
+                                                <span>Ashiqur Rahman</span>
+                                            </li>
+                                            <li class="d-flex align-items-center">
+                                            <span class="iconify me-2" data-icon="bxs:user" data-width="20"
+                                                  data-height="20"></span>
+                                                <span>Ashiqur Rahman</span>
+                                            </li>
+
+                                            <li class="d-flex align-items-center">
+                                            <span class="iconify me-2" data-icon="bxs:user" data-width="20"
+                                                  data-height="20"></span>
+                                                <span>Ashiqur Rahman</span>
+                                            </li>
+                                            <li class="d-flex align-items-center">
+                                            <span class="iconify me-2" data-icon="bxs:user" data-width="20"
+                                                  data-height="20"></span>
+                                                <span>Ashiqur Rahman</span>
+                                            </li>
+
+                                        </ul>
+
+                                        <span class="card-title text-capitalize fs-5 fw-bold">payment method</span>
+                                        <hr/>
+
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="payment_method"
+                                                       id="cod"
+                                                       value="cod">
+                                                <label class="form-check-label" for="cod">
+                                                    Cash On Delivery
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="payment_method"
+                                                       id="credit_card" value="credit">
+                                                <label class="form-check-label" for="credit_card">
+                                                    Credit Card
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="payment_method"
+                                                       id="mob" value="mob">
+                                                <label class="form-check-label" for="mob">
+                                                    Mobile Banking
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="d-none mt-4" id="mobile_banking_content">
+                                            <span class=" fs-6 my-2">Please choose your payment gateway</span>
+
+                                            <ul class="d-flex align-items-center my-3">
+
+                                                <div class="button-container mx-3 border">
+                                                    <img src="{{asset('assets/image/bikash.png')}}" alt="Snow"
+                                                         style="width:100%">
+                                                    <button class="btn">Bkash</button>
+                                                </div>
+
+                                            </ul>
+                                        </div>
+
+                                        <div class="d-none my-4" id="credit_content">
+                                            <div class="row">
+                                                <div class="col-lg-6 my-2">
+                                                    <input type="text" class="form-control" placeholder="Card Name">
+                                                </div>
+
+                                                <div class="col-lg-6 my-2">
+                                                    <input type="text" class="form-control" placeholder="Cvv">
+                                                </div>
+                                                <div class="col-lg-6 my-2">
+                                                    <input type="month" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+                </div>
+                <div class="card border rounded-0">
+                    <div class="card-body">
+                        <h5 class="card-title text-capitalize fw-bold">Price Details</h5>
+                        <hr>
 
-                    <div class="card border rounded-0">
-                        <div class="card-body">
-                            <h5 class="card-title text-capitalize fw-bold">Price Details</h5>
-                            <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="fw-bolder">Total Price:</h6>
+                            <input type="hidden" name="total" class="totalPrice" value="">
+                            <h6 class="fw-bold text-black-50 fs-4">$ <span id="totalPrice">00</span></h6>
+                        </div>
+                        <hr>
 
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">Total:</h6>
-                                <h6 class="fw-bold text-black-50 fs-4">$35.99</h6>
-                            </div>
-                            <hr>
-
-                            <div class="mb-3">
-                                <h5 class="fw-bold">Delivery Method</h5>
+                        <div class="mb-3">
+                            <h5 class="fw-bold my-3">Delivery Method</h5>
+                            <div class="d-flex justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="delivery" id="normal">
-                                    <label class="form-check-label" for="normal">
+                                    <input class="form-check-input deliveryMethod" checked type="radio" name="delivery"
+                                           id="normal"
+                                           value='{"price":"50", "method":"normal"}'>
+                                    <label class="form-check-label mt-1" for="normal">
                                         Normal Delivery: <span class="text-valencia ">(5-6 days)</span>
                                     </label>
                                 </div>
+                                <div>
+                                    <h5 class="fw-bold my-3"><span id="normalDelivery">50</span>$</h5>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="delivery" id="express">
-                                    <label class="form-check-label" for="express">
+                                    <input class="form-check-input deliveryMethod" type="radio" name="delivery"
+                                           id="express"
+                                           value='{"price":"70", "method":"express"}'>
+                                    <label class="form-check-label mt-1" for="express">
                                         Express Delivery:<span class="text-valencia">(2-3 days)</span>
                                     </label>
                                 </div>
+                                <div>
+                                    <h5 class="fw-bold my-3"><span id="expressDelivery">70</span>$</h5>
+                                </div>
                             </div>
+                        </div>
 
 
-                            <div>
-                                <h5 class="fw-bold">Packaging</h5>
+                        <div>
+                            <h5 class="fw-bold my-3">Packaging</h5>
+                            <div class="d-flex justify-content-between">
+
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="delivery" id="normal">
-                                    <label class="form-check-label" for="normal">
+                                    <input class="form-check-input packaging" checked type="radio" name="packaging"
+                                           id="default"
+                                           value='{"price":"10", "packaging":"default"}'>
+                                    <label class="form-check-label mt-1" for="normal">
                                         Default Packaging: <span
                                             class="text-valencia">(Default packaging by store)</span>
-
                                     </label>
                                 </div>
+                                <div>
+                                    <p class="my-3 fw-bold"><span id="defaultPackaging">10</span>$</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="delivery" id="express">
-                                    <label class="form-check-label fs-6" for="express">
+                                    <input class="form-check-input packaging" type="radio" name="packaging" id="gift"
+                                           value='{"price":"20", "packaging":"default"}'>
+                                    <label class="form-check-label fs-6 mt-1" for="express">
                                         Gift Packaging:<span class="text-valencia">(Exclusive gift packaging)</span>
                                     </label>
                                 </div>
+                                <div>
+                                    <p class="my-3 fw-bold"><span id="giftPackaging">20</span>$</p>
+                                </div>
                             </div>
-                            <hr>
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">final:</h6>
-                                <h6 class="fw-bold text-black-50 fs-4">$35.99</h6>
-                            </div>
-
-
                         </div>
+                        <hr>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="fw-bolder">Grand Total : </h6>
+                            <input type="hidden" name="grand_total" class="grandTotal" value="">
+                            <h6 class="fw-bold text-black-50 fs-4">$ <span id="grandTotal">00</span></h6>
+                        </div>
+
+
                     </div>
+
 
                 </div>
             </div>
-        </div>
 
+            <div class="d-flex justify-content-end my-3">
+                <button id="submit-button" type="submit" class="btn btn-primary">Confirm Order</button>
+            </div>
+        </form>
 
     </div>
 @endsection
 @push('custom-js')
     <script>
-
+        var storeId = []
         // var btnFinish = $("<button></button>")
         //     .text("Finish")
         //     .addClass("btn btn-primary")
         //     .on("click", function () {
         //         alert("Finish Clicked");
         //     });
-
 
         $('#smartwizard').smartWizard({
             selected: 0,
@@ -301,18 +334,12 @@
                 next: 'Continue',
                 previous: 'Back'
             },
-
-
             enableURLhash: false,
             useURLhash: false,
-
             // toolbarSettings: {
             //     toolbarExtraButtons: [btnFinish],
             // },
-
-
         });
-
 
         $("input[name='payment_method']").click(function () {
             let value = $(this).attr("value");
@@ -325,7 +352,278 @@
                 $('#credit_content').addClass('d-none')
             }
         })
+        $(function () {
 
+            $.ajax({
+                url: "{{url('api/v1/get-client-cart-all-items')}}",
+                method: "get",
+                dataType: "json",
+                success: function (res) {
+                    // console.log(res)
+
+                    if (res.status === "success") {
+                        $('#clientCartItem').empty()
+                        var i = 0
+                        res.data.forEach(function (item) {
+
+                            storeId.push(item.product.vendors_id)
+
+                            $('#clientCartItem').append(`
+                            <input type="hidden" name="[product][${i}][product_id]" value="${item.product.id}">
+                            <input type="hidden" name="[product][${i}][quantity]" value="${item.quantity}">
+                            <input type="hidden" name="[product][${i}][itemTotal]" value="${item.price * item.quantity}">
+                            <input type="hidden" name="[product][${i}][store_id]" value="${item.product.vendors_id}">
+                          <li class="order_list_item py-3">
+                                            <div class="d-flex">
+                                                <img class="img-fluid bottom-shadow me-5"
+                                                     src="{{asset('assets/image/pos-item.png')}}" alt="">
+
+                                                <ul class="text-capitalize fw-bold">
+                                                    <li class="my-2">
+                                                         <h6 class="text-secondary fw-bold">Product Name: <span
+                                                                class="text-black-50 fw-lighter">${item.product.name}</span></h6>
+                                                    </li>
+                                                    <li class="my-2">
+                                                        <h6 class="text-secondary fw-bold">Price: <span
+                                                                class="text-black-50 fw-lighter">${item.price}</span></h6>
+                                                    </li>
+
+                                                    <li class="my-2">
+                                                        <h6 class="text-secondary fw-bold">color: <span
+                                                                class="text-black-50 fw-lighter">blue</span></h6>
+                                                    </li>
+
+                                                    <li class="my-2">
+                                                        <h6 class="text-secondary fw-bold">size: <span
+                                                                class="text-black-50 fw-lighter">m</span></h6>
+                                                    </li>
+
+                                                    <li class="my-2">
+                                                        <h6 class="text-secondary fw-bold">quantity: <span
+                                                                class="text-black-50 fw-lighter">${item.quantity}</span></h6>
+                                                    </li>
+                                                    <li class="my-2">
+                                                        <h6 class="text-secondary fw-bold">total price: <span
+                                                                class="text-black-50 fw-lighter itemTotalPrice">${item.price * item.quantity}</span></h6>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                        `)
+                            i++
+                        })
+                        itemTotalPrice()
+
+                        function itemTotalPrice() {
+                            var price = document.querySelectorAll('.itemTotalPrice')
+                            var subTotal = 0
+                            price.forEach(function (item) {
+                                subTotal += parseInt(item.textContent)
+                            })
+                            $('#totalPrice').text(subTotal)
+                            $('.totalPrice').val(subTotal)
+
+                        }
+
+                        grandTotal()
+
+                        function grandTotal() {
+                            var totalPrice = parseInt($('#totalPrice').text())
+                            var deliveryMethod = $('.deliveryMethod:checked').val();
+                            var packaging = $('.packaging:checked').val();
+                            var deliveryData = JSON.parse(deliveryMethod)
+                            var packingData = JSON.parse(packaging)
+                            var grandtotalProce = totalPrice + parseInt(deliveryData.price) + parseInt(packingData.price)
+                            $('#grandTotal').text(grandtotalProce)
+                            $('.grandTotal').val(grandtotalProce)
+                        }
+
+                        $('.deliveryMethod').click(function () {
+                            grandTotal()
+                        })
+                        $('.packaging').click(function () {
+                            grandTotal()
+                        })
+                        $('#store_id').val(storeId)
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            })
+
+
+            $.ajax({
+                url: "https://bdapis.herokuapp.com/api/v1.1/divisions",
+                method: "get",
+                dataType: "json",
+                success: function (res) {
+                    if (res.status.message === "ok") {
+                        $("#division").empty()
+                        $("#division").append(`
+                         <option selected disabled>Select Your Division</option>
+                        `)
+                        res.data.forEach(function (item) {
+                            $("#division").append(`
+                             <option value="${item._id}">${item.division}</option>
+                            `)
+                        })
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+
+            $("#division").change(function () {
+                var division = $(this).val()
+
+                $.ajax({
+                    url: "https://bdapis.herokuapp.com/api/v1.1/division/" + division,
+                    method: "get",
+                    dataType: "json",
+                    success: function (res) {
+                        // console.log("district",res)
+                        if (res.status.message === "ok") {
+                            $("#district").empty()
+                            $("#district").append(`
+                         <option selected disabled>Select Your District</option>
+                        `)
+                            res.data.forEach(function (item) {
+                                $("#district").append(`
+                             <option value="${item.district}">${item.district}</option>
+                            `)
+                            })
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+
+            })
+
+            $("#district").change(function () {
+                var division = $("#division").val()
+                var district = $(this).val()
+                // alert(district)
+                $.ajax({
+                    url: "https://bdapis.herokuapp.com/api/v1.1/division/" + division,
+                    method: "get",
+                    dataType: "json",
+                    success: function (res) {
+                        // console.log("district",res)
+
+                        res.data.forEach(function (item) {
+                            // console.log("adf;lasjdfl", item)
+                            if (item.district === district) {
+                                $("#station").empty()
+                                $("#station").append(`
+                         <option selected disabled>Select Your Station</option>
+                        `)
+                                item.upazilla.forEach(function (item2) {
+                                    $("#station").append(`
+                             <option value="${item2}">${item2}</option>
+                            `)
+                                })
+
+                            }
+                        })
+
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+
+            })
+
+
+        })
+
+        // console.log("store",storeId)
+
+
+        // $(document).on("submit","#confirmOrder",function(e){
+        //     e.preventDefault()
+        // })
+
+        //add item
+        //add item
+        $('#form').submit(function (e) {
+            e.preventDefault();
+            let form = $(this);
+            formSubmit("post", "submit-button", form);
+        })
+
+        /**
+         * Submit Form (AJAX)
+         */
+        function formSubmit(type, btn, form, headers = null) {
+            // var dmeoUser = JSON.parse(localStorage.getItem('userData'))
+            // if (dmeoUser.email !== "demoadmin@ecommerce.com") {
+            let url = form.attr('action');
+            // alert(url);
+            let form_data = JSON.stringify(form.serializeJSON());
+            formData = JSON.parse(form_data);
+            $('#preloader').removeClass('d-none')
+            $.ajax({
+                type: type, url: url, data: formData, headers: headers, beforeSend: function () {
+                    // $('#' + btn).prop('disabled', true);
+                }, success: function (response) {
+                    if (response.status === 'success') {
+                        $('#preloader').addClass('d-none')
+                        toastr.success(response.message);
+                        form[0].reset();
+                        const myTimeout = setTimeout(redirectPage, 1000);
+                        // setTimeout(returnPage(page), 10000);
+                    }
+                }, error: function (xhr, resp, text) {
+                    // console.log(xhr)
+                    // on error, tell the failed
+                    if (xhr && xhr.responseText) {
+                        $('#preloader').addClass('d-none')
+                        let response = JSON.parse(xhr.responseText);
+                        if (response.status === 'validate_error') {
+                            $('#preloader').addClass('d-none')
+                            $.each(response.message, function (index, message) {
+                                if (message.field && message.field !== 'global') {
+                                    $('#' + message.field).addClass('is-invalid');
+                                    $('#' + message.field + '_label').addClass('text-danger');
+                                    $('#' + message.field + '_error').html(message.error);
+                                } else if (message.error) {
+                                    $('#preloader').addClass('d-none')
+                                    // toastr.error(message.error);
+                                    console.log("err 0")
+                                } else {
+                                    // toastr.error('Something went wrong', 'Please try again after sometime.');
+                                    console.log("err 1")
+                                    $('#preloader').addClass('d-none')
+                                }
+                            });
+                        } else {
+                            // toastr.error('Something went wrong', 'Please try again after sometime.');
+                            console.log("err 2")
+                            $('#preloader').addClass('d-none')
+                        }
+                    } else {
+                        $('#preloader').addClass('d-none')
+                        // toastr.error('Something went wrong', 'Please try again after sometime.');
+                        console.log("err 3")
+                    }
+                }, complete: function (xhr, status) {
+                    // $('#' + btn).prop('disabled', false);
+                }
+            });
+            // } else {
+            //     toastr.error('Sorry You Are Demo Use')
+            // }
+        }
 
     </script>
 @endpush()

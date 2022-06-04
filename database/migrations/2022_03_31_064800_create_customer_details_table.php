@@ -16,13 +16,14 @@ class CreateCustomerDetailsTable extends Migration
         Schema::create('customer_details', function (Blueprint $table) {
             $table->id();
             $table->integer("user_id")->nullable();
+            $table->integer("client_ip")->nullable();
             $table->integer("customer_group_id")->nullable();
             $table->integer("store_id")->nullable();
             $table->integer("language_id")->nullable();
             $table->string("firstname")->nullable();
             $table->string("lastname")->nullable();
             $table->string("fax")->nullable();
-            $table->text("wishlist")->nullable();
+            $table->text("addition_info")->nullable();
             $table->tinyInteger("newsletter")->nullable();
             $table->string("address")->nullable();
             $table->string("custom_field")->nullable();

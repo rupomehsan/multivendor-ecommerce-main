@@ -11,6 +11,8 @@ class Cart extends Model
     protected $guarded=[];
     protected $casts = [
         'option' => 'array',
+        'color' => 'array',
+        'size' => 'array',
     ];
 
     public function product(){

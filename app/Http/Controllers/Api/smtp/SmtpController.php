@@ -9,6 +9,7 @@ use Validator;
 
 class SmtpController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *

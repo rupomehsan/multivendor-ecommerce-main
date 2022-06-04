@@ -22,16 +22,16 @@
     Route::view('/my-bag', 'landing.bag.index');
 
     Route::view('/all-category', 'landing.category.index');
-    Route::view('/all-products', 'landing.product.index');
+    Route::view('/all-products/{id}', 'landing.product.index');
     Route::view('/all-brands', 'landing.brands.index');
     Route::view('/all-shops', 'landing.shops.index');
     Route::view('/all-offers', 'landing.offers.index');
     Route::view('/compare', 'landing.compare.index');
 
     Route::prefix('vendor')->group(function (){
-        Route::view('/', 'landing.vendor.index');
-        Route::view('/all-products', 'landing.vendor.all_products');
-        Route::view('/coupon', 'landing.vendor.coupon');
+        Route::view('shop/{id}', 'landing.vendor.index');
+        Route::view('/all-products/{id}', 'landing.vendor.all_products');
+        Route::view('/coupon/{id}', 'landing.vendor.coupon');
         Route::view('/register', 'landing.vendor.register');
         Route::view('/terms-condition', 'landing.vendor.terms');
     });
@@ -43,8 +43,6 @@
 //    });
 
     Route::view('not-found', 'partial.not_found.index');
-
-
 
     Route::prefix('admin')->group(function () {
         Route::view('/dashboard', 'admin.dashboard.index');

@@ -30,6 +30,8 @@ class CreateOrdersTable extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('fax')->nullable();
+            $table->string('delivery_method')->nullable();
+            $table->string('packaging')->nullable();
             $table->json('custom_field')->nullable();
             $table->string('payment_firstname')->nullable();
             $table->string('payment_lastname')->nullable();

@@ -73,13 +73,13 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+//       dd($request->all());
         try {
             $validator = Validator::make($request->all(),[
-//                "name" => "required|min:5",
-//                "email"=> 'required|email:rfc,dns|unique:users',
-//                "phone"=> "required",
-//                "password"=> "required|min:6|confirmed",
-
+                "name" => "required|min:5",
+                "email"=> 'required|email:rfc,dns|unique:users',
+                "phone"=> "required",
+                "password"=> "required|min:6",
             ]);
             if ($validator->fails()){
                 $errors = $validator->errors()->messages();
@@ -88,7 +88,7 @@ class CustomerController extends Controller
 //        dd($request->all());
             $customer = new User();
             $customer->name = $request->name;
-            $customer->password = Hash::make($request->description);
+            $customer->password = Hash::make($request->password);
             $customer->phone = $request->phone;
             $customer->email = $request->email;
             $customer->image = $request->image;
@@ -101,7 +101,6 @@ class CustomerController extends Controller
                 $customerDetails->firstname =$request->name;
                 $customerDetails->lastname =$request->lastname;
                 $customerDetails->fax =$request->fax;
-                $customerDetails->wishlist =$request->wishlist;
                 $customerDetails->newsletter =$request->newsletter;
                 $customerDetails->address =$request->address;
                 $customerDetails->custom_field =$request->custom_field;
@@ -119,7 +118,7 @@ class CustomerController extends Controller
                 if($customerDetails->save()){
                     return response([
                         "status" => "success",
-                        "message" => "Cutomer Successfully Create"
+                        "message" => "Successfully Register"
                     ]);
                 }
 
@@ -199,7 +198,6 @@ class CustomerController extends Controller
             $customer->image = $request->image ?? $customer->image;
             $customer->update();
             $customerDetails = CustomerDetails::where('user_id',$id)->first();
-
             $customerDetails->customer_group_id = $request->customer_group_id;
             $customerDetails->language_id =$request->language_id;
             $customerDetails->firstname =$request->name;
@@ -304,9 +302,7 @@ class CustomerController extends Controller
         }
         try {
             if (request()->hasFile('file')) {
-
                 foreach ($request->file('file') as $imagedata){
-
                     $folder    = $request->folder ?? 'all';
                     $imageName = $folder . "/" . time() . '.' . $imagedata->getClientOriginalName();
                     if (config('app.env') === 'production') {

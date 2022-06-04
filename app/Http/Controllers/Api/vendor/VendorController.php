@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api\vendor;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Product;
 use App\Models\StoreDetails;
+use App\Models\User;
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Validator;
-use DataTables;
 
 class VendorController extends Controller
 {
@@ -19,31 +20,30 @@ class VendorController extends Controller
      */
     public function index(Request $request)
     {
-        $getVendor = User::whereJsonContains('user_role',"3")->get();
-
+        $getVendor = User::with('store_details')->withCount('products')->whereJsonContains('user_role', "3")->get();
         if ($request->ajax()) {
             return Datatables::of($getVendor)
                 ->addIndexColumn()
-                ->addColumn('image',function($row){
-                    if($row->image && count(json_decode($row->image)) > 0){
+                ->addColumn('image', function ($row) {
+                    if ($row->image && count(json_decode($row->image)) > 0) {
                         $imageUrl = json_decode($row->image)[0];
-                    }else{
+                    } else {
                         $imageUrl = asset('/assets/image/logo.png');
                     }
-                    return '<img src="'.$imageUrl.'" height="40" width="100" />';
+                    return '<img src="' . $imageUrl . '" height="40" width="100" />';
                 })
-                ->addColumn('status',function($row){
+                ->addColumn('status', function ($row) {
                     $activeStatus = $row->status === 'active' ? 'checked' : '';
-                    $status = '<label class="switch"><input type="checkbox" id="approval" data-id="'.$row->id.'" '.$activeStatus.' /><span class="slider"></span></label>';
+                    $status = '<label class="switch"><input type="checkbox" id="approval" data-id="' . $row->id . '" ' . $activeStatus . ' /><span class="slider"></span></label>';
                     return $status;
                 })
-                ->addColumn('action', function($row){
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
-                    $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="View" class="view btn btn-primary btn-sm viewItem ml-1">View</a>';
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+                    $btn = $btn . '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="view btn btn-primary btn-sm viewItem ml-1">View</a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
                     return $btn;
                 })
-                ->rawColumns(['image','action','status'])
+                ->rawColumns(['image', 'action', 'status'])
                 ->make(true);
         }
 //        return response([
@@ -83,19 +83,19 @@ class VendorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(),[
+            $validator = Validator::make($request->all(), [
 //                "name" => "required|min:5",
 //                "email"=> 'required|email:rfc,dns|unique:users',
 //                "phone"=> "required",
 //                "password"=> "required|min:6",
             ]);
-            if ($validator->fails()){
+            if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
@@ -106,8 +106,8 @@ class VendorController extends Controller
             $vendor->phone = $request->phone;
             $vendor->email = $request->email;
             $vendor->image = $request->image;
-            $vendor->user_role= ['3','4'];
-            if($vendor->save()){
+            $vendor->user_role = ['3', '4'];
+            if ($vendor->save()) {
                 $store = new StoreDetails();
                 $store->user_id = $vendor->id;
                 $store->store_name = $request->store_name;
@@ -121,18 +121,18 @@ class VendorController extends Controller
                 $store->meta_tag_desc = $request->meta_tag_desc;
                 $store->meta_tag_keyword = $request->meta_tag_keyword;
 //                dd($store);
-                if($store->save()){
-                return response([
-                    "status" => "success",
-                    "message" => "Vendor Successfully Create"
-                ]);
+                if ($store->save()) {
+                    return response([
+                        "status" => "success",
+                        "message" => "Vendor Successfully Create"
+                    ]);
                 }
             }
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response([
                 "status" => 'server_error',
                 "data" => $e->getMessage()
-            ],500);
+            ], 500);
         }
 
     }
@@ -140,35 +140,35 @@ class VendorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         try {
-            $getVendor = User::with('store_details')->where("id",$id)->first();
-            if($getVendor){
+            $getVendor = User::with('store_details')->where("id", $id)->first();
+            if ($getVendor) {
                 return response([
                     "status" => "success",
                     "data" => $getVendor
                 ]);
-            }else{
+            } else {
                 return response([
-                    "status" =>'not_found'
+                    "status" => 'not_found'
                 ], 404);
             }
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response([
                 "status" => 'server_error',
                 "data" => $e->getMessage()
-            ],500);
+            ], 500);
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -179,31 +179,31 @@ class VendorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
 //        dd($request->all());
         try {
-            $validator = Validator::make($request->all(),[
+            $validator = Validator::make($request->all(), [
 //                "name" => "required|min:5",
 //                "email"=> 'required|email:rfc,dns|unique:users',
 //                "phone"=> "required",
 //                "password"=> "required|min:6",
 //                "confirm_password"=> "required|min:6",
             ]);
-            if ($validator->fails()){
+            if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
-            $vendor = User::where("id",$id)->first();
+            $vendor = User::where("id", $id)->first();
             $vendor->name = $request->store_owner;
             $vendor->phone = $request->phone;
             $vendor->image = $request->image;
             $vendor->update();
-            $store = StoreDetails::where("user_id",$id)->first();
+            $store = StoreDetails::where("user_id", $id)->first();
             $store->store_name = $request->store_name;
             $store->address = $request->address;
             $store->opening_time = $request->opening_time;
@@ -221,11 +221,11 @@ class VendorController extends Controller
                 ]);
             }
 
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response([
                 "status" => 'server_error',
                 "data" => $e->getMessage()
-            ],500);
+            ], 500);
         }
     }
 
@@ -233,14 +233,14 @@ class VendorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        try{
+        try {
             $vendor = User::find($id);
-            if($vendor){
+            if ($vendor) {
                 $vendor_store = StoreDetails::find($id);
                 $vendor->delete();
                 $vendor_store->delete();
@@ -248,16 +248,16 @@ class VendorController extends Controller
                     "status" => "success",
                     "message" => "Vendor Successfully Delete"
                 ], 200);
-            }else {
+            } else {
                 return response([
                     "status" => 'not_found'
                 ], 404);
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response([
-                "status" =>"server_error",
+                "status" => "server_error",
                 "message" => $e->getMessage()
-            ],500);
+            ], 500);
         }
     }
 
@@ -265,17 +265,17 @@ class VendorController extends Controller
     {
 //        dd($request->all());
         try {
-            $target         = User::where('id', $request->id)->first();
+            $target = User::where('id', $request->id)->first();
             $target->status = $request->status;
             if ($target->update()) {
                 return response([
-                    'status'  => 'success',
+                    'status' => 'success',
                     'message' => 'Successfully Update',
                 ], 200);
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response([
-                'status'  => 'server_error',
+                'status' => 'server_error',
                 'message' => $e->getMessage(),
             ], 500);
         }
@@ -291,15 +291,15 @@ class VendorController extends Controller
         if ($validate->fails()) {
             return response([
                 'status' => 'validation_error',
-                'data'   => $validate->errors(),
+                'data' => $validate->errors(),
             ], 422);
         }
         try {
             if (request()->hasFile('file')) {
 
-                foreach ($request->file('file') as $imagedata){
+                foreach ($request->file('file') as $imagedata) {
 
-                    $folder    = $request->folder ?? 'all';
+                    $folder = $request->folder ?? 'all';
                     $imageName = $folder . "/" . time() . '.' . $imagedata->getClientOriginalName();
                     if (config('app.env') === 'production') {
                         $imagedata->move('uploads/' . $folder, $imageName);
@@ -312,16 +312,77 @@ class VendorController extends Controller
                 }
                 $finalImage = json_encode($data);
                 return response([
-                    'status'  => 'success',
+                    'status' => 'success',
                     'message' => 'File uploaded successfully',
-                    'data'    => $finalImage
+                    'data' => $finalImage
                 ], 200);
             }
         } catch (\Exception$e) {
             return response([
-                'status'  => 'server_error',
+                'status' => 'server_error',
                 'message' => $e->getMessage(),
             ], 500);
         }
     }
+
+    public function getShopDetails($id)
+    {
+        try {
+            $shop = StoreDetails::where("status", "active")->where("user_id", $id)->first();
+            $specialOfferProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
+            $featureProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
+            $bestSellingProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
+            $bestRatedProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
+            $getAllProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
+            $count = Product::where("status", "active")->where("vendors_id", $id)->count();
+            if ($shop) {
+                return response([
+                    "status" => "success",
+                    "data" => [
+                        "shopDetails" => $shop,
+                        "specialOfferProduct" => $specialOfferProduct,
+                        "featureProduct" => $featureProduct,
+                        "bestSellingProduct" => $bestSellingProduct,
+                        "bestRatedProduct" => $bestRatedProduct,
+                        "allProducts" => $getAllProduct,
+                        "count" => $count,
+                    ]
+                ]);
+            } else {
+                return response([
+                    "status" => "error",
+                    "message" => "Not Found"
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response([
+                'status' => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    public function getAllShop()
+    {
+        try {
+            $shop = StoreDetails::where("status", "active")->get();
+            if ($shop) {
+                return response([
+                    "status" => "success",
+                    "data" => $shop
+                ]);
+            } else {
+                return response([
+                    "status" => "error",
+                    "message" => "Not Found"
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response([
+                'status' => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+
 }

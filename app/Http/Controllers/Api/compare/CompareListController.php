@@ -12,11 +12,13 @@ class CompareListController extends Controller
     {
         try {
             $clientIp = request()->ip();
-            $getCompareList = CompareList::where("client_ip", $clientIp)->get();
+            $getCompareList = CompareList::with(['product'])->where("client_ip", $clientIp)->get();
+            $getCompareListCount = CompareList::with(['product'])->where("client_ip", $clientIp)->count();
             if ($getCompareList) {
                 return response([
                     "status" => "success",
-                    "data" => $getCompareList
+                    "data" => $getCompareList,
+                    "count" => $getCompareListCount
                 ]);
             }
         } catch (\Exception $e) {

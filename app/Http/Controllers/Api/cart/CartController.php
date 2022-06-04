@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\cart;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -52,22 +53,30 @@ class CartController extends Controller
             }
 //        dd($request->all());
             $cartExist = Cart::where("product_id", $request->product_id)->where('client_id', $clientIP)->first();
+            $product = Product::where("id", $request->product_id)->first();
             if ($cartExist) {
-                return response([
-                    "status" => "error",
-                    "message" => "Product Already Added To The Cart"
-                ]);
+                $cartExist->quantity = $request->quantity;
+                if($cartExist->update()){
+                    return response([
+                        "status" => "error",
+                        "message" => "Product Quantity Update"
+                    ]);
+                }
+
             } else {
                 $cart = new Cart();
                 $cart->api_id = $request->api_id;
                 $cart->customer_id = $request->customer_id;
                 $cart->session_id = $request->session_id;
+                $cart->shop_id = $request->shop_id;
                 $cart->product_id = $request->product_id;
                 $cart->recurring_id = $request->recurring_id;
                 $cart->client_id = $clientIP;
                 $cart->option = $request->option;
                 $cart->quantity = $request->quantity;
-                $cart->price = $request->price;
+                $cart->price = $product->price;
+                $cart->size = $request->size[0]??null;
+                $cart->color = $request->color[0]??null;
                 if ($cart->save()) {
                     return response([
                         "status" => "success",
@@ -225,6 +234,25 @@ class CartController extends Controller
                 ]);
             }
 
+        } catch (\Exception $e) {
+            return response([
+                "status" => "server_error",
+                "message" => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getClientCartItem(Request $request)
+    {
+        try {
+            $clientIP = request()->ip();
+            $cart = Cart::with(["product"])->where('client_id', $clientIP)->get();
+            if ($cart) {
+                return response([
+                    "status" => "success",
+                    "data" => $cart
+                ]);
+            }
         } catch (\Exception $e) {
             return response([
                 "status" => "server_error",

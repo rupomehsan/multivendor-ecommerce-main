@@ -2,7 +2,8 @@
  * Submit Form (AJAX)
  */
 function formSubmit(type, btn, form, headers = null) {
-    // var dmeoUser = JSON.parse(localStorage.getItem('userData'))
+    // var userInformation = JSON.parse(localStorage.getItem('userInfo')) || null
+
     // if (dmeoUser.email !== "demoadmin@ecommerce.com") {
         let url = form.attr('action');
         // alert(url);
@@ -17,8 +18,12 @@ function formSubmit(type, btn, form, headers = null) {
                     $('#preloader').addClass('d-none')
                     toastr.success(response.message);
                     form[0].reset();
-                    const myTimeout = setTimeout(redirectPage, 1000);
-                    // setTimeout(returnPage(page), 10000);
+                    // $(".text-danger").empty()
+                    setTimeout(redirectPage, 1000);
+                    if(response.data.token){
+                         localStorage.setItem("token",response.data.token)
+                         localStorage.setItem("userInfo",JSON.stringify(response.data.user))
+                    }
                 }
             }, error: function (xhr, resp, text) {
                 // console.log(xhr)

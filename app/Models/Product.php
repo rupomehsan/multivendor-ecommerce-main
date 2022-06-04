@@ -22,6 +22,7 @@ class Product extends Model
         'design' => 'array',
         'image' => 'array',
     ];
+    protected $appends=['is_wish_list'];
 
     public function prchase_products(){
         return $this->hasMany(PurchaseProduct::class);
@@ -33,10 +34,30 @@ class Product extends Model
     public function reviews(){
         return $this->hasMany(Review::class);
     }
-    public function brands(){
-        return $this->hasMany(Brand::class);
+    public function brand(){
+        return $this->belongsTo(Brand::class);
     }
     public function carts(){
         return $this->hasMany(Brand::class);
     }
+    public function store_details(){
+        return $this->belongsTo(StoreDetails::class,'vendors_id','user_id');
+    }
+
+    public  function wish_lists(){
+        return $this->hasMany(WishList::class);
+    }
+
+    public function getIsWishListAttribute(){
+        $clientIp = request()->ip();
+        if($clientIp){
+            return $this->wish_lists->where('client_ip',$clientIp)->first() ? true : false;
+        }else{
+            return false;
+        }
+    }
+
+
+
+
 }

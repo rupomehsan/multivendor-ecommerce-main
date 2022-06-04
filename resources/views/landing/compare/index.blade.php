@@ -14,109 +14,13 @@
                         <li>Resolution</li>
                         <li>Screen Type</li>
                         <li>Display Size</li>
-                        <li>Refresh Rate</li>
-                        <li>Model Year</li>
-                        <li>Tuner Technology</li>
-                        <li>Ethernet Input</li>
-                        <li>USB Input</li>
-                        <li>Scart Input</li>
+                        <li>Action</li>
+
                     </ul>
                 </div> <!-- .features -->
 
                 <div class="cd-products-wrapper">
-                    <ul class="cd-products-columns">
-                        <li class="product">
-                            <div class="top-info">
-                                <img src="{{asset('assets/image/category.png')}}" alt="product image" class="img-fluid">
-                            </div> <!-- .top-info -->
-                            <ul class="cd-features-list">
-                                <li>Temporibus Doloribus </li>
-                                <li>$600</li>
-                                <li class="rate"><span>5/5</span></li>
-                                <li>1080p</li>
-                                <li>LED</li>
-                                <li>47.6 inches</li>
-                                <li>800Hz</li>
-                                <li>2015</li>
-                                <li>mpeg4</li>
-                                <li>1 Side</li>
-                                <li>3 Port</li>
-                                <li>1 Rear</li>
-                            </ul>
-                        </li> <!-- .product -->
-                        <li class="product">
-                            <div class="top-info">
-                                <img src="{{asset('assets/image/category.png')}}" alt="product image" class="img-fluid">
-                            </div> <!-- .top-info -->
-                            <ul class="cd-features-list">
-                                <li>Temporibus Doloribus</li>
-                                <li>$600</li>
-                                <li class="rate"><span>5/5</span></li>
-                                <li>1080p</li>
-                                <li>LED</li>
-                                <li>47.6 inches</li>
-                                <li>800Hz</li>
-                                <li>2015</li>
-                                <li>mpeg4</li>
-                                <li>1 Side</li>
-                                <li>3 Port</li>
-                                <li>1 Rear</li>
-                            </ul>
-                        </li> <!-- .product -->
-                        <li class="product">
-                            <div class="top-info">
-                                <img src="{{asset('assets/image/category.png')}}" alt="product image" class="img-fluid">
-                            </div> <!-- .top-info -->
-                            <ul class="cd-features-list">
-                                <li>$600</li>
-                                <li class="rate"><span>5/5</span></li>
-                                <li>1080p</li>
-                                <li>LED</li>
-                                <li>47.6 inches</li>
-                                <li>800Hz</li>
-                                <li>2015</li>
-                                <li>mpeg4</li>
-                                <li>1 Side</li>
-                                <li>3 Port</li>
-                                <li>1 Rear</li>
-                            </ul>
-                        </li> <!-- .product -->
-                        <li class="product">
-                            <div class="top-info">
-                                <img src="{{asset('assets/image/category.png')}}" alt="product image" class="img-fluid">
-                            </div> <!-- .top-info -->
-                            <ul class="cd-features-list">
-                                <li>$600</li>
-                                <li class="rate"><span>5/5</span></li>
-                                <li>1080p</li>
-                                <li>LED</li>
-                                <li>47.6 inches</li>
-                                <li>800Hz</li>
-                                <li>2015</li>
-                                <li>mpeg4</li>
-                                <li>1 Side</li>
-                                <li>3 Port</li>
-                                <li>1 Rear</li>
-                            </ul>
-                        </li> <!-- .product -->
-                        <li class="product">
-                            <div class="top-info">
-                                <img src="{{asset('assets/image/category.png')}}" alt="product image" class="img-fluid">
-                            </div> <!-- .top-info -->
-                            <ul class="cd-features-list">
-                                <li>$600</li>
-                                <li class="rate"><span>5/5</span></li>
-                                <li>1080p</li>
-                                <li>LED</li>
-                                <li>47.6 inches</li>
-                                <li>800Hz</li>
-                                <li>2015</li>
-                                <li>mpeg4</li>
-                                <li>1 Side</li>
-                                <li>3 Port</li>
-                                <li>1 Rear</li>
-                            </ul>
-                        </li> <!-- .product -->
+                    <ul class="cd-products-columns" id="productColumn">
 
                     </ul> <!-- .cd-products-columns -->
                 </div> <!-- .cd-products-wrapper -->
@@ -134,6 +38,27 @@
                 method:"get",
                 dataType:"json",
                 success:function(res){
+                    if(res.status==="success"){
+                        var image = "{{asset('assets/image/category.png')}}"
+                        res.data.forEach(function (item){
+                            $('#productColumn').append(`
+                               <li class="product">
+                                <div class="top-info">
+                                    <img src="${item.image?item.image:image}" alt="product image" class="img-fluid">
+                                </div> <!-- .top-info -->
+                                <ul class="cd-features-list">
+                                    <li>${(item.product.name).slice(0,15)}</li>
+                                    <li>$ ${item.product.price}</li>
+                                    <li class="rate"><span>5/5</span></li>
+                                    <li>1080p</li>
+                                    <li>LED</li>
+                                    <li>47.6 inches</li>
+                                    <li> <button class="btn btn-primary sm delteItem"><span class="iconify" data-icon="fa6-solid:delete-left"></span></button></li>
+                                </ul>
+                              </li> <!-- .product -->
+                            `)
+                        })
+                    }
                     console.log(res)
                 },
                 error:function(err){

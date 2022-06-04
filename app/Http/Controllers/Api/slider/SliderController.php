@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api\slider;
-
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Validator;
-
 class SliderController extends Controller
 {
     /**
@@ -18,7 +15,7 @@ class SliderController extends Controller
     public function index()
     {
         try {
-            $getSlider = Slider::where('status',"active")->get();
+            $getSlider = Slider::where('status',"active")->limit(5)->latest()->get();
             return response([
                 "status" => 'success',
                 "data" => $getSlider

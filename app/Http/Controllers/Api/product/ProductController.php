@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api\product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Review;
 use DataTables;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 
 class ProductController extends Controller
 {
@@ -17,7 +19,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::latest()->get();
+        $products = Product::with('category','brand','store_details')->latest()->get();
         if ($request->ajax()) {
             return Datatables::of($products)
                 ->addIndexColumn()
@@ -48,7 +50,10 @@ class ProductController extends Controller
     public function getAllProduct()
     {
         try {
-            $getProduct = Product::with(['category'])->limit(8)->get();
+
+            $getProduct = Product::with(['category','brand','reviews'])->withCount('reviews')
+
+                ->limit(8)->get();
             return response([
                 "status" => "success",
                 "data" => $getProduct
@@ -60,15 +65,19 @@ class ProductController extends Controller
             ], 500);
         }
     }
-   public function getRelatedProduct($id)
+   public function getRelatedProductByCategoryId($id)
     {
+//        dd(request()->all());
         try {
-//            dd($id);
-            $getProduct = Product::find($id);
-            $relatedProduct = Product::with(['category'])->where("category_id",$getProduct->category_id)->get();
+            $Product = Product::where("id",$id)->first();
+            $relatedProduct = Product::with(['category','brand','reviews'])->where("category_id",$Product->category_id)->get();
+
+            $relatedProductCount = Product::with(['category','brand'])->where("category_id",$id)->select('id')->count();
+
             return response([
                 "status" => "success",
-                "data" => $relatedProduct
+                "data" => $relatedProduct,
+                "count" => $relatedProductCount,
             ]);
         } catch (\Exception $e) {
             return response([
@@ -83,7 +92,7 @@ class ProductController extends Controller
 //        dd($request->all());
         try {
             if($request->searchData !== null){
-                $getProduct = Product::with(['category'])
+                $getProduct = Product::with(['category','brand','reviews'])
                     ->orwhere('name', 'LIKE', '%' . $request->searchData . '%')
 //                    ->orWhere('category_id',$request->categoryId)
                     ->get();
@@ -92,7 +101,7 @@ class ProductController extends Controller
                     "data" => $getProduct
                 ]);
             }else if($request->searchData === null && $request->categoryId !== null ){
-                $getProduct = Product::with(['category'])
+                $getProduct = Product::with(['category','brand','reviews'])
 //                    ->orwhere('name', 'LIKE', '%' . $request->searchData . '%')
                     ->orWhere('category_id',$request->categoryId)
                     ->get();
@@ -101,7 +110,7 @@ class ProductController extends Controller
                     "data" => $getProduct
                 ]);
             }else{
-                $getProduct = Product::with(['category'])->limit(8)->get();
+                $getProduct = Product::with(['category','brand','reviews'])->limit(8)->get();
                 return response([
                     "status" => "success",
                     "data" => $getProduct
@@ -184,7 +193,7 @@ class ProductController extends Controller
             $Product->minimum = $request->minimum;
             $Product->sort_order = $request->sort_order;
             $Product->category_id = $request->category_id;
-            $Product->filters = $request->filters;
+            $Product->filter_id = $request->filters;
             $Product->related_product_id = $request->related_product_id;
             $Product->attributes = $request->attribute;
             $Product->option = $request->option;
@@ -220,7 +229,20 @@ class ProductController extends Controller
     public function show($id)
     {
         try {
-            $getProduct = Product::with(["category","reviews"])->where("id", $id)->first();
+            $getProduct = Product::with(["category","reviews",'brand','store_details'])
+                ->withCount('reviews')
+                ->where("id", $id)
+                ->first();
+            $review = Review::where("product_id",$id)->first();
+//            dd($review);
+            if($review){
+                $count = Review::where('product_id',$id)->count();
+                $sum = Review::where('product_id',$id)->sum('rating');
+                $getProduct->rating = round($sum/$count,2);
+            }else{
+                $getProduct->rating =  0;
+            }
+//            dd($rating);
             if ($getProduct) {
                 return response([
                     "status" => "success",
@@ -382,16 +404,17 @@ class ProductController extends Controller
     public function fileUploader(Request $request)
     {
 //      dd($request->all());
-        $validate = Validator::make(request()->only('file'), [
-            'file' => 'required|max:10240',
-        ]);
-        if ($validate->fails()) {
-            return response([
-                'status' => 'validation_error',
-                'data' => $validate->errors(),
-            ], 422);
-        }
+
         try {
+            $validate = Validator::make(request()->only('file'), [
+                'file' => 'required|max:10240',
+            ]);
+            if ($validate->fails()) {
+                return response([
+                    'status' => 'validation_error',
+                    'data' => $validate->errors(),
+                ], 422);
+            }
             if (request()->hasFile('file')) {
 
                 foreach ($request->file('file') as $imagedata) {
@@ -424,7 +447,7 @@ class ProductController extends Controller
 
     public function  getPopularProduct(){
         try {
-            $getPopularProduct = Product::with(["category"])->where("status","active")->latest(10)->get();
+            $getPopularProduct = Product::with(["category",'brand','reviews'])->where("status","active")->latest(10)->get();
             return response([
                 "status" => "success",
                 "data" => $getPopularProduct
@@ -436,6 +459,101 @@ class ProductController extends Controller
             ], 500);
         }
 
+    }
+
+    public function  getProductByPriceCategoryId(Request $request){
+        try {
+//            dd(gettype($request->categoryId));
+            $price = (int)$request->priceRange;
+            $category = (int)($request->categoryId);
+            $getSearchProduct = Product::with(['category','brand','reviews'])->where('price',"<",$price)->where("category_id",$category)->get();
+            if($getSearchProduct){
+                return response([
+                    "status"=>"success",
+                    "data" => $getSearchProduct
+                ]);
+            }
+        }catch (\Exception $e){
+            return response([
+                'status' => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getUniversalSearchProduct(Request $request){
+//        dd($request->data);
+        try {
+            $getSearchProduct = Product::with(['category','brand','reviews'])
+                ->whereBetween('price',[$request->data['minimum'],$request->data['maximum']])
+                ->orWhere("price","<=",$request->data['customRange'])
+                ->orWhereIn("brand_id",$request->data['brandId'])
+                ->get();
+            if($getSearchProduct){
+                return response([
+                    "status"=>"success",
+                    "data" => $getSearchProduct
+                ]);
+            }
+        }catch (\Exception $e){
+            return response([
+                'status' => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getProductByCategoryIdAndShopId(Request $request){
+//        dd($request->data);
+        try {
+            $getSearchProduct = Product::with(['category','brand','reviews'])
+                ->where('category_id',$request->data['categoryId'])
+                ->where('vendors_id',$request->data['shopId'])
+                ->get();
+            if($getSearchProduct){
+                return response([
+                    "status"=>"success",
+                    "data" => $getSearchProduct
+                ]);
+            }
+        }catch (\Exception $e){
+            return response([
+                'status' => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    public function productRating(Request $request){
+//        dd($request->all());
+        try {
+
+            $validator = Validator::make($request->all(), [
+                "review" => "required",
+                "rating_count" => "required",
+            ]);
+
+            if ($validator->fails()) {
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+            $review = new Review();
+            $review->product_id = $request->product_id;
+            $review->customer_id = $request->customer_id;
+            $review->author = $request->author;
+            $review->text = $request->review;
+            $review->rating = $request->rating_count;
+            if($review->save()){
+                return response([
+                    "status"=>"success",
+                    "message" => "You Successfully Rating This Product Like". $request->rating_count
+                ]);
+            }
+        }catch (\Exception $e){
+            return response([
+                'status' => 'server_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
 }

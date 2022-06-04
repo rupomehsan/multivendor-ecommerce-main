@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\StoreDetails;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
             ReviewSeder::class,
             RecurringSeeder::class,
             SupplierSeeder::class,
+            StoreDetailsSeeder::class,
         ]);
     }
 }

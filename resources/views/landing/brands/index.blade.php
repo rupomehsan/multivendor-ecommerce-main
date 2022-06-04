@@ -6,93 +6,19 @@
         <div class="text-center">
             <h4 class="text-valencia fw-bold text-capitalize">all brands</h4>
         </div>
+        <div class="row" id="showAllBrands">
 
-
-        <div class="row">
-            <div class="col-lg-2 my-3">
-                <a href="">
-                    <div class="brand-img border">
-                        <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="col-lg-2 my-3">
-                <a href="">
-                    <div class="brand-img border">
-                        <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="col-lg-2 my-3">
-                <a href="">
-                    <div class="brand-img border">
-                        <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="col-lg-2 my-3">
-                <a href="">
-                    <div class="brand-img border">
-                        <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="col-lg-2 my-3">
-                <a href="">
-                    <div class="brand-img border">
-                        <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="col-lg-2 my-3">
-                <a href="">
-                    <div class="brand-img border">
-                        <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="col-lg-2 my-3">
-                <a href="">
-                    <div class="brand-img border">
-                        <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="col-lg-2 my-3">
-                <a href="">
-                    <div class="brand-img border">
-                        <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="col-lg-2 my-3">
-                <a href="">
-                    <div class="brand-img border">
-                        <img src="{{asset('assets/image/bikash.png')}}" alt="">
-                    </div>
-                </a>
-            </div>
         </div>
-
     </div>
 
 
 
 
 @endsection
+@push('custom-js')
+    <script>
+        // get all brands
+        // get all brands
+        getAllBrands("#showAllBrands")
+    </script>
+@endpush

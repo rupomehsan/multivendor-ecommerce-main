@@ -142,6 +142,13 @@
                                         <span class="text-danger" id="quantity_error"></span>
                                     </div>
                                     <div class="form-group mb-3">
+                                        <label for="model" id="model_label" class="form-label">Price</label>
+                                        <input type="number" id="price" name="price"
+                                               class="form-control"
+                                               placeholder="price">
+                                        <span class="text-danger" id="price_error"></span>
+                                    </div>
+                                    <div class="form-group mb-3">
                                         <label for="model" id="model_label" class="form-label">Minimum Quantity</label>
                                         <input type="number" id="minimum" name="minimum"
                                                class="form-control"
@@ -255,7 +262,7 @@
                                         <label for="host" id="host_label" class="form-label">Category</label>
                                         <br>
                                         <!-- Dropdown -->
-                                        <select id='category' name="category_id" style='width: 200px;'
+                                        <select id='category_id' name="category_id" style='width: 200px;'
                                                 class="form-control">
                                         </select>
                                     </div>
@@ -283,9 +290,9 @@
                                 <div class="tab-pane fade py-3" id="nav-attribute" role="tabpanel"
                                      aria-labelledby="nav-contact-tab">
                                     <div class="form-group mb-3">
-                                        <label for="host" id="host_label" class="form-label">Attribute Name</label>
+                                        <label for="host" id="host_label" class="form-label">Size</label>
                                         <div class="row container" id="attribute">
-                                            <input type="text" id="attribute" name="attribute[name][]"
+                                            <input type="text" id="attribute" name="attribute[size][]"
                                                    class="form-control col-8"
                                                    placeholder="Enter product attribute Name">
                                             <span class="iconify col-1" id="add"
@@ -400,11 +407,11 @@
         })
         //page restricted
         //page restricted
-        let page = "{{request()->segment(2)}}";
-        pageRestricted(page);
+        {{--let page = "{{request()->segment(2)}}";--}}
+        {{--pageRestricted(page);--}}
         // dropsown menu
         // Initialize select2
-        $("#parentCategory").select2();
+        $("#category_id").select2();
         /**
          * GET All category
          * **/
@@ -415,14 +422,14 @@
                 dataType: "json",
                 success: function (res) {
                     if (res.data.length > 0) {
-                        console.log(res);
-                        $('#parentCategory').empty()
-                        $('#parentCategory').append(`
+                        console.log("categoryes",res);
+                        $('#category_id').empty()
+                        $('#category_id').append(`
                           <option value='' selected disabled>Select Category</option>
                         `)
                         res.data.forEach(function (item) {
 
-                            $('#parentCategory').append(`
+                            $('#category_id').append(`
                           <option value='${item.id}'>${item.name}</option>
                         `)
                         })
@@ -448,6 +455,7 @@
                 type: 'GET',
                 dataType: "json",
                 success: function (res) {
+                    console.log("brand",res)
                     if (res.data.length > 0) {
                         console.log(res);
                         $('#brand_id').empty()
@@ -473,35 +481,35 @@
         // Initialize select2
         $("#filter_id").select2();
         /**
-         * GET All category
+         * GET All filters
          * **/
-        $(document).ready(function () {
-            $.ajax({
-                url: "{{ URL::to('/api/v1/filters') }}",
-                type: 'GET',
-                dataType: "json",
-                success: function (res) {
-                    if (res.data.length > 0) {
-                        console.log(res);
-                        $('#filter_id').empty()
-                        $('#filter_id').append(`
-                          <option value='' selected disabled>Select Filters</option>
-                        `)
-                        res.data.forEach(function (item) {
+        {{--$(document).ready(function () {--}}
+        {{--    $.ajax({--}}
+        {{--        url: "{{ URL::to('/api/v1/filters') }}",--}}
+        {{--        type: 'GET',--}}
+        {{--        dataType: "json",--}}
+        {{--        success: function (res) {--}}
+        {{--            if (res.data.length > 0) {--}}
+        {{--                console.log(res);--}}
+        {{--                $('#filter_id').empty()--}}
+        {{--                $('#filter_id').append(`--}}
+        {{--                  <option value='' selected disabled>Select Filters</option>--}}
+        {{--                `)--}}
+        {{--                res.data.forEach(function (item) {--}}
 
-                            $('#brand_id').append(`
-                          <option value='${item.id}'>${item.name}</option>
-                        `)
-                        })
-                    }
-                    // setTimeout(location.reload.bind(location), 1000);
-                },
-                error: function (xhr, resp, text) {
-                    console.log(xhr);
-                    // on error, tell the failed
-                },
-            });
-        })
+        {{--                    $('#brand_id').append(`--}}
+        {{--                  <option value='${item.id}'>${item.name}</option>--}}
+        {{--                `)--}}
+        {{--                })--}}
+        {{--            }--}}
+        {{--            // setTimeout(location.reload.bind(location), 1000);--}}
+        {{--        },--}}
+        {{--        error: function (xhr, resp, text) {--}}
+        {{--            console.log(xhr);--}}
+        {{--            // on error, tell the failed--}}
+        {{--        },--}}
+        {{--    });--}}
+        {{--})--}}
         // dropdown menu
         // Initialize select2
         $("#store_id").select2();
@@ -510,19 +518,18 @@
          * **/
         $(document).ready(function () {
             $.ajax({
-                url: "{{ URL::to('/api/v1/stores') }}",
+                url: "{{ URL::to('/api/v1/get-all-stores') }}",
                 type: 'GET',
                 dataType: "json",
                 success: function (res) {
-                    if (res.data.length > 0) {
-                        console.log(res);
+                    if (res.status==="success") {
                         $('#store_id').empty()
                         $('#store_id').append(`
                           <option value='' selected disabled>Select Store</option>
                         `)
                         res.data.forEach(function (item) {
                             $('#store_id').append(`
-                          <option value='${item.id}'>${item.name}</option>
+                          <option value='${item.user_id}'>${item.store_name}</option>
                         `)
                         })
                     }
@@ -537,7 +544,7 @@
         // attribute
         // attribute
         $("#add").click(function () {
-            $("#attribute").append('<section> <div class="row"><input type="text" name="attribute[name][]" placeholder="Enter product attribute Name" class="form-control col-8 mt-2"/> <span class="iconify col-1 mt-3 remove-sec"  data-icon="ant-design:minus-circle-filled"  style="cursor: pointer" data-width="35"></span></div></section>');
+            $("#attribute").append('<section> <div class="row"><input type="text" name="attribute[size][]" placeholder="Enter product attribute Name" class="form-control col-8 mt-2"/> <span class="iconify col-1 mt-3 remove-sec"  data-icon="ant-design:minus-circle-filled"  style="cursor: pointer" data-width="35"></span></div></section>');
         });
         $(document).on('click', '.remove-sec', function () {
             $(this).parents('section').remove();

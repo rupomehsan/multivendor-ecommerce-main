@@ -49,6 +49,10 @@ class OrderController extends Controller
         try {
             $validator = Validator::make($request->all(), [
 //                "customer_id" => 'required',
+//                "full_name" => 'required',
+//                "phone" => 'required',
+//                "email" => 'required',
+//                "address" => 'required',
             ]);
             if ($validator->fails()) {
                 $errors = $validator->errors()->messages();
@@ -65,6 +69,7 @@ class OrderController extends Controller
             $order->store_name = $request->store_name;
             $order->store_url = $request->store_url;
             $order->customer_group_id = $request->customer_group_id;
+            $order->full_name = $request->full_name;
             $order->firstname = $request->firstname;
             $order->lastname = $request->lastname;
             $order->email = $request->email;
@@ -116,11 +121,10 @@ class OrderController extends Controller
             $order->forwarded_ip = $request->forwarded_ip;
             $order->user_agent = $request->user_agent;
             $order->accept_language = $request->accept_language;
-//            $order->save();
+            $order->save();
 //            dd($order);
             if ($request->product) {
 //                dd($request->product);
-
                 foreach ($request->product as $product) {
                     $orderProduct = new OrderProduct();
                     $orderProduct->customer_id = $request->customer_id;

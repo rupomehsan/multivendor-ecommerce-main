@@ -67,7 +67,7 @@ class AdminController extends Controller
 //        dd($request->all());
             $admin = new User();
             $admin->name = $request->name;
-            $admin->password = Hash::make($request->description);
+            $admin->password = Hash::make($request->password);
             $admin->phone = $request->phone;
             $admin->email = $request->email;
             $admin->image = $request->image;
