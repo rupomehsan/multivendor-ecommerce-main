@@ -45,7 +45,7 @@ class OrderController extends Controller
 
     public function orderProduct(Request $request)
     {
-//        dd($request->all());
+        dd($request->all());
         try {
             $validator = Validator::make($request->all(), [
 //                "customer_id" => 'required',
@@ -69,7 +69,7 @@ class OrderController extends Controller
             $order->store_name = $request->store_name;
             $order->store_url = $request->store_url;
             $order->customer_group_id = $request->customer_group_id;
-            $order->full_name = $request->full_name;
+//            $order->full_name = $request->full_name;
             $order->firstname = $request->firstname;
             $order->lastname = $request->lastname;
             $order->email = $request->email;

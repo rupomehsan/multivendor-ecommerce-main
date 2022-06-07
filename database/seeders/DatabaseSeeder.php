@@ -35,6 +35,9 @@ class DatabaseSeeder extends Seeder
             RecurringSeeder::class,
             SupplierSeeder::class,
             StoreDetailsSeeder::class,
+            DivisionSeeder::class,
+            DistrictSeeder::class,
+            StationSeeder::class,
         ]);
     }
 }

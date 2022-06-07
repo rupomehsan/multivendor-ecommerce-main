@@ -206,27 +206,7 @@
         function quantityIncrement(id){
             document.getElementById("quantity").stepUp(1);
         }
-        /***
-         * addToCompare
-         * **/
-        function addToCompare(id){
-            $.ajax({
-                url:"{{url('api/v1/add-to-compare')}}",
-                method:"post",
-                data:{"product_id":id},
-                success:function(res){
-                    console.log(res)
-                    if(res.status==="success"){
-                        toastr.success(res.message);
-                    }else if(res.status==="error"){
-                        toastr.warning(res.message)
-                    }
-                },
-                error:function(err){
-                    console.log(err)
-                }
-            })
-        }
+
         /***
          * addToWishList
          * **/

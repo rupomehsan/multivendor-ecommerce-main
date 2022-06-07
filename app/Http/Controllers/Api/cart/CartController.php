@@ -56,6 +56,8 @@ class CartController extends Controller
             $product = Product::where("id", $request->product_id)->first();
             if ($cartExist) {
                 $cartExist->quantity = $request->quantity;
+                $cartExist->size = $request->size[0]??null;
+                $cartExist->color = $request->color[0]??null;
                 if($cartExist->update()){
                     return response([
                         "status" => "error",

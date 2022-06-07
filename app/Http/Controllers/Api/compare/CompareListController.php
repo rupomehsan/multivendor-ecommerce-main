@@ -12,7 +12,7 @@ class CompareListController extends Controller
     {
         try {
             $clientIp = request()->ip();
-            $getCompareList = CompareList::with(['product'])->where("client_ip", $clientIp)->get();
+            $getCompareList = CompareList::with(['product','product.category','product.brand','product.reviews'])->where("client_ip", $clientIp)->get();
             $getCompareListCount = CompareList::with(['product'])->where("client_ip", $clientIp)->count();
             if ($getCompareList) {
                 return response([
@@ -37,9 +37,10 @@ class CompareListController extends Controller
             $clientIp = request()->ip();
             $existItem = CompareList::where("product_id", $request->product_id)->where("client_ip", $clientIp)->first();
             if ($existItem) {
+                $existItem = CompareList::where("product_id", $request->product_id)->where("client_ip", $clientIp)->delete();
                 return response([
                     "status" => "error",
-                    "message" => "Item Already Added To Compare List"
+                    "message" => "Item Remove From Compare List"
                 ]);
             } else {
                 $addToCompareList = new CompareList();

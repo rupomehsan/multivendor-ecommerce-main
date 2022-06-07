@@ -70,10 +70,8 @@ class ProductController extends Controller
 //        dd(request()->all());
         try {
             $Product = Product::where("id",$id)->first();
-            $relatedProduct = Product::with(['category','brand','reviews'])->where("category_id",$Product->category_id)->get();
-
+            $relatedProduct = Product::with(['category','brand','reviews'])->withCount('reviews')->where("category_id",$Product->category_id)->get();
             $relatedProductCount = Product::with(['category','brand'])->where("category_id",$id)->select('id')->count();
-
             return response([
                 "status" => "success",
                 "data" => $relatedProduct,
@@ -93,6 +91,7 @@ class ProductController extends Controller
         try {
             if($request->searchData !== null){
                 $getProduct = Product::with(['category','brand','reviews'])
+                    ->withCount('reviews')
                     ->orwhere('name', 'LIKE', '%' . $request->searchData . '%')
 //                    ->orWhere('category_id',$request->categoryId)
                     ->get();
@@ -102,6 +101,7 @@ class ProductController extends Controller
                 ]);
             }else if($request->searchData === null && $request->categoryId !== null ){
                 $getProduct = Product::with(['category','brand','reviews'])
+                    ->withCount('reviews')
 //                    ->orwhere('name', 'LIKE', '%' . $request->searchData . '%')
                     ->orWhere('category_id',$request->categoryId)
                     ->get();
@@ -110,7 +110,7 @@ class ProductController extends Controller
                     "data" => $getProduct
                 ]);
             }else{
-                $getProduct = Product::with(['category','brand','reviews'])->limit(8)->get();
+                $getProduct = Product::with(['category','brand','reviews'])->withCount('reviews')->limit(8)->get();
                 return response([
                     "status" => "success",
                     "data" => $getProduct
@@ -466,7 +466,7 @@ class ProductController extends Controller
 //            dd(gettype($request->categoryId));
             $price = (int)$request->priceRange;
             $category = (int)($request->categoryId);
-            $getSearchProduct = Product::with(['category','brand','reviews'])->where('price',"<",$price)->where("category_id",$category)->get();
+            $getSearchProduct = Product::with(['category','brand','reviews'])->withCount('reviews')->where('price',"<",$price)->where("category_id",$category)->get();
             if($getSearchProduct){
                 return response([
                     "status"=>"success",
@@ -486,6 +486,7 @@ class ProductController extends Controller
         try {
             $getSearchProduct = Product::with(['category','brand','reviews'])
                 ->whereBetween('price',[$request->data['minimum'],$request->data['maximum']])
+                ->withCount('reviews')
                 ->orWhere("price","<=",$request->data['customRange'])
                 ->orWhereIn("brand_id",$request->data['brandId'])
                 ->get();
@@ -507,6 +508,7 @@ class ProductController extends Controller
 //        dd($request->data);
         try {
             $getSearchProduct = Product::with(['category','brand','reviews'])
+                ->withCount('reviews')
                 ->where('category_id',$request->data['categoryId'])
                 ->where('vendors_id',$request->data['shopId'])
                 ->get();

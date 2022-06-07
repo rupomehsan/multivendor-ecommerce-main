@@ -22,7 +22,7 @@ class Product extends Model
         'design' => 'array',
         'image' => 'array',
     ];
-    protected $appends=['is_wish_list'];
+    protected $appends=['is_wish_list','is_compare_list'];
 
     public function prchase_products(){
         return $this->hasMany(PurchaseProduct::class);
@@ -30,7 +30,6 @@ class Product extends Model
     public function category(){
         return $this->hasMany(Category::class,'id','category_id');
     }
-
     public function reviews(){
         return $this->hasMany(Review::class);
     }
@@ -48,10 +47,23 @@ class Product extends Model
         return $this->hasMany(WishList::class);
     }
 
+    public function compare_lists()
+    {
+        return $this->hasMany(CompareList::class);
+    }
+
     public function getIsWishListAttribute(){
         $clientIp = request()->ip();
         if($clientIp){
             return $this->wish_lists->where('client_ip',$clientIp)->first() ? true : false;
+        }else{
+            return false;
+        }
+    }
+    public function getIsCompareListAttribute(){
+        $clientIp = request()->ip();
+        if($clientIp){
+            return $this->compare_lists->where('client_ip',$clientIp)->first() ? true : false;
         }else{
             return false;
         }

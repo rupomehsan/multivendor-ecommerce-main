@@ -162,7 +162,12 @@ Route::prefix('v1')->group(function () {
     /* Contact
       store
   */
-    Route::post('contact', [\App\Http\Controllers\Api\contact\ContactController::class, 'store']);
+   /* Location
+      get
+  */
+    Route::get('get-all-division', [\App\Http\Controllers\Api\location\LocationController::class, 'getAllDivision']);
+    Route::get('get-all-district-by-division-id/{id}', [\App\Http\Controllers\Api\location\LocationController::class, 'getAllDistrictByDivisionId']);
+    Route::get('get-all-station-by-district-id/{id}', [\App\Http\Controllers\Api\location\LocationController::class, 'getAllStationByDistrictId']);
     /* Authentication
     store,show,delete
     */

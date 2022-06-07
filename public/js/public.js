@@ -160,7 +160,6 @@ function getClientCartPublic() {
 // get client compare list
 function getClientCompareList() {
     var url = baseUrl + "get-all-compare-list"
-
     $.ajax({
         url: url, method: "get", dataType: "json", success: function (res) {
             // console.log("cart", res)
@@ -281,7 +280,7 @@ function getAllShops(url, id) {
 // add to card product
 // add to card product
 function addToCart(id, shopId) {
-    var shopId = $('#product_shop_id').val()
+    // var shopId = $('#product_shop_id').val()
     var quantity = '';
     quantity = $('#quantity').val()
     if (quantity === undefined) {
@@ -316,7 +315,7 @@ function addToCart(id, shopId) {
 // get single product
 // get single product
 function productSingleItem(res, id) {
-    // alert(id)
+    console.log("rupom",res)
     res.forEach(function (item) {
         $(id).append(`
                           <div class="col my-3">
@@ -328,8 +327,8 @@ function productSingleItem(res, id) {
                                                     <span class="iconify action-btn ${(item.is_wish_list)===true?'existColor':''}" data-icon="ant-design:heart-filled"
                                                           data-width="25" data-height="25"></span>
                                                 </li>
-                                                <li class="list-item">
-                                                    <span class="iconify action-btn" data-icon="bx:git-compare" data-width="25"
+                                                <li class="list-item" onclick="addToCompare('${item.id}')">
+                                                    <span class="iconify action-btn ${(item.is_compare_list)===true?'existColor':''}" data-icon="bx:git-compare" data-width="25"
                                                           data-height="25"></span>
                                                 </li>
                                             </ul>
@@ -373,11 +372,14 @@ function productSingleItem(res, id) {
 
     function  countReview(res){
         var reviewCount = 0
-        res.reviews.forEach(function(item){
-            reviewCount += item.rating
-        })
-        var rating = reviewCount/res.reviews_count
-        return rating.toFixed(2)
+        if (res.reviews){
+            res.reviews.forEach(function(item){
+                reviewCount += item.rating
+            })
+            var rating = reviewCount/res.reviews_count
+            return rating.toFixed(2)
+        }
+
         // console.log("ratingProduct",rating)
     }
 
@@ -394,16 +396,55 @@ function addToWishList(id){
             console.log(res)
             if(res.status==="success"){
                 toastr.success(res.message);
+                setTimeout(reload,1000)
+                function reload(){
+                    location.reload()
+                }
+
                 //get popular products
                 //get popular products
-                var popularProductList = window.origin+"/api/v1/get-all-products"
-                getProduct(popularProductList,"#popularProduct")
+                // var popularProductList = window.origin+"/api/v1/get-all-products"
+                // getProduct(popularProductList,"#popularProduct")
             }else if(res.status==="error"){
                 toastr.warning(res.message)
+                setTimeout(reload,1000)
+                function reload(){
+                    location.reload()
+                }
                 //get popular products
                 //get popular products
-                var popularProductList = window.origin+"/api/v1/get-all-products"
-                getProduct(popularProductList,"#popularProduct")
+                // var popularProductList = window.origin+"/api/v1/get-all-products"
+                // getProduct(popularProductList,"#popularProduct")
+            }
+        },
+        error:function(err){
+            console.log(err)
+        }
+    })
+}
+/***
+ * addToCompare
+ * **/
+function addToCompare(id){
+    $.ajax({
+        url:window.origin+"/api/v1/add-to-compare",
+        method:"post",
+        data:{"product_id":id},
+        success:function(res){
+            console.log(res)
+            if(res.status==="success"){
+                toastr.success(res.message);
+                getClientCompareList()
+                setTimeout(reload,1000)
+                function reload(){
+                    location.reload()
+                }
+            }else if(res.status==="error"){
+                toastr.warning(res.message)
+                setTimeout(reload,1000)
+                function reload(){
+                    location.reload()
+                }
             }
         },
         error:function(err){
@@ -512,17 +553,12 @@ function productDetails(productID) {
                                                       data-height="20"></span>
                                             </button>
                                         </div>
-                                        <div class="review my-5 border-top border-bottom d-flex align-items-center py-4">
-                                            <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;" data-width="20"
-                                                  data-height="20"></span>
-                                            <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;" data-width="20"
-                                                  data-height="20"></span>
-                                            <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;" data-width="20"
-                                                  data-height="20"></span>
-                                            <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;" data-width="20"
-                                                  data-height="20"></span>
-                                            <span class="iconify" data-icon="ant-design:star-filled" style="color: #ffce31;" data-width="20"
-                                                  data-height="20"></span>
+                                        <div class="review my-5 border-top border-bottom d-flex align-items-center py-4 ">
+                                                <span class="fa fa-star ${item.rating>=1?"checked":""} my-3"></span>
+                                                <span class="fa fa-star ${item.rating>=2?"checked":""}"></span>
+                                                <span class="fa fa-star ${item.rating>=3?"checked":""}"></span>
+                                                <span class="fa fa-star ${item.rating>=4?"checked":""}"></span>
+                                                <span class="fa fa-star ${item.rating>=5?"checked":""}"></span>
                                             <span class="mx-4">${item.rating}</span>
                                             <span class="text-secondary border-start ps-4">(${item.reviews_count} Customer reviews)</span>
                                         </div>
@@ -790,10 +826,7 @@ function productDetails(productID) {
                                             </div>
                                         </div>
                           `)
-
-
                 prudctReview(item.reviews)
-
                 function prudctReview(review) {
                     // console.log("review",review)
                     $("#productReview").empty()
@@ -820,22 +853,22 @@ function productDetails(productID) {
                         `)
                     })
                 }
-
                 /***
                  * productColor
-                 * **/
-                $('.colorClass').click(function () {
-                    productColor = []
+                 ***/
+                $(document).on("click",'.colorClass', function () {
+                    // alert($(this).val())
+                    productColor=[]
                     productColor.push($(this).val())
                     // console.log("color", productColor)
                 })
                 /***
                  * productSize
-                 * **/
-                $('.sizeClass').click(function () {
-                    productSize = []
+                 ***/
+                $(document).on("click",'.sizeClass',function () {
+                    // alert($(this).val())
+                    productSize=[]
                     productSize.push($(this).val())
-
                 })
                 /***
                  * giving rating
@@ -849,7 +882,7 @@ function productDetails(productID) {
                  * Rating
                  * **/
                 $("#halfstarsReview").rating({
-                    "half": true, "click": function (e) {
+                    "full": true, "click": function (e) {
                         console.log(e);
                         $("#rating_count").val(e.stars);
                     }
@@ -857,7 +890,6 @@ function productDetails(productID) {
 
                 var userData = JSON.parse(localStorage.getItem("userInfo"))  || null
                 if(userData===null){
-
                     $("#givenReview").empty()
                     $("#givenReview").append(`
                       <div class="row row-cols-2">
@@ -882,47 +914,38 @@ function productDetails(productID) {
                 getSize(item.attributes)
                 getColor(item.attributes)
                 function getColor(attributes) {
-
                     attributes.color.forEach(function (item) {
                         // console.log("color",item)
                         $("#productColor").append(`
                           <label class="colorContainer">
                               <input type="radio"  class="colorClass"  name="color" value="${item}">
-                              <span class="colorCheckmark switch-button" id="${item}"></span>
+                              <span class="colorCheckmark switch-button" id="${item}" ></span>
                             </label>
-
                         `)
                         // $("#productColor").append(`
                         //   <span class="switch-button" id="${item}" ></span>
                         // `)
                     })
-
                 }
 
                 function getSize(attributes) {
-
                         attributes.size.forEach(function (item) {
                             // console.log("size",item)
                             $("#productSize").append(`
                           <label class="btn-container">
-                              <input type="radio" class="sizeClass"  name="size" value="${item}">
+                              <input type="radio" class="sizeClass"  name="size" value="${item}" >
                               <span class="checkmark sizeClass">${item}</span>
                             </label>
                         `)
-
                             // $("#productSize").append(`
-                            //   <span class="size-button" id="${item}">${item}</span>
+                            //   <span class="size-button" id="${item}"></span>
                             // `)
                         })
-
-
                 }
                 /***
                  * COLOR SWITCHER
                  * **/
                 let colorSwitchButtons = document.querySelectorAll('.switch-button');
-                // console.log("color", colorSwitchButtons)
-
                 colorSwitchButtons.forEach(item => {
                     let id = item.getAttribute('id')
                     let buttonId = document.getElementById(id);
@@ -937,7 +960,6 @@ function productDetails(productID) {
                  * **/
                 // let sizeSwitchButtons = document.querySelectorAll('.size-button');
                 $(".size-button").click(function () {
-
                     // var id = $(this).attr('id')
                     var clss = $(this).hasClass('sizeSelect');
                     if (clss === false) {
@@ -945,8 +967,6 @@ function productDetails(productID) {
                     } else if (clss === true) {
                         $(this).removeClass('sizeSelect')
                     }
-
-
                 })
 
                 /***

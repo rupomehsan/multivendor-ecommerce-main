@@ -69,8 +69,11 @@
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- ===== Vendor JS Files ===== -->
-<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/vendor/jQuery-Simple-Timer-master/jquery.simple.timer.js')}}"></script>
 <script
     src="{{asset('assets/vendor/Flexible-Bootstrap-Plugin-To-Create-Wizard-Style-Interface-Smart-Wizard/dist/js/jquery.smartWizard.min.js')}}"></script>
@@ -97,15 +100,15 @@
 <script>
     $(document).ready(function () {
         var token = localStorage.getItem("token") || null
-        var userInfo =JSON.parse(localStorage.getItem("userInfo"))  || null
-        if(token !==null){
+        var userInfo = JSON.parse(localStorage.getItem("userInfo")) || null
+        if (token !== null) {
             var pageName = "{{request()->segment(1)}}";
-            if(pageName==="login"){
+            if (pageName === "login") {
                 window.location.href = "{{url("/")}}"
-            }else if(pageName==="register"){
+            } else if (pageName === "register") {
                 window.location.href = "{{url("/")}}"
             }
-                // alert(pageName)
+            // alert(pageName)
             $("#login").addClass('d-none')
             $("#logout").removeClass('d-none')
             $(".userName").text(userInfo.name)
@@ -114,7 +117,7 @@
         getClientCompareList()
     })
 
-    $('#Userlogout').click(function(){
+    $('#Userlogout').click(function () {
         alert("Are you sure to logout")
         localStorage.removeItem("token")
         localStorage.removeItem("userInfo")

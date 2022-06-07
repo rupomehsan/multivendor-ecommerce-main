@@ -329,12 +329,12 @@ class VendorController extends Controller
     {
         try {
             $shop = StoreDetails::where("status", "active")->where("user_id", $id)->first();
-            $specialOfferProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
-            $featureProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
-            $bestSellingProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
-            $bestRatedProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
-            $getAllProduct = Product::with(['category'])->where("status", "active")->where("vendors_id", $id)->get();
-            $count = Product::where("status", "active")->where("vendors_id", $id)->count();
+            $specialOfferProduct = Product::with(['category',"reviews"])->withCount('reviews')->where("status", "active")->where("vendors_id", $id)->get();
+            $featureProduct = Product::with(['category',"reviews"])->withCount('reviews')->where("status", "active")->where("vendors_id", $id)->get();
+            $bestSellingProduct = Product::with(['category',"reviews"])->withCount('reviews')->where("status", "active")->where("vendors_id", $id)->get();
+            $bestRatedProduct = Product::with(['category',"reviews"])->withCount('reviews')->where("status", "active")->where("vendors_id", $id)->get();
+            $getAllProduct = Product::with(['category',"reviews"])->withCount('reviews')->where("status", "active")->where("vendors_id", $id)->get();
+            $count = Product::where("status", "active")->withCount('reviews')->where("vendors_id", $id)->count();
             if ($shop) {
                 return response([
                     "status" => "success",

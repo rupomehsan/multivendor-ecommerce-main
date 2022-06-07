@@ -83,13 +83,13 @@
                                                     <span class="text-danger" id="phone_error"></span>
                                                 </div>
                                             </div>
-{{--                                            <div class="col-lg-6 my-2">--}}
-{{--                                                <div class="form-group">--}}
-{{--                                                    <input type="text" name="address" id="address" class="form-control"--}}
-{{--                                                           placeholder="Address *">--}}
-{{--                                                    <span class="text-danger" id="email_error"></span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            {{--                                            <div class="col-lg-6 my-2">--}}
+                                            {{--                                                <div class="form-group">--}}
+                                            {{--                                                    <input type="text" name="address" id="address" class="form-control"--}}
+                                            {{--                                                           placeholder="Address *">--}}
+                                            {{--                                                    <span class="text-danger" id="email_error"></span>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            </div>--}}
                                             <div class="col-lg-6 my-2">
                                                 <div class="form-group">
                                                     <input type="text" name="" id="" class="form-control"
@@ -323,7 +323,6 @@
         //     .on("click", function () {
         //         alert("Finish Clicked");
         //     });
-
         $('#smartwizard').smartWizard({
             selected: 0,
             theme: 'arrows',
@@ -340,7 +339,6 @@
             //     toolbarExtraButtons: [btnFinish],
             // },
         });
-
         $("input[name='payment_method']").click(function () {
             let value = $(this).attr("value");
             if (value === 'mob') {
@@ -353,7 +351,6 @@
             }
         })
         $(function () {
-
             $.ajax({
                 url: "{{url('api/v1/get-client-cart-all-items')}}",
                 method: "get",
@@ -365,55 +362,54 @@
                         $('#clientCartItem').empty()
                         var i = 0
                         res.data.forEach(function (item) {
+                            storeId[shopNo].push(item.shop_id)
+                            // storeId.push(item.product.vendors_id)
+                            {{--    $('#clientCartItem').append(`--}}
+                                {{--    <input type="hidden" name="[product][${i}][product_id]" value="${item.product.id}">--}}
+                                {{--    <input type="hidden" name="[product][${i}][quantity]" value="${item.quantity}">--}}
+                                {{--    <input type="hidden" name="[product][${i}][itemTotal]" value="${item.price * item.quantity}">--}}
+                                {{--    <input type="hidden" name="[product][${i}][store_id]" value="${item.product.vendors_id}">--}}
+                                {{--    <li class="order_list_item py-3">--}}
+                                {{--                    <div class="d-flex">--}}
+                                {{--                        <img class="img-fluid bottom-shadow me-5"--}}
+                                {{--                             src="{{asset('assets/image/pos-item.png')}}" alt="">--}}
 
-                            storeId.push(item.product.vendors_id)
+                                {{--                        <ul class="text-capitalize fw-bold">--}}
+                                {{--                            <li class="my-2">--}}
+                                {{--                                 <h6 class="text-secondary fw-bold">Product Name: <span--}}
+                                {{--                                        class="text-black-50 fw-lighter">${item.product.name}</span></h6>--}}
+                                {{--                            </li>--}}
+                                {{--                            <li class="my-2">--}}
+                                {{--                                <h6 class="text-secondary fw-bold">Price: <span--}}
+                                {{--                                        class="text-black-50 fw-lighter">${item.price}</span></h6>--}}
+                                {{--                            </li>--}}
 
-                            $('#clientCartItem').append(`
-                            <input type="hidden" name="[product][${i}][product_id]" value="${item.product.id}">
-                            <input type="hidden" name="[product][${i}][quantity]" value="${item.quantity}">
-                            <input type="hidden" name="[product][${i}][itemTotal]" value="${item.price * item.quantity}">
-                            <input type="hidden" name="[product][${i}][store_id]" value="${item.product.vendors_id}">
-                          <li class="order_list_item py-3">
-                                            <div class="d-flex">
-                                                <img class="img-fluid bottom-shadow me-5"
-                                                     src="{{asset('assets/image/pos-item.png')}}" alt="">
+                                {{--                            <li class="my-2">--}}
+                                {{--                                <h6 class="text-secondary fw-bold">color: <span--}}
+                                {{--                                        class="text-black-50 fw-lighter">blue</span></h6>--}}
+                                {{--                            </li>--}}
 
-                                                <ul class="text-capitalize fw-bold">
-                                                    <li class="my-2">
-                                                         <h6 class="text-secondary fw-bold">Product Name: <span
-                                                                class="text-black-50 fw-lighter">${item.product.name}</span></h6>
-                                                    </li>
-                                                    <li class="my-2">
-                                                        <h6 class="text-secondary fw-bold">Price: <span
-                                                                class="text-black-50 fw-lighter">${item.price}</span></h6>
-                                                    </li>
+                                {{--                            <li class="my-2">--}}
+                                {{--                                <h6 class="text-secondary fw-bold">size: <span--}}
+                                {{--                                        class="text-black-50 fw-lighter">m</span></h6>--}}
+                                {{--                            </li>--}}
 
-                                                    <li class="my-2">
-                                                        <h6 class="text-secondary fw-bold">color: <span
-                                                                class="text-black-50 fw-lighter">blue</span></h6>
-                                                    </li>
-
-                                                    <li class="my-2">
-                                                        <h6 class="text-secondary fw-bold">size: <span
-                                                                class="text-black-50 fw-lighter">m</span></h6>
-                                                    </li>
-
-                                                    <li class="my-2">
-                                                        <h6 class="text-secondary fw-bold">quantity: <span
-                                                                class="text-black-50 fw-lighter">${item.quantity}</span></h6>
-                                                    </li>
-                                                    <li class="my-2">
-                                                        <h6 class="text-secondary fw-bold">total price: <span
-                                                                class="text-black-50 fw-lighter itemTotalPrice">${item.price * item.quantity}</span></h6>
-                                                    </li>
+                                {{--                            <li class="my-2">--}}
+                                {{--                                <h6 class="text-secondary fw-bold">quantity: <span--}}
+                                {{--                                        class="text-black-50 fw-lighter">${item.quantity}</span></h6>--}}
+                                {{--                            </li>--}}
+                                {{--                            <li class="my-2">--}}
+                                {{--                                <h6 class="text-secondary fw-bold">total price: <span--}}
+                                {{--                                        class="text-black-50 fw-lighter itemTotalPrice">${item.price * item.quantity}</span></h6>--}}
+                                {{--                            </li>--}}
 
 
-                                                </ul>
-                                            </div>
-                                        </li>
+                                {{--                        </ul>--}}
+                                {{--                    </div>--}}
+                                {{--                </li>--}}
 
-                        `)
-                            i++
+                                {{--`)--}}
+                                i++
                         })
                         itemTotalPrice()
 
@@ -457,20 +453,20 @@
 
             })
 
-
             $.ajax({
-                url: "https://bdapis.herokuapp.com/api/v1.1/divisions",
+                url: "{{url('api/v1/get-all-division')}}",
                 method: "get",
                 dataType: "json",
                 success: function (res) {
-                    if (res.status.message === "ok") {
+
+                    if (res.status === "success") {
                         $("#division").empty()
                         $("#division").append(`
                          <option selected disabled>Select Your Division</option>
                         `)
                         res.data.forEach(function (item) {
                             $("#division").append(`
-                             <option value="${item._id}">${item.division}</option>
+                             <option value="${item.id}">${item.name}</option>
                             `)
                         })
                     }
@@ -484,19 +480,19 @@
                 var division = $(this).val()
 
                 $.ajax({
-                    url: "https://bdapis.herokuapp.com/api/v1.1/division/" + division,
+                    url: "{{url('api/v1/get-all-district-by-division-id')}}/" + division,
                     method: "get",
                     dataType: "json",
                     success: function (res) {
                         // console.log("district",res)
-                        if (res.status.message === "ok") {
+                        if (res.status === "success") {
                             $("#district").empty()
                             $("#district").append(`
                          <option selected disabled>Select Your District</option>
                         `)
                             res.data.forEach(function (item) {
                                 $("#district").append(`
-                             <option value="${item.district}">${item.district}</option>
+                             <option value="${item.id}">${item.name}</option>
                             `)
                             })
                         }
@@ -509,32 +505,26 @@
             })
 
             $("#district").change(function () {
-                var division = $("#division").val()
                 var district = $(this).val()
                 // alert(district)
                 $.ajax({
-                    url: "https://bdapis.herokuapp.com/api/v1.1/division/" + division,
+                    url: "{{url('api/v1/get-all-station-by-district-id')}}/" + district,
                     method: "get",
                     dataType: "json",
                     success: function (res) {
-                        // console.log("district",res)
-
-                        res.data.forEach(function (item) {
-                            // console.log("adf;lasjdfl", item)
-                            if (item.district === district) {
+                        if (res.status === "success") {
+                            if (res.status === "success") {
                                 $("#station").empty()
                                 $("#station").append(`
                          <option selected disabled>Select Your Station</option>
                         `)
-                                item.upazilla.forEach(function (item2) {
+                                res.data.forEach(function (item) {
                                     $("#station").append(`
-                             <option value="${item2}">${item2}</option>
+                             <option value="${item.id}">${item.name}</option>
                             `)
                                 })
-
                             }
-                        })
-
+                        }
                     },
                     error: function (err) {
                         console.log(err)
@@ -543,16 +533,12 @@
 
             })
 
-
         })
 
-        // console.log("store",storeId)
-
-
+        console.log("store", storeId)
         // $(document).on("submit","#confirmOrder",function(e){
         //     e.preventDefault()
         // })
-
         //add item
         //add item
         $('#form').submit(function (e) {

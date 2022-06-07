@@ -48,8 +48,8 @@ function formSubmit(type, btn, form, headers = null) {
                                 $('#preloader').addClass('d-none')
                             }
                         });
-                    } else {
-                        // toastr.error('Something went wrong', 'Please try again after sometime.');
+                    } else if(response.status === 'error') {
+                        toastr.error(response.message);
                         console.log("err 2")
                         $('#preloader').addClass('d-none')
                     }

@@ -146,6 +146,7 @@
                     <h2 class="portion-title"><span>Popular </span>Products</h2>
                     <span class="text-secondary">Lorem ipsum dolor sit amet, consecrate radicalising elite.  Disciple amet material <br/> beat color exception Podio presentiment rem sed solute vero.</span>
                 </div>
+
                 <div class="d-flex justify-content-end">
                     <div class="dropdown">
                         <span class="iconify text-valencia cursor-pointer" data-icon="ri:equalizer-line" data-width="25"
