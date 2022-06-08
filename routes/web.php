@@ -27,6 +27,8 @@
     Route::view('/all-shops', 'landing.shops.index');
     Route::view('/all-offers', 'landing.offers.index');
     Route::view('/compare', 'landing.compare.index');
+    Route::view('/wishlist', 'landing.wishlist.index');
+    Route::view('/grouptest', 'landing.checkout.groupby');
 
     Route::prefix('vendor')->group(function (){
         Route::view('shop/{id}', 'landing.vendor.index');

@@ -33,10 +33,10 @@
                                         <div class="row">
                                             <div class="col-lg-6 my-2">
                                                 <div class="form-group">
-                                                    <input type="text" name="full_name" id="full_name"
+                                                    <input type="text" name="first_name" id="first_name"
                                                            class="form-control"
-                                                           placeholder="Full Name *">
-                                                    <span class="text-danger" id="full_name_error"></span>
+                                                           placeholder="first Name *">
+                                                    <span class="text-danger" id="first_name_error"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 my-2">
@@ -51,11 +51,13 @@
                                             </div>
                                             <div class="col-lg-6 my-2">
                                                 <div class="form-group">
-                                                    <input type="number" name="phone" id="phone" class="form-control"
-                                                           placeholder="Phone *">
-                                                    <span class="text-danger" id="phone_error"></span>
+                                                    <input type="text" name="last_name" id="last_name"
+                                                           class="form-control"
+                                                           placeholder="Last Name *">
+                                                    <span class="text-danger" id="last_name_error"></span>
                                                 </div>
                                             </div>
+
                                             <div class="col-lg-6 my-2">
                                                 <div class="form-group">
                                                     <select name="district" id="district" class="form-control">
@@ -83,13 +85,16 @@
                                                     <span class="text-danger" id="phone_error"></span>
                                                 </div>
                                             </div>
-                                            {{--                                            <div class="col-lg-6 my-2">--}}
-                                            {{--                                                <div class="form-group">--}}
-                                            {{--                                                    <input type="text" name="address" id="address" class="form-control"--}}
-                                            {{--                                                           placeholder="Address *">--}}
-                                            {{--                                                    <span class="text-danger" id="email_error"></span>--}}
-                                            {{--                                                </div>--}}
-                                            {{--                                            </div>--}}
+
+                                            <div class="col-lg-6 my-2">
+                                                <div class="form-group">
+                                                    <input type="number" name="phone" id="phone" class="form-control"
+                                                           placeholder="Phone *">
+                                                    <span class="text-danger" id="phone_error"></span>
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-lg-6 my-2">
                                                 <div class="form-group">
                                                     <input type="text" name="" id="" class="form-control"
@@ -112,7 +117,13 @@
                                         <h6 class="card-title">Order Information:</h6>
                                         <hr/>
 
+
+
                                         <ul class="order_list" id="clientCartItem">
+
+{{--                                            <li class="border-3 my-3" style="width:100%;height: 100px">--}}
+{{--                                                <h1>Rupomehsan</h1>--}}
+{{--                                            </li>--}}
 
 
                                         </ul>
@@ -323,6 +334,7 @@
         //     .on("click", function () {
         //         alert("Finish Clicked");
         //     });
+
         $('#smartwizard').smartWizard({
             selected: 0,
             theme: 'arrows',
@@ -351,107 +363,7 @@
             }
         })
         $(function () {
-            $.ajax({
-                url: "{{url('api/v1/get-client-cart-all-items')}}",
-                method: "get",
-                dataType: "json",
-                success: function (res) {
-                    // console.log(res)
-
-                    if (res.status === "success") {
-                        $('#clientCartItem').empty()
-                        var i = 0
-                        res.data.forEach(function (item) {
-                            storeId[shopNo].push(item.shop_id)
-                            // storeId.push(item.product.vendors_id)
-                            {{--    $('#clientCartItem').append(`--}}
-                                {{--    <input type="hidden" name="[product][${i}][product_id]" value="${item.product.id}">--}}
-                                {{--    <input type="hidden" name="[product][${i}][quantity]" value="${item.quantity}">--}}
-                                {{--    <input type="hidden" name="[product][${i}][itemTotal]" value="${item.price * item.quantity}">--}}
-                                {{--    <input type="hidden" name="[product][${i}][store_id]" value="${item.product.vendors_id}">--}}
-                                {{--    <li class="order_list_item py-3">--}}
-                                {{--                    <div class="d-flex">--}}
-                                {{--                        <img class="img-fluid bottom-shadow me-5"--}}
-                                {{--                             src="{{asset('assets/image/pos-item.png')}}" alt="">--}}
-
-                                {{--                        <ul class="text-capitalize fw-bold">--}}
-                                {{--                            <li class="my-2">--}}
-                                {{--                                 <h6 class="text-secondary fw-bold">Product Name: <span--}}
-                                {{--                                        class="text-black-50 fw-lighter">${item.product.name}</span></h6>--}}
-                                {{--                            </li>--}}
-                                {{--                            <li class="my-2">--}}
-                                {{--                                <h6 class="text-secondary fw-bold">Price: <span--}}
-                                {{--                                        class="text-black-50 fw-lighter">${item.price}</span></h6>--}}
-                                {{--                            </li>--}}
-
-                                {{--                            <li class="my-2">--}}
-                                {{--                                <h6 class="text-secondary fw-bold">color: <span--}}
-                                {{--                                        class="text-black-50 fw-lighter">blue</span></h6>--}}
-                                {{--                            </li>--}}
-
-                                {{--                            <li class="my-2">--}}
-                                {{--                                <h6 class="text-secondary fw-bold">size: <span--}}
-                                {{--                                        class="text-black-50 fw-lighter">m</span></h6>--}}
-                                {{--                            </li>--}}
-
-                                {{--                            <li class="my-2">--}}
-                                {{--                                <h6 class="text-secondary fw-bold">quantity: <span--}}
-                                {{--                                        class="text-black-50 fw-lighter">${item.quantity}</span></h6>--}}
-                                {{--                            </li>--}}
-                                {{--                            <li class="my-2">--}}
-                                {{--                                <h6 class="text-secondary fw-bold">total price: <span--}}
-                                {{--                                        class="text-black-50 fw-lighter itemTotalPrice">${item.price * item.quantity}</span></h6>--}}
-                                {{--                            </li>--}}
-
-
-                                {{--                        </ul>--}}
-                                {{--                    </div>--}}
-                                {{--                </li>--}}
-
-                                {{--`)--}}
-                                i++
-                        })
-                        itemTotalPrice()
-
-                        function itemTotalPrice() {
-                            var price = document.querySelectorAll('.itemTotalPrice')
-                            var subTotal = 0
-                            price.forEach(function (item) {
-                                subTotal += parseInt(item.textContent)
-                            })
-                            $('#totalPrice').text(subTotal)
-                            $('.totalPrice').val(subTotal)
-
-                        }
-
-                        grandTotal()
-
-                        function grandTotal() {
-                            var totalPrice = parseInt($('#totalPrice').text())
-                            var deliveryMethod = $('.deliveryMethod:checked').val();
-                            var packaging = $('.packaging:checked').val();
-                            var deliveryData = JSON.parse(deliveryMethod)
-                            var packingData = JSON.parse(packaging)
-                            var grandtotalProce = totalPrice + parseInt(deliveryData.price) + parseInt(packingData.price)
-                            $('#grandTotal').text(grandtotalProce)
-                            $('.grandTotal').val(grandtotalProce)
-                        }
-
-                        $('.deliveryMethod').click(function () {
-                            grandTotal()
-                        })
-                        $('.packaging').click(function () {
-                            grandTotal()
-                        })
-                        $('#store_id').val(storeId)
-
-                    }
-                },
-                error: function (err) {
-                    console.log(err)
-                }
-
-            })
+            getClientCartAllItems()
 
             $.ajax({
                 url: "{{url('api/v1/get-all-division')}}",

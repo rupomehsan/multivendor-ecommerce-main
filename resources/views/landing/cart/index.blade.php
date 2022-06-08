@@ -22,46 +22,47 @@
 
                     <tfoot>
 
-                    <tr>
-                        <td colSpan="3" class=""></td>
-                        <th class="text-black-50 ">sub-total</th>
-                        <th class="text-end " id="subTotal">00</th>
+                    <tr class="my-3">
+                        <td colSpan="2" class=""></td>
+                        <th class="text-black-50 fw-bold">Total</th>
+                        <th class="text-center fw-bold" id="subTotal">00</th>
                     </tr>
-                    <tr>
-                        <td colSpan="3"></td>
-                        <th class="text-black-50 ">Delivery charge</th>
-                        <th class="text-end " id="deliveryCharge">80</th>
-                    </tr>
+{{--                    <tr>--}}
+{{--                        <td colSpan="3"></td>--}}
+{{--                        <th class="text-black-50 ">Delivery charge</th>--}}
+{{--                        <th class="text-end " id="deliveryCharge">80</th>--}}
+{{--                    </tr>--}}
 
-                    <tr class="border-bottom bottom-shadow">
-                        <td colSpan="3">
-                            <a href="" class="text-valencia">continue with shopping</a>
-                        </td>
-                        <th>Grand total</th>
-                        <th class="text-end" id="grandTotal">00</th>
-                    </tr>
+{{--                    <tr class="border-bottom bottom-shadow">--}}
+{{--                        <td colSpan="3">--}}
+{{--                            <a href="" class="text-valencia">continue with shopping</a>--}}
+{{--                        </td>--}}
+{{--                        <th>Grand total</th>--}}
+{{--                        <th class="text-end" id="grandTotal">00</th>--}}
+{{--                    </tr>--}}
                     </tfoot>
                 </table>
             </div>
 
-            <div class="col-4">
-                <form action="">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="text-center my-3">
-                                <span class="text-black-50 border-bottom ">Have a coupon code?</span>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Type coupon code">
-                                <button class="btn btn-valencia text-capitalize">Apply</button>
-                            </div>
-                            <a href="{{url('checkout')}}" class="btn btn-valencia form-control text-capitalize my-3">
-                                MAKE PURCHASE
-                            </a>
+            <div class="col-4 d-flex align-items-center justify-content-center">
+                <a href="{{url('checkout')}}" class="btn btn-valencia form-control text-capitalize my-3">
+                    MAKE PURCHASE
+                </a>
+{{--                <form action="">--}}
+{{--                    <div class="card shadow-sm">--}}
+{{--                        <div class="card-body d-flex align-items-center justify-content-center ">--}}
+{{--                            <div class="text-center my-3">--}}
+{{--                                <span class="text-black-50 border-bottom ">Have a coupon code?</span>--}}
+{{--                            </div>--}}
+{{--                            <div class="input-group mb-3">--}}
+{{--                                <input type="text" class="form-control" placeholder="Type coupon code">--}}
+{{--                                <button class="btn btn-valencia text-capitalize">Apply</button>--}}
+{{--                            </div>--}}
+{{--                           --}}
 
-                        </div>
-                    </div>
-                </form>
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </form>--}}
             </div>
         </div>
 
@@ -131,9 +132,9 @@
 
                         function grandTotal() {
                             var subTotal = $('#subTotal').text()
-                            var deliveryCharge = $('#deliveryCharge').text();
-                            var grandTotal = parseInt(subTotal) + parseInt(deliveryCharge)
-                            $('#grandTotal').text(grandTotal)
+                            // var deliveryCharge = $('#deliveryCharge').text();
+                            // var grandTotal = parseInt(subTotal) + parseInt(deliveryCharge)
+                            $('#grandTotal').text(subTotal)
                             // alert(grandTotal)
                         }
                         if(res.data.length<1){

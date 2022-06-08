@@ -159,6 +159,7 @@ Route::prefix('v1')->group(function () {
    */
     Route::post('add-to-wishlist', [\App\Http\Controllers\Api\wishlist\WishListController::class, 'store']);
     Route::get('get-all-wishlist', [\App\Http\Controllers\Api\wishlist\WishListController::class, 'index']);
+    Route::get('delete-wishlist/{id}', [\App\Http\Controllers\Api\wishlist\WishListController::class, 'delete']);
     /* Contact
       store
   */

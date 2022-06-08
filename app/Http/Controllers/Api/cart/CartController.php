@@ -39,7 +39,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
+        dd($request->all());
         try {
 
             $clientIP = request()->ip();
@@ -248,7 +248,7 @@ class CartController extends Controller
     {
         try {
             $clientIP = request()->ip();
-            $cart = Cart::with(["product"])->where('client_id', $clientIP)->get();
+            $cart = Cart::with(["product","store_details"])->where('client_id', $clientIP)->get();
             if ($cart) {
                 return response([
                     "status" => "success",

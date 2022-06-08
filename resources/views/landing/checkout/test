@@ -1,0 +1,136 @@
+  res.data.forEach(function (item) {
+                            // storeId[shopNo].push(item.shop_id)
+                            // storeId.push(item.product.vendors_id)
+                                $('#clientCartItem').append(`
+                                    <input type="hidden" name="[product][${i}][product_id]" value="${item.product.id}">
+                                    <input type="hidden" name="[product][${i}][quantity]" value="${item.quantity}">
+                                    <input type="hidden" name="[product][${i}][itemTotal]" value="${item.price * item.quantity}">
+                                    <input type="hidden" name="[product][${i}][store_id]" value="${item.product.vendors_id}">
+                                    <li class="order_list_item py-3">
+                                                    <div class="d-flex">
+                                                        <img class="img-fluid bottom-shadow me-5"
+                                                             src="{{asset('assets/image/pos-item.png')}}" alt="">
+
+                                                        <ul class="text-capitalize fw-bold">
+                                                            <li class="my-2">
+                                                                 <h6 class="text-secondary fw-bold">Product Name: <span
+                                                                        class="text-black-50 fw-lighter">${item.product.name}</span></h6>
+                                                            </li>
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">Price: <span
+                                                                        class="text-black-50 fw-lighter">${item.price}</span></h6>
+                                                            </li>
+
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">color: <span
+                                                                        class="text-black-50 fw-lighter">blue</span></h6>
+                                                            </li>
+
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">size: <span
+                                                                        class="text-black-50 fw-lighter">m</span></h6>
+                                                            </li>
+
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">quantity: <span
+                                                                        class="text-black-50 fw-lighter">${item.quantity}</span></h6>
+                                                            </li>
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">total price: <span
+                                                                        class="text-black-50 fw-lighter itemTotalPrice">${item.price * item.quantity}</span></h6>
+                                                            </li>
+
+
+                                                        </ul>
+                                                    </div>
+                                                </li>
+
+                                `)
+                                i++
+                        })
+
+
+ $.ajax({
+                url: "{{url('api/v1/get-client-cart-all-items')}}",
+                method: "get",
+                dataType: "json",
+                success: function (res) {
+
+
+                    if (res.status === "success") {
+
+                      var data = res.data
+                        let shopGroup = data.reduce((r, a) => {
+                            r[a.shop_id] = [...r[a.shop_id] || [], a];
+                            return r;
+                        }, {});
+
+                        const cartEntries = Object.entries(shopGroup);
+
+                        cartEntries.forEach(function(item){
+                            $('#clientCartItem').append(`
+                             <li class="border my-3 bg-warning">
+                              <input type="checkbox" /> ${item[1][0].store_details.store_name}
+                                 <div>${getitems(item[1])}</div>
+
+                               <li>
+                            `)
+                        })
+
+                        function getitems(item2){
+                            return(
+                            item2.forEach(function(data){
+                                console.log("mydata",data)
+                                    return(`
+                                    <div class="order_list_item py-3">
+                                                  ${data.client_id}
+                                                </div>
+                                    `)
+
+
+                            })
+                            )
+                        }
+
+
+                        itemTotalPrice()
+
+                        function itemTotalPrice() {
+                            var price = document.querySelectorAll('.itemTotalPrice')
+                            var subTotal = 0
+                            price.forEach(function (item) {
+                                subTotal += parseInt(item.textContent)
+                            })
+                            $('#totalPrice').text(subTotal)
+                            $('.totalPrice').val(subTotal)
+
+                        }
+
+                        grandTotal()
+
+                        function grandTotal() {
+                            var totalPrice = parseInt($('#totalPrice').text())
+                            var deliveryMethod = $('.deliveryMethod:checked').val();
+                            var packaging = $('.packaging:checked').val();
+                            var deliveryData = JSON.parse(deliveryMethod)
+                            var packingData = JSON.parse(packaging)
+                            var grandtotalProce = totalPrice + parseInt(deliveryData.price) + parseInt(packingData.price)
+                            $('#grandTotal').text(grandtotalProce)
+                            $('.grandTotal').val(grandtotalProce)
+                        }
+
+                        $('.deliveryMethod').click(function () {
+                            grandTotal()
+                        })
+                        $('.packaging').click(function () {
+                            grandTotal()
+                        })
+                        $('#store_id').val(storeId)
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            })

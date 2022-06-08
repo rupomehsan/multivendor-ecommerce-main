@@ -15,10 +15,8 @@
                         <li>Brand</li>
                     </ul>
                 </div> <!-- .features -->
-
                 <div class="cd-products-wrapper">
                     <ul class="cd-products-columns" id="productColumn">
-
                     </ul> <!-- .cd-products-columns -->
                 </div> <!-- .cd-products-wrapper -->
             </div> <!-- .cd-products-table -->

@@ -53,7 +53,7 @@
 
                         <ul class="dropdown-menu dropdown-menu-end px-3 py-2">
                             <li class="mb-3">
-                                <a href="" class="d-flex align-items-center text-black">
+                                <a href="{{url('wishlist')}}" class="d-flex align-items-center text-black">
                                     <span class="iconify me-2 text-valencia" data-icon="carbon:favorite-filled" data-width="20" data-height="20"></span>
                                     Wishlist
                                 </a>

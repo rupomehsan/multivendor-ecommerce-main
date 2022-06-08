@@ -1,11 +1,11 @@
 var productColor = []
 var productSize = []
-var baseUrl = window.origin+"/api/v1/"
+var baseUrl = window.origin + "/api/v1/"
 // get all sliders
 // get all sliders
 function getAllSliders() {
     $.ajax({
-        url: baseUrl+"sliders", method: "get", dataType: "json", success: function (res) {
+        url: baseUrl + "sliders", method: "get", dataType: "json", success: function (res) {
             if (res.status === "success") {
                 $('#slider').empty()
                 res.data.forEach(function (item) {
@@ -102,7 +102,7 @@ function getAllCategories(id) {
                 })
 
                 var acc = document.querySelectorAll(".accordion");
-                console.log(acc)
+                // console.log(acc)
                 var i;
                 for (i = 0; i < acc.length; i++) {
                     acc[i].addEventListener("click", function () {
@@ -197,7 +197,7 @@ function getProduct(url, id) {
 function getAllBrands(id) {
     // alert(id)
     $.ajax({
-        url: baseUrl+ "brands", method: "get", dataType: "json", success: function (res) {
+        url: baseUrl + "brands", method: "get", dataType: "json", success: function (res) {
             // console.log("allbrands",res)
             if (res.data.length > 0) {
                 res.data.forEach(function (item) {
@@ -315,7 +315,7 @@ function addToCart(id, shopId) {
 // get single product
 // get single product
 function productSingleItem(res, id) {
-    console.log("rupom",res)
+    console.log("rupom", res)
     res.forEach(function (item) {
         $(id).append(`
                           <div class="col my-3">
@@ -324,11 +324,11 @@ function productSingleItem(res, id) {
 
                                             <ul class="extra-list">
                                                 <li class="list-item existColor" onclick="addToWishList('${item.id}')">
-                                                    <span class="iconify action-btn ${(item.is_wish_list)===true?'existColor':''}" data-icon="ant-design:heart-filled"
+                                                    <span class="iconify action-btn ${(item.is_wish_list) === true ? 'existColor' : ''}" data-icon="ant-design:heart-filled"
                                                           data-width="25" data-height="25"></span>
                                                 </li>
                                                 <li class="list-item" onclick="addToCompare('${item.id}')">
-                                                    <span class="iconify action-btn ${(item.is_compare_list)===true?'existColor':''}" data-icon="bx:git-compare" data-width="25"
+                                                    <span class="iconify action-btn ${(item.is_compare_list) === true ? 'existColor' : ''}" data-icon="bx:git-compare" data-width="25"
                                                           data-height="25"></span>
                                                 </li>
                                             </ul>
@@ -347,7 +347,7 @@ function productSingleItem(res, id) {
                                                         <span class="iconify me-2 text-warning" data-icon="ant-design:star-filled"
                                                               data-width="20" data-height="20"></span>
                                                        <span class="text-warning fw-bold" id="productRating">${countReview(item)}</span>
-                                                        <span class="text-secondary fw-lighter mx-3">${item.reviews_count} reviews</span>
+                                                         <span class="text-secondary fw-lighter mx-3">${item.reviews_count} reviews</span>
                                                     </span>
                                                     <div class="row row-cols-2 my-2">
                                                         <div class="col">
@@ -370,13 +370,13 @@ function productSingleItem(res, id) {
                         `)
     })
 
-    function  countReview(res){
+    function countReview(res) {
         var reviewCount = 0
-        if (res.reviews){
-            res.reviews.forEach(function(item){
+        if (res.reviews) {
+            res.reviews.forEach(function (item) {
                 reviewCount += item.rating
             })
-            var rating = reviewCount/res.reviews_count
+            var rating = reviewCount / res.reviews_count
             return rating.toFixed(2)
         }
 
@@ -387,17 +387,15 @@ function productSingleItem(res, id) {
 
 // add To WishList
 // add To WishList
-function addToWishList(id){
+function addToWishList(id) {
     $.ajax({
-        url:baseUrl+"add-to-wishlist",
-        method:"post",
-        data:{"product_id":id},
-        success:function(res){
+        url: baseUrl + "add-to-wishlist", method: "post", data: {"product_id": id}, success: function (res) {
             console.log(res)
-            if(res.status==="success"){
+            if (res.status === "success") {
                 toastr.success(res.message);
-                setTimeout(reload,1000)
-                function reload(){
+                setTimeout(reload, 1000)
+
+                function reload() {
                     location.reload()
                 }
 
@@ -405,53 +403,58 @@ function addToWishList(id){
                 //get popular products
                 // var popularProductList = window.origin+"/api/v1/get-all-products"
                 // getProduct(popularProductList,"#popularProduct")
-            }else if(res.status==="error"){
+            } else if (res.status === "error") {
                 toastr.warning(res.message)
-                setTimeout(reload,1000)
-                function reload(){
+                setTimeout(reload, 1000)
+
+                function reload() {
                     location.reload()
                 }
+
                 //get popular products
                 //get popular products
                 // var popularProductList = window.origin+"/api/v1/get-all-products"
                 // getProduct(popularProductList,"#popularProduct")
             }
-        },
-        error:function(err){
+        }, error: function (err) {
             console.log(err)
         }
     })
 }
+
 /***
  * addToCompare
  * **/
-function addToCompare(id){
+function addToCompare(id) {
     $.ajax({
-        url:window.origin+"/api/v1/add-to-compare",
-        method:"post",
-        data:{"product_id":id},
-        success:function(res){
+        url: window.origin + "/api/v1/add-to-compare",
+        method: "post",
+        data: {"product_id": id},
+        success: function (res) {
             console.log(res)
-            if(res.status==="success"){
+            if (res.status === "success") {
                 toastr.success(res.message);
                 getClientCompareList()
-                setTimeout(reload,1000)
-                function reload(){
+                setTimeout(reload, 1000)
+
+                function reload() {
                     location.reload()
                 }
-            }else if(res.status==="error"){
+            } else if (res.status === "error") {
                 toastr.warning(res.message)
-                setTimeout(reload,1000)
-                function reload(){
+                setTimeout(reload, 1000)
+
+                function reload() {
                     location.reload()
                 }
             }
         },
-        error:function(err){
+        error: function (err) {
             console.log(err)
         }
     })
 }
+
 // get Related Product
 // get Related Product
 function getRelatedProduct(url, id) {
@@ -554,11 +557,11 @@ function productDetails(productID) {
                                             </button>
                                         </div>
                                         <div class="review my-5 border-top border-bottom d-flex align-items-center py-4 ">
-                                                <span class="fa fa-star ${item.rating>=1?"checked":""} my-3"></span>
-                                                <span class="fa fa-star ${item.rating>=2?"checked":""}"></span>
-                                                <span class="fa fa-star ${item.rating>=3?"checked":""}"></span>
-                                                <span class="fa fa-star ${item.rating>=4?"checked":""}"></span>
-                                                <span class="fa fa-star ${item.rating>=5?"checked":""}"></span>
+                                                <span class="fa fa-star ${item.rating >= 1 ? "checked" : ""} my-3"></span>
+                                                <span class="fa fa-star ${item.rating >= 2 ? "checked" : ""}"></span>
+                                                <span class="fa fa-star ${item.rating >= 3 ? "checked" : ""}"></span>
+                                                <span class="fa fa-star ${item.rating >= 4 ? "checked" : ""}"></span>
+                                                <span class="fa fa-star ${item.rating >= 5 ? "checked" : ""}"></span>
                                             <span class="mx-4">${item.rating}</span>
                                             <span class="text-secondary border-start ps-4">(${item.reviews_count} Customer reviews)</span>
                                         </div>
@@ -827,6 +830,7 @@ function productDetails(productID) {
                                         </div>
                           `)
                 prudctReview(item.reviews)
+
                 function prudctReview(review) {
                     // console.log("review",review)
                     $("#productReview").empty()
@@ -841,11 +845,11 @@ function productDetails(productID) {
                             <div class="col-lg-10">
                                 <p class="fw-bold my-3">${item.author}</p>
                                 <p>${item.text}</p>
-                                    <span class="fa fa-star ${item.rating>=1?"checked":""} my-3"></span>
-                                    <span class="fa fa-star ${item.rating>=2?"checked":""}"></span>
-                                    <span class="fa fa-star ${item.rating>=3?"checked":""}"></span>
-                                    <span class="fa fa-star ${item.rating>=4?"checked":""}"></span>
-                                    <span class="fa fa-star ${item.rating>=5?"checked":""}"></span>
+                                    <span class="fa fa-star ${item.rating >= 1 ? "checked" : ""} my-3"></span>
+                                    <span class="fa fa-star ${item.rating >= 2 ? "checked" : ""}"></span>
+                                    <span class="fa fa-star ${item.rating >= 3 ? "checked" : ""}"></span>
+                                    <span class="fa fa-star ${item.rating >= 4 ? "checked" : ""}"></span>
+                                    <span class="fa fa-star ${item.rating >= 5 ? "checked" : ""}"></span>
                                   </div>
                             </div>
                         </div>
@@ -853,27 +857,28 @@ function productDetails(productID) {
                         `)
                     })
                 }
+
                 /***
                  * productColor
                  ***/
-                $(document).on("click",'.colorClass', function () {
+                $(document).on("click", '.colorClass', function () {
                     // alert($(this).val())
-                    productColor=[]
+                    productColor = []
                     productColor.push($(this).val())
                     // console.log("color", productColor)
                 })
                 /***
                  * productSize
                  ***/
-                $(document).on("click",'.sizeClass',function () {
+                $(document).on("click", '.sizeClass', function () {
                     // alert($(this).val())
-                    productSize=[]
+                    productSize = []
                     productSize.push($(this).val())
                 })
                 /***
                  * giving rating
                  * **/
-                    $('#form').submit(function (e) {
+                $('#form').submit(function (e) {
                     e.preventDefault();
                     let form = $(this);
                     formSubmit("post", "submit-button", form);
@@ -888,8 +893,8 @@ function productDetails(productID) {
                     }
                 });
 
-                var userData = JSON.parse(localStorage.getItem("userInfo"))  || null
-                if(userData===null){
+                var userData = JSON.parse(localStorage.getItem("userInfo")) || null
+                if (userData === null) {
                     $("#givenReview").empty()
                     $("#givenReview").append(`
                       <div class="row row-cols-2">
@@ -904,7 +909,7 @@ function productDetails(productID) {
                             </div>
                             </div>
                     `)
-                }else{
+                } else {
                     $("#author").val(userData.name)
                     $("#email").val(userData.email)
                 }
@@ -913,6 +918,7 @@ function productDetails(productID) {
                  * **/
                 getSize(item.attributes)
                 getColor(item.attributes)
+
                 function getColor(attributes) {
                     attributes.color.forEach(function (item) {
                         // console.log("color",item)
@@ -929,19 +935,20 @@ function productDetails(productID) {
                 }
 
                 function getSize(attributes) {
-                        attributes.size.forEach(function (item) {
-                            // console.log("size",item)
-                            $("#productSize").append(`
+                    attributes.size.forEach(function (item) {
+                        // console.log("size",item)
+                        $("#productSize").append(`
                           <label class="btn-container">
                               <input type="radio" class="sizeClass"  name="size" value="${item}" >
                               <span class="checkmark sizeClass">${item}</span>
                             </label>
                         `)
-                            // $("#productSize").append(`
-                            //   <span class="size-button" id="${item}"></span>
-                            // `)
-                        })
+                        // $("#productSize").append(`
+                        //   <span class="size-button" id="${item}"></span>
+                        // `)
+                    })
                 }
+
                 /***
                  * COLOR SWITCHER
                  * **/
@@ -1286,6 +1293,57 @@ function getAllProductByShopIdAndCategoryId(data, id) {
     })
 }
 
+//get Wishlist
+//get Wishlist
+function getWishlist() {
+    $.ajax({
+        url: baseUrl + "get-all-wishlist", method: "get", dataType: "json", success: function (res) {
+            if (res.status === "success") {
+                $('#wishListTable').empty()
+                res.data.forEach(function (item) {
+                    $('#wishListTable').append(`
+                               <tr>
+                                <td width="45%">
+                                <a href="product-view/${item.product.id}">
+                                    <div class="display-flex align-center">
+                                        <div class="img-product">
+                                            <img src="https://www.91-img.com/pictures/laptops/asus/asus-x552cl-sx019d-core-i3-3rd-gen-4-gb-500-gb-dos-1-gb-61721-large-1.jpg" alt="" class="mCS_img_loaded">
+                                        </div>
+                                        <div class="name-product">
+                                            ${item.product.name}
+                                        </div>
+                                    </div>
+                                  </a>
+                                </td>
+                                <td width="15%" class="price">$  ${item.product.price}</td>
+                                <td width="15%"><span class="in-stock-box">${(item.product.quantity) === 0 ? "Stock Out" : " In Stock"} </span></td>
+                                <td width="15%"><button class="round-black-btn small-btn" onclick="addToCart('${item.product.id}','${item.product.vendors_id}')" >Add to Cart</button></td>
+                                <td width="10%" class="text-center" onclick="deleteWishList('${item.id}')"><a href="#" class="trash-icon"><i class="far fa-trash-alt"></i></a></td>
+                            </tr>
+                            `)
+                })
+            }
+            console.log(res)
+        }, error: function (err) {
+            console.log(err)
+        }
+    })
+}
+
+function deleteWishList(id) {
+    $.ajax({
+        url: baseUrl + "delete-wishlist/" + id, method: "get", dataType: "json", success: function (res) {
+            if (res.status === "success") {
+                toastr.warning(res.message)
+                getWishlist()
+            }
+            console.log(res)
+        }, error: function (err) {
+            console.log(err)
+        }
+    })
+}
+
 
 $(document).on('click', '.category-menu', function () {
     $('.category-list').toggleClass('d-none')
@@ -1346,3 +1404,111 @@ sizeSwitchButtons.forEach(item => {
         buttonId.style.cssText = 'border: none; background: red; color: white;'
     })
 })
+
+
+function getClientCartAllItems(){
+    $.ajax({
+        url: baseUrl+"get-client-cart-all-items",
+        method: "get",
+        dataType: "json",
+        success: function (res) {
+
+
+            if (res.status === "success") {
+                var data = res.data
+                let shopGroup = data.reduce((r, a) => {
+                    r[a.shop_id] = [...r[a.shop_id] || [], a];
+                    return r;
+                }, {});
+                const cartEntries = Object.entries(shopGroup);
+                cartEntries.forEach(function(item){
+                    $('#clientCartItem').append(`
+                             <li class="border my-3 bg-warning">
+                              <input type="checkbox" /> ${item[1][0].store_details.store_name}
+                                <div class="showcartdata">`+
+                                 item[1].forEach(function(item2){
+                                     console.log("mydata",item2)
+                                     $('.showcartdata').append(`
+                                      <li class="order_list_item py-3">
+                                                    <div class="d-flex">
+                                                        <img class="img-fluid bottom-shadow me-5"
+                                                             src="{{asset('assets/image/pos-item.png')}}" alt="">
+
+                                                        <ul class="text-capitalize fw-bold">
+                                                            <li class="my-2">
+                                                                 <h6 class="text-secondary fw-bold">Product Name: <span
+                                                                        class="text-black-50 fw-lighter">${item2.product.name}</span></h6>
+                                                            </li>
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">Price: <span
+                                                                        class="text-black-50 fw-lighter">${item2.price}</span></h6>
+                                                            </li>
+
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">color: <span
+                                                                        class="text-black-50 fw-lighter">blue</span></h6>
+                                                            </li>
+
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">size: <span
+                                                                        class="text-black-50 fw-lighter">m</span></h6>
+                                                            </li>
+
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">quantity: <span
+                                                                        class="text-black-50 fw-lighter">${item2.quantity}</span></h6>
+                                                            </li>
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">total price: <span
+                                                                        class="text-black-50 fw-lighter itemTotalPrice">${item2.price * item2.quantity}</span></h6>
+                                                            </li>
+
+
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                     `)
+                                 })
+                               +`</div><li>`)
+                })
+
+                itemTotalPrice()
+                function itemTotalPrice() {
+                    var price = document.querySelectorAll('.itemTotalPrice')
+                    var subTotal = 0
+                    price.forEach(function (item) {
+                        subTotal += parseInt(item.textContent)
+                    })
+                    $('#totalPrice').text(subTotal)
+                    $('.totalPrice').val(subTotal)
+
+                }
+                grandTotal()
+                function grandTotal() {
+                    var totalPrice = parseInt($('#totalPrice').text())
+                    var deliveryMethod = $('.deliveryMethod:checked').val();
+                    var packaging = $('.packaging:checked').val();
+                    var deliveryData = JSON.parse(deliveryMethod)
+                    var packingData = JSON.parse(packaging)
+                    var grandtotalProce = totalPrice + parseInt(deliveryData.price) + parseInt(packingData.price)
+                    $('#grandTotal').text(grandtotalProce)
+                    $('.grandTotal').val(grandtotalProce)
+                }
+
+                $('.deliveryMethod').click(function () {
+                    grandTotal()
+                })
+                $('.packaging').click(function () {
+                    grandTotal()
+                })
+                $('#store_id').val(storeId)
+
+            }
+        },
+        error: function (err) {
+            console.log(err)
+        }
+
+    })
+}
+

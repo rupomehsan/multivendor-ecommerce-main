@@ -46,15 +46,32 @@ class WishListController extends Controller
                 $addToWishList->client_ip = $clientIp;
                 $addToWishList->product_id = $request->product_id;
                 $addToWishList->customer_id = $request->customer_id;
-                if($addToWishList->save()){
+                if ($addToWishList->save()) {
                     return response([
                         "status" => "success",
-                        "message"=> "Successfully Added To The Wishlist List"
+                        "message" => "Successfully Added To The Wishlist List"
                     ]);
                 }
             }
 
 
+        } catch (\Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $clientIp = request()->ip();
+            $Item = WishList::where("id", $id)->where("client_ip", $clientIp)->delete();
+            return response([
+                "status" => "success",
+                "message" => "Item Remove From Wishlist List"
+            ]);
         } catch (\Exception $e) {
             return response([
                 "status" => 'server_error',
