@@ -116,16 +116,10 @@
                                     <div class="card-body">
                                         <h6 class="card-title">Order Information:</h6>
                                         <hr/>
-
-
-
                                         <ul class="order_list" id="clientCartItem">
-
 {{--                                            <li class="border-3 my-3" style="width:100%;height: 100px">--}}
 {{--                                                <h1>Rupomehsan</h1>--}}
 {{--                                            </li>--}}
-
-
                                         </ul>
                                     </div>
                                 </div>

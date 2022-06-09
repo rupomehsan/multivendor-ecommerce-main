@@ -1406,9 +1406,9 @@ sizeSwitchButtons.forEach(item => {
 })
 
 
-function getClientCartAllItems(){
+function getClientCartAllItems() {
     $.ajax({
-        url: baseUrl+"get-client-cart-all-items",
+        url: baseUrl + "get-client-cart-all-items",
         method: "get",
         dataType: "json",
         success: function (res) {
@@ -1421,58 +1421,101 @@ function getClientCartAllItems(){
                     return r;
                 }, {});
                 const cartEntries = Object.entries(shopGroup);
-                cartEntries.forEach(function(item){
-                    $('#clientCartItem').append(`
-                             <li class="border my-3 bg-warning">
-                              <input type="checkbox" /> ${item[1][0].store_details.store_name}
-                                <div class="showcartdata">`+
-                                 item[1].forEach(function(item2){
-                                     console.log("mydata",item2)
-                                     $('.showcartdata').append(`
-                                      <li class="order_list_item py-3">
-                                                    <div class="d-flex">
-                                                        <img class="img-fluid bottom-shadow me-5"
-                                                             src="{{asset('assets/image/pos-item.png')}}" alt="">
+                $("#clientCartItem").append(`
+                  <input type="checkbox"  class="checkAll" data-checkwhat="chkSelect" /><span class="mx-3">Select All </span>
+                `)
+                cartEntries.forEach(function (item) {
+                    $("#clientCartItem").append(`
+                    <div class=" my-3 py-2">
+                    <div class="my-3">
+                    <input class="form-check-input select-input chkSelect" data-shopid="${item[0]}" type="checkbox" name="chkSelect[]" value="" /> <span class="mx-3">${item[1][0].store_details.store_name}</span> <span class="iconify" data-icon="akar-icons:chevron-right"></span>
+                    </div>
+                    <ul class="test${item[0]}"></ul>
+                    </div>
+                     <hr>
+                    `)
+                    item[1].forEach(function (item2) {
+                        $(".test" + item[0]).append(`
+                         <li class="order_list_item py-1 mx-3">
+                                <div class="d-flex">
+                                 <input class="form-check-input select-input chkSelect productItem" data-productid="${item[0]}" type="checkbox" name="chkSelect[]" value="${item2.id}" />
+                                    <img class="img-fluid bottom-shadow me-5"
+                                         src="assets/image/pos-item.png" alt="">
+                                    <ul class="text-capitalize fw-bold">
+                                        <li class="my-2">
+                                             <h6 class="text-secondary fw-bold">Product Name: <span
+                                                    class="text-black-50 fw-lighter">${item2.product.name}</span></h6>
+                                        </li>
+                                        <li class="my-2">
+                                            <h6 class="text-secondary fw-bold">Price: <span
+                                                    class="text-black-50 fw-lighter">${item2.price}</span></h6>
+                                        </li>
+                                        <li class="my-2">
+                                            <h6 class="text-secondary fw-bold">color: <span
+                                                    class="text-black-50 fw-lighter">${(item2.color) ? (item2.color) : "N/A"}</span></h6>
+                                        </li>
+                                        <li class="my-2">
+                                            <h6 class="text-secondary fw-bold">size: <span
+                                                    class="text-black-50 fw-lighter">${(item2.size) ? (item2.size) : "N/A"}</span></h6>
+                                        </li>
+                                        <li class="my-2">
+                                            <h6 class="text-secondary fw-bold">quantity: <span
+                                                    class="text-black-50 fw-lighter">${item2.quantity}</span></h6>
+                                        </li>
+                                        <li class="my-2">
+                                            <h6 class="text-secondary fw-bold">total price: <span
+                                                    class="text-black-50 fw-lighter itemTotalPrice">${item2.price * item2.quantity}</span></h6>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
 
-                                                        <ul class="text-capitalize fw-bold">
-                                                            <li class="my-2">
-                                                                 <h6 class="text-secondary fw-bold">Product Name: <span
-                                                                        class="text-black-50 fw-lighter">${item2.product.name}</span></h6>
-                                                            </li>
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">Price: <span
-                                                                        class="text-black-50 fw-lighter">${item2.price}</span></h6>
-                                                            </li>
-
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">color: <span
-                                                                        class="text-black-50 fw-lighter">blue</span></h6>
-                                                            </li>
-
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">size: <span
-                                                                        class="text-black-50 fw-lighter">m</span></h6>
-                                                            </li>
-
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">quantity: <span
-                                                                        class="text-black-50 fw-lighter">${item2.quantity}</span></h6>
-                                                            </li>
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">total price: <span
-                                                                        class="text-black-50 fw-lighter itemTotalPrice">${item2.price * item2.quantity}</span></h6>
-                                                            </li>
-
-
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                     `)
-                                 })
-                               +`</div><li>`)
+                        `)
+                    })
                 })
 
+                var allVals = [];
+                $(".checkAll").click(function () {
+                    var checkwhat = $(this).data("checkwhat");
+                    alert(checkwhat)
+                    $('input:checkbox.' + checkwhat).not(this).prop('checked', this.checked);
+                    updateTextArea()
+                });
+
+                function updateTextArea() {
+                    allVals.length = 0;
+                    $(".chkSelect:checked").each(function () {
+                        allVals.push($(this).val());
+                    });
+                    console.log(allVals)
+                }
+
+                $(document).on("click", ".chkSelect", function () {
+                    if ($(this).data('shopid')) {
+                        var shopId = $(this).data('shopid')
+                        var selectItem = document.querySelectorAll(".productItem")
+                        selectItem.forEach(function (data) {
+                            var productId = data.getAttribute('data-productid')
+                            if (productId === shopId) {
+                                alert("hi")
+                            }
+                            // console.log("data",data.getAttribute('data-productid'))
+                        })
+
+                    } else if ($(this).data('producid')) {
+                        // alert($(this).data('productid'));
+                    }
+                    // if($(this).data('shopId'))
+                    allVals.length = 0
+                    $("input[name='chkSelect[]']:checked").each(function () {
+                        allVals.push($(this).val());
+                        updateTextArea();
+                    })
+                })
+                console.log("output", allVals)
+
                 itemTotalPrice()
+
                 function itemTotalPrice() {
                     var price = document.querySelectorAll('.itemTotalPrice')
                     var subTotal = 0
@@ -1483,7 +1526,9 @@ function getClientCartAllItems(){
                     $('.totalPrice').val(subTotal)
 
                 }
+
                 grandTotal()
+
                 function grandTotal() {
                     var totalPrice = parseInt($('#totalPrice').text())
                     var deliveryMethod = $('.deliveryMethod:checked').val();

@@ -134,3 +134,53 @@
                 }
 
             })
+
+
+  cartEntries.forEach(function (item) {
+                    $('#clientCartItem').append(`
+                             <li class="border my-3 bg-warning">
+                              <input type="checkbox" /> ${item[1][0].store_details.store_name}
+                                <div class="showcartdata">` +
+                        item[1].forEach(function (item2) {
+                            // console.log("mydata",item2)
+                            $('.showcartdata').append(`
+                                     <input type="checkbox">
+                                      <li class="order_list_item py-3">
+                                                    <div class="d-flex mx-3">
+                                                        <img class="img-fluid bottom-shadow me-5"
+                                                             src="assets/image/pos-item.png" alt="">
+                                                        <ul class="text-capitalize fw-bold">
+                                                            <li class="my-2">
+                                                                 <h6 class="text-secondary fw-bold">Product Name: <span
+                                                                        class="text-black-50 fw-lighter">${item2.product.name}</span></h6>
+                                                            </li>
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">Price: <span
+                                                                        class="text-black-50 fw-lighter">${item2.price}</span></h6>
+                                                            </li>
+
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">color: <span
+                                                                        class="text-black-50 fw-lighter">${item2.color}</span></h6>
+                                                            </li>
+
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">size: <span
+                                                                        class="text-black-50 fw-lighter">${item2.size}</span></h6>
+                                                            </li>
+
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">quantity: <span
+                                                                        class="text-black-50 fw-lighter">${item2.quantity}</span></h6>
+                                                            </li>
+                                                            <li class="my-2">
+                                                                <h6 class="text-secondary fw-bold">total price: <span
+                                                                        class="text-black-50 fw-lighter itemTotalPrice">${item2.price * item2.quantity}</span></h6>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                     `)
+                        })
+                        + `</div><li>`)
+                })
