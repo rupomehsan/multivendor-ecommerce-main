@@ -3,7 +3,8 @@
     <div class="container py-5">
         <form action="{{url('api/v1/product/order')}}" id="form" name="form" enctype="multipart/form-data"
               novalidate>
-            <input type="hidden" name="store_id" id="store_id"/>
+            <input type="hidden" name="final_cart_item" id="final_cart_item"/>
+            <input type="hidden" name="request_from" value="landing" />
             <div class="row">
                 <div id="smartwizard">
                     <ul class="nav">
@@ -328,7 +329,6 @@
         //     .on("click", function () {
         //         alert("Finish Clicked");
         //     });
-
         $('#smartwizard').smartWizard({
             selected: 0,
             theme: 'arrows',
@@ -358,87 +358,9 @@
         })
         $(function () {
             getClientCartAllItems()
-
-            $.ajax({
-                url: "{{url('api/v1/get-all-division')}}",
-                method: "get",
-                dataType: "json",
-                success: function (res) {
-
-                    if (res.status === "success") {
-                        $("#division").empty()
-                        $("#division").append(`
-                         <option selected disabled>Select Your Division</option>
-                        `)
-                        res.data.forEach(function (item) {
-                            $("#division").append(`
-                             <option value="${item.id}">${item.name}</option>
-                            `)
-                        })
-                    }
-                },
-                error: function (err) {
-                    console.log(err)
-                }
-            })
-
-            $("#division").change(function () {
-                var division = $(this).val()
-
-                $.ajax({
-                    url: "{{url('api/v1/get-all-district-by-division-id')}}/" + division,
-                    method: "get",
-                    dataType: "json",
-                    success: function (res) {
-                        // console.log("district",res)
-                        if (res.status === "success") {
-                            $("#district").empty()
-                            $("#district").append(`
-                         <option selected disabled>Select Your District</option>
-                        `)
-                            res.data.forEach(function (item) {
-                                $("#district").append(`
-                             <option value="${item.id}">${item.name}</option>
-                            `)
-                            })
-                        }
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    }
-                })
-
-            })
-
-            $("#district").change(function () {
-                var district = $(this).val()
-                // alert(district)
-                $.ajax({
-                    url: "{{url('api/v1/get-all-station-by-district-id')}}/" + district,
-                    method: "get",
-                    dataType: "json",
-                    success: function (res) {
-                        if (res.status === "success") {
-                            if (res.status === "success") {
-                                $("#station").empty()
-                                $("#station").append(`
-                         <option selected disabled>Select Your Station</option>
-                        `)
-                                res.data.forEach(function (item) {
-                                    $("#station").append(`
-                             <option value="${item.id}">${item.name}</option>
-                            `)
-                                })
-                            }
-                        }
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    }
-                })
-
-            })
-
+            getAllDivision()
+            getAllDistrictByDivisionId()
+            getAlStationByDistrictId()
         })
 
         console.log("store", storeId)

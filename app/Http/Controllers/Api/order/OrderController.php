@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\order;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
@@ -58,6 +59,19 @@ class OrderController extends Controller
                 $errors = $validator->errors()->messages();
                 return validateError($errors);
             }
+            $clientIp = request()->ip();
+            $landingClientProduct = [];
+            if($request->request_from==="landing"){
+                $catItem = explode(",", $request->final_cart_item);
+                $i = 0;
+                foreach ($catItem as $clientCatItem){
+                    $cart = Cart::where("id",$clientCatItem)->where("client_id",$clientIp)->first();
+                    $landingClientProduct[$i]['product_id']= $cart->product_id;
+                    $landingClientProduct[$i]['quantity']= $cart->quantity;
+                    $landingClientProduct[$i]['itemTotal']= $cart->quantity * $cart->price;
+                    $i++;
+                }
+            }
             $order = new Order();
             $order->invoice_id = "IN" . $this->genUserCode();
             $order->sub_total = $request->sub_total;
@@ -69,11 +83,26 @@ class OrderController extends Controller
             $order->store_name = $request->store_name;
             $order->store_url = $request->store_url;
             $order->customer_group_id = $request->customer_group_id;
-//            $order->full_name = $request->full_name;
             $order->firstname = $request->firstname;
             $order->lastname = $request->lastname;
             $order->email = $request->email;
             $order->phone = $request->phone;
+            $order->address = $request->address;
+            if($request->packaging){
+            $order->packaging = $request->packaging->packaging;
+            }
+            if($request->division){
+                $division = json_decode($request->division);
+                $order->division= $division->name;
+            }
+            if($request->district){
+                $district = json_decode($request->district);
+                $order->district= $district->name;
+            }
+            if($request->station){
+                $station = json_decode($request->station);
+                $order->station= $station->name;
+            }
             $order->fax = $request->fax;
             $order->custom_field = $request->custom_field;
             $order->payment_firstname = $request->payment_firstname;
@@ -109,6 +138,7 @@ class OrderController extends Controller
             $order->comment = $request->comment;
 //            $order->order_status_id = $request->order_status_id;
             $order->order_status_id = $request->order_status_id;
+            $order->order_status = "pending";
             $order->affiliate_id = $request->affiliate_id;
             $order->commission = $request->commission;
             $order->marketing_id = $request->marketing_id;
@@ -117,7 +147,7 @@ class OrderController extends Controller
             $order->currency_id = $request->currency_id;
             $order->currency_code = $request->currency_code;
             $order->currency_value = $request->currency_value;
-            $order->ip = $request->ip;
+            $order->ip = $clientIp;
             $order->forwarded_ip = $request->forwarded_ip;
             $order->user_agent = $request->user_agent;
             $order->accept_language = $request->accept_language;
@@ -130,7 +160,21 @@ class OrderController extends Controller
                     $orderProduct->customer_id = $request->customer_id;
                     $orderProduct->invoice_id = $order->invoice_id;
                     $orderProduct->product_id = $product['product_id'];
-                    $orderProduct->quantity = $product['quantity'];
+                    $orderProduct->quantity   = $product['quantity'];
+                    $orderProduct->item_total = $product['itemTotal'];
+                    $orderProduct->save();
+                }
+                return response([
+                    "status" => "success",
+                    "message" => "Order Successfully Complete"
+                ]);
+            }else if($request->request_from==="landing"){
+                foreach ($landingClientProduct as $product) {
+                    $orderProduct = new OrderProduct();
+                    $orderProduct->customer_id = $request->customer_id;
+                    $orderProduct->invoice_id = $order->invoice_id;
+                    $orderProduct->product_id = $product['product_id'];
+                    $orderProduct->quantity   = $product['quantity'];
                     $orderProduct->item_total = $product['itemTotal'];
                     $orderProduct->save();
                 }
@@ -146,10 +190,6 @@ class OrderController extends Controller
                 "data" => $e->getMessage()
             ], 500);
         }
-//        dd($request->all());
-//        $customer = User::with(['customer_details'])->whereJsonContains('user_role',['4'])->where("id",$request->customer_id)->first();
-//        dd($customer);
-
     }
 
 

@@ -29,6 +29,10 @@ class CreateOrdersTable extends Migration
             $table->string('lastname')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->string('division')->nullable();
+            $table->string('district')->nullable();
+            $table->string('station')->nullable();
+            $table->string('address')->nullable();
             $table->string('fax')->nullable();
             $table->string('delivery_method')->nullable();
             $table->string('packaging')->nullable();
@@ -66,6 +70,7 @@ class CreateOrdersTable extends Migration
             $table->text('comment')->nullable();
             $table->decimal('total')->nullable();
             $table->integer('order_status_id')->nullable();
+            $table->string('order_status')->nullable();
             $table->integer('affiliate_id')->nullable();
             $table->decimal('commission')->nullable();
             $table->integer('marketing_id')->nullable();

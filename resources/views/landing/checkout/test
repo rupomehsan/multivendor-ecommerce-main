@@ -1,186 +1,292 @@
-  res.data.forEach(function (item) {
-                            // storeId[shopNo].push(item.shop_id)
-                            // storeId.push(item.product.vendors_id)
-                                $('#clientCartItem').append(`
-                                    <input type="hidden" name="[product][${i}][product_id]" value="${item.product.id}">
-                                    <input type="hidden" name="[product][${i}][quantity]" value="${item.quantity}">
-                                    <input type="hidden" name="[product][${i}][itemTotal]" value="${item.price * item.quantity}">
-                                    <input type="hidden" name="[product][${i}][store_id]" value="${item.product.vendors_id}">
-                                    <li class="order_list_item py-3">
-                                                    <div class="d-flex">
-                                                        <img class="img-fluid bottom-shadow me-5"
-                                                             src="{{asset('assets/image/pos-item.png')}}" alt="">
+<?php
 
-                                                        <ul class="text-capitalize fw-bold">
-                                                            <li class="my-2">
-                                                                 <h6 class="text-secondary fw-bold">Product Name: <span
-                                                                        class="text-black-50 fw-lighter">${item.product.name}</span></h6>
-                                                            </li>
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">Price: <span
-                                                                        class="text-black-50 fw-lighter">${item.price}</span></h6>
-                                                            </li>
+namespace App\Http\Controllers\Api\order;
 
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">color: <span
-                                                                        class="text-black-50 fw-lighter">blue</span></h6>
-                                                            </li>
+use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderProduct;
+use Illuminate\Http\Request;
+use Validator;
 
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">size: <span
-                                                                        class="text-black-50 fw-lighter">m</span></h6>
-                                                            </li>
+class OrderController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        try {
+            $getOrder = Order::where('session_id', auth()->id())->get();
+            return response([
+                "status" => 'success',
+                "data" => $getOrder
+            ], 200);
+        } catch (Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+    }
 
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">quantity: <span
-                                                                        class="text-black-50 fw-lighter">${item.quantity}</span></h6>
-                                                            </li>
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">total price: <span
-                                                                        class="text-black-50 fw-lighter itemTotalPrice">${item.price * item.quantity}</span></h6>
-                                                            </li>
-
-
-                                                        </ul>
-                                                    </div>
-                                                </li>
-
-                                `)
-                                i++
-                        })
+    private function genUserCode()
+    {
+        $this->invoice_id = [
+            'invoice_id' => mt_rand(1000000000, 9999999999)
+        ];
+        $rules = ['invoice_id' => 'unique:orders'];
+        $validate = Validator::make($this->invoice_id, $rules)->passes();
+        return $validate ? $this->invoice_id['invoice_id'] : $this->genUserCode();
+    }
 
 
- $.ajax({
-                url: "{{url('api/v1/get-client-cart-all-items')}}",
-                method: "get",
-                dataType: "json",
-                success: function (res) {
 
-
-                    if (res.status === "success") {
-
-                      var data = res.data
-                        let shopGroup = data.reduce((r, a) => {
-                            r[a.shop_id] = [...r[a.shop_id] || [], a];
-                            return r;
-                        }, {});
-
-                        const cartEntries = Object.entries(shopGroup);
-
-                        cartEntries.forEach(function(item){
-                            $('#clientCartItem').append(`
-                             <li class="border my-3 bg-warning">
-                              <input type="checkbox" /> ${item[1][0].store_details.store_name}
-                                 <div>${getitems(item[1])}</div>
-
-                               <li>
-                            `)
-                        })
-
-                        function getitems(item2){
-                            return(
-                            item2.forEach(function(data){
-                                console.log("mydata",data)
-                                    return(`
-                                    <div class="order_list_item py-3">
-                                                  ${data.client_id}
-                                                </div>
-                                    `)
-
-
-                            })
-                            )
-                        }
-
-
-                        itemTotalPrice()
-
-                        function itemTotalPrice() {
-                            var price = document.querySelectorAll('.itemTotalPrice')
-                            var subTotal = 0
-                            price.forEach(function (item) {
-                                subTotal += parseInt(item.textContent)
-                            })
-                            $('#totalPrice').text(subTotal)
-                            $('.totalPrice').val(subTotal)
-
-                        }
-
-                        grandTotal()
-
-                        function grandTotal() {
-                            var totalPrice = parseInt($('#totalPrice').text())
-                            var deliveryMethod = $('.deliveryMethod:checked').val();
-                            var packaging = $('.packaging:checked').val();
-                            var deliveryData = JSON.parse(deliveryMethod)
-                            var packingData = JSON.parse(packaging)
-                            var grandtotalProce = totalPrice + parseInt(deliveryData.price) + parseInt(packingData.price)
-                            $('#grandTotal').text(grandtotalProce)
-                            $('.grandTotal').val(grandtotalProce)
-                        }
-
-                        $('.deliveryMethod').click(function () {
-                            grandTotal()
-                        })
-                        $('.packaging').click(function () {
-                            grandTotal()
-                        })
-                        $('#store_id').val(storeId)
-
-                    }
-                },
-                error: function (err) {
-                    console.log(err)
+    public function orderProduct(Request $request)
+    {
+        dd($request->all());
+        try {
+            $validator = Validator::make($request->all(), [
+//                "customer_id" => 'required',
+//                "full_name" => 'required',
+//                "phone" => 'required',
+//                "email" => 'required',
+//                "address" => 'required',
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+            $order = new Order();
+            $order->invoice_id = "IN" . $this->genUserCode();
+            $order->sub_total = $request->sub_total;
+            $order->discount = $request->discount;
+            $order->grand_total = $request->grand_total;
+            $order->customer_id = $request->customer_id;
+            $order->invoice_prefix = "IN";
+            $order->store_id = $request->store_id;
+            $order->store_name = $request->store_name;
+            $order->store_url = $request->store_url;
+            $order->customer_group_id = $request->customer_group_id;
+//            $order->full_name = $request->full_name;
+            $order->firstname = $request->firstname;
+            $order->lastname = $request->lastname;
+            $order->email = $request->email;
+            $order->phone = $request->phone;
+            $order->fax = $request->fax;
+            $order->custom_field = $request->custom_field;
+            $order->payment_firstname = $request->payment_firstname;
+            $order->payment_lastname = $request->payment_lastname;
+            $order->payment_company = $request->payment_company;
+            $order->payment_address_1 = $request->payment_address_1;
+            $order->payment_address_2 = $request->payment_address_2;
+            $order->payment_city = $request->payment_city;
+            $order->payment_postcode = $request->payment_postcode;
+            $order->payment_country = $request->payment_country;
+            $order->payment_country_id = $request->payment_country_id;
+            $order->payment_zone = $request->payment_zone;
+            $order->payment_zone_id = $request->payment_zone_id;
+            $order->payment_address_format = $request->payment_address_format;
+            $order->payment_custom_field = $request->payment_custom_field;
+            $order->payment_method = $request->payment_method;
+            $order->payment_code = $request->payment_code;
+            $order->shipping_firstname = $request->shipping_firstname;
+            $order->shipping_lastname = $request->shipping_lastname;
+            $order->shipping_company = $request->shipping_company;
+            $order->shipping_address_1 = $request->shipping_address_1;
+            $order->shipping_address_2 = $request->shipping_address_2;
+            $order->shipping_city = $request->shipping_city;
+            $order->shipping_postcode = $request->shipping_postcode;
+            $order->shipping_country = $request->shipping_country;
+            $order->shipping_country_id = $request->shipping_country_id;
+            $order->shipping_zone = $request->shipping_zone;
+            $order->shipping_zone_id = $request->shipping_zone_id;
+            $order->shipping_address_format = $request->shipping_address_format;
+            $order->shipping_custom_field = $request->shipping_custom_field;
+            $order->shipping_method = $request->shipping_method;
+            $order->shipping_code = $request->shipping_code;
+            $order->comment = $request->comment;
+//            $order->order_status_id = $request->order_status_id;
+            $order->order_status_id = $request->order_status_id;
+            $order->affiliate_id = $request->affiliate_id;
+            $order->commission = $request->commission;
+            $order->marketing_id = $request->marketing_id;
+            $order->tracking = $request->tracking;
+            $order->language_id = $request->language_id;
+            $order->currency_id = $request->currency_id;
+            $order->currency_code = $request->currency_code;
+            $order->currency_value = $request->currency_value;
+            $order->ip = $request->ip;
+            $order->forwarded_ip = $request->forwarded_ip;
+            $order->user_agent = $request->user_agent;
+            $order->accept_language = $request->accept_language;
+            $order->save();
+//            dd($order);
+            if ($request->product) {
+//                dd($request->product);
+                foreach ($request->product as $product) {
+                    $orderProduct = new OrderProduct();
+                    $orderProduct->customer_id = $request->customer_id;
+                    $orderProduct->invoice_id = $order->invoice_id;
+                    $orderProduct->product_id = $product['product_id'];
+                    $orderProduct->quantity = $product['quantity'];
+                    $orderProduct->item_total = $product['itemTotal'];
+                    $orderProduct->save();
                 }
+                return response([
+                    "status" => "success",
+                    "message" => "Order Successfully Complete"
+                ]);
+            }
 
-            })
+        } catch (\Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+//        dd($request->all());
+//        $customer = User::with(['customer_details'])->whereJsonContains('user_role',['4'])->where("id",$request->customer_id)->first();
+//        dd($customer);
+
+    }
 
 
-  cartEntries.forEach(function (item) {
-                    $('#clientCartItem').append(`
-                             <li class="border my-3 bg-warning">
-                              <input type="checkbox" /> ${item[1][0].store_details.store_name}
-                                <div class="showcartdata">` +
-                        item[1].forEach(function (item2) {
-                            // console.log("mydata",item2)
-                            $('.showcartdata').append(`
-                                     <input type="checkbox">
-                                      <li class="order_list_item py-3">
-                                                    <div class="d-flex mx-3">
-                                                        <img class="img-fluid bottom-shadow me-5"
-                                                             src="assets/image/pos-item.png" alt="">
-                                                        <ul class="text-capitalize fw-bold">
-                                                            <li class="my-2">
-                                                                 <h6 class="text-secondary fw-bold">Product Name: <span
-                                                                        class="text-black-50 fw-lighter">${item2.product.name}</span></h6>
-                                                            </li>
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">Price: <span
-                                                                        class="text-black-50 fw-lighter">${item2.price}</span></h6>
-                                                            </li>
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
 
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">color: <span
-                                                                        class="text-black-50 fw-lighter">${item2.color}</span></h6>
-                                                            </li>
+    }
 
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">size: <span
-                                                                        class="text-black-50 fw-lighter">${item2.size}</span></h6>
-                                                            </li>
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                "quantity" => "required|min:1",
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+//        dd($request->all());
+            $Order = new Order();
+            $Order->api_id = $request->api_id;
+            $Order->customer_id = $request->customer_id;
+            $Order->product_id = $request->product_id;
+            $Order->recurring_id = $request->recurring_id;
+            $Order->option = $request->option;
+            $Order->quantity = $request->quantity;
+            if ($Order->save()) {
+                return response([
+                    "status" => "success",
+                    "message" => "Successfully Added To Order "
+                ]);
+            }
+        } catch (Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+    }
 
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">quantity: <span
-                                                                        class="text-black-50 fw-lighter">${item2.quantity}</span></h6>
-                                                            </li>
-                                                            <li class="my-2">
-                                                                <h6 class="text-secondary fw-bold">total price: <span
-                                                                        class="text-black-50 fw-lighter itemTotalPrice">${item2.price * item2.quantity}</span></h6>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                     `)
-                        })
-                        + `</div><li>`)
-                })
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                "quantity" => "required|min:1",
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->messages();
+                return validateError($errors);
+            }
+            $Order = Order::where("id", $id)->first();
+            $Order->api_id = $request->api_id ?? $Order->api_id;
+            $Order->customer_id = $request->customer_id ?? $Order->customer_id;
+            $Order->product_id = $request->product_id ?? $Order->product_id;
+            $Order->recurring_id = $request->recurring_id ?? $Order->recurring_id;
+            $Order->option = $request->option ?? $Order->option;
+            $Order->quantity = $request->quantity ?? $Order->quantity;
+            if ($Order->update()) {
+                return response([
+                    "status" => "success",
+                    "message" => "Order Successfully Update"
+                ]);
+            }
+        } catch (Exception $e) {
+            return response([
+                "status" => 'server_error',
+                "data" => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try {
+            $Order = Order::find($id);
+            if ($Order) {
+                $Order->delete();
+                return response([
+                    "status" => "success",
+                    "message" => "Order Successfully Delete"
+                ], 200);
+            } else {
+                return response([
+                    "status" => 'not_found'
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response([
+                "status" => "server_error",
+                "message" => $e->getMessage()
+            ], 500);
+        }
+    }
+}

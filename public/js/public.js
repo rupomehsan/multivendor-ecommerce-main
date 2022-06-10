@@ -1,8 +1,12 @@
+/***
+ * Global Variable
+ * **/
 var productColor = []
 var productSize = []
 var baseUrl = window.origin + "/api/v1/"
-// get all sliders
-// get all sliders
+/***
+ * getAllSliders
+ * **/
 function getAllSliders() {
     $.ajax({
         url: baseUrl + "sliders", method: "get", dataType: "json", success: function (res) {
@@ -35,8 +39,9 @@ function getAllSliders() {
     })
 }
 
-//get all categories
-//get all categories
+/***
+ * getAllCategories
+ * **/
 function getAllCategories(id) {
     // alert(id)
     $.ajax({
@@ -121,9 +126,9 @@ function getAllCategories(id) {
         }
     })
 }
-
-// get client cart
-// get client cart
+/***
+ * getClientCartPublic
+ * **/
 function getClientCartPublic() {
     var url = baseUrl + "cart/get-client-carts"
     $.ajax({
@@ -155,9 +160,9 @@ function getClientCartPublic() {
         }
     })
 }
-
-// get client compare list
-// get client compare list
+/***
+ * getClientCompareList
+ * **/
 function getClientCompareList() {
     var url = baseUrl + "get-all-compare-list"
     $.ajax({
@@ -171,9 +176,9 @@ function getClientCompareList() {
         }
     })
 }
-
-// get popular product list
-// get popular product list
+/***
+ * getProduct
+ * **/
 function getProduct(url, id) {
     // alert(id)
     $.ajax({
@@ -191,9 +196,9 @@ function getProduct(url, id) {
         }
     })
 }
-
-// get getAllBrands  list
-// get getAllBrands  list
+/***
+ * getAllBrands
+ * **/
 function getAllBrands(id) {
     // alert(id)
     $.ajax({
@@ -233,9 +238,9 @@ function getAllBrands(id) {
         }
     })
 }
-
-// get getAllShops list
-// get getAllShops list
+/***
+ * getAllShops
+ * **/
 function getAllShops(url, id) {
     // alert(id)
     $.ajax({
@@ -276,9 +281,9 @@ function getAllShops(url, id) {
         }
     })
 }
-
-// add to card product
-// add to card product
+/***
+ * addToCart
+ * **/
 function addToCart(id, shopId) {
     // var shopId = $('#product_shop_id').val()
     var quantity = '';
@@ -311,9 +316,9 @@ function addToCart(id, shopId) {
     })
 
 }
-
-// get single product
-// get single product
+/***
+ * productSingleItem
+ * **/
 function productSingleItem(res, id) {
     console.log("rupom", res)
     res.forEach(function (item) {
@@ -379,14 +384,11 @@ function productSingleItem(res, id) {
             var rating = reviewCount / res.reviews_count
             return rating.toFixed(2)
         }
-
-        // console.log("ratingProduct",rating)
     }
-
 }
-
-// add To WishList
-// add To WishList
+/***
+ * addToWishList
+ * **/
 function addToWishList(id) {
     $.ajax({
         url: baseUrl + "add-to-wishlist", method: "post", data: {"product_id": id}, success: function (res) {
@@ -421,7 +423,6 @@ function addToWishList(id) {
         }
     })
 }
-
 /***
  * addToCompare
  * **/
@@ -454,9 +455,9 @@ function addToCompare(id) {
         }
     })
 }
-
-// get Related Product
-// get Related Product
+/***
+ * getRelatedProduct
+ * **/
 function getRelatedProduct(url, id) {
     // alert(url)
     $.ajax({
@@ -471,9 +472,9 @@ function getRelatedProduct(url, id) {
         }
     })
 }
-
-// get product details
-// get product details
+/***
+ * productDetails
+ * **/
 function productDetails(productID) {
     $.ajax({
         url: baseUrl + "products/" + productID, method: "get", dataType: "json", success: function (res) {
@@ -996,10 +997,9 @@ function productDetails(productID) {
         }
     })
 }
-
-
-//search Product By Price And CategoryId
-// search Product By Price And CategoryId
+/***
+ * searchProductByPriceAndCategoryId
+ * **/
 function searchProductByPriceAndCategoryId(categoryId, priceRange) {
     $.ajax({
         url: baseUrl + "get-product-by-price-categoryId",
@@ -1032,9 +1032,9 @@ function searchProductByPriceAndCategoryId(categoryId, priceRange) {
         }
     })
 }
-
-//get shop details
-//get shop details
+/***
+ * getShopDetailsWithAllProduct
+ * **/
 function getShopDetailsWithAllProduct(url, shopId) {
     // alert(url)
     $.ajax({
@@ -1184,9 +1184,9 @@ function getShopDetailsWithAllProduct(url, shopId) {
         }
     })
 }
-
-//get getSingleShopDetails details
-//get getSingleShopDetails details
+/***
+ * getSingleShopDetails
+ * **/
 function getSingleShopDetails(url, shopId) {
     // alert(url)
     $.ajax({
@@ -1229,9 +1229,9 @@ function getSingleShopDetails(url, shopId) {
         }
     })
 }
-
-//get getAllProductByShopId details
-//get getAllProductByShopId details
+/***
+ * getAllProductByShopId
+ * **/
 function getAllProductByShopId(url, id) {
     $.ajax({
         url: window.origin + url, method: "get", dataType: 'json', success: function (res) {
@@ -1246,9 +1246,9 @@ function getAllProductByShopId(url, id) {
         }
     })
 }
-
-//get searching Product details
-//get searching Product details
+/***
+ * seachingProduct
+ * **/
 function seachingProduct(data, id) {
     // alert(data.url)
     $.ajax({
@@ -1269,9 +1269,9 @@ function seachingProduct(data, id) {
         }
     })
 }
-
-//get AllProductByShopIdAndCategoryId Product details
-//get getAllProductByShopIdAndCategoryId Product details
+/***
+ * getAllProductByShopIdAndCategoryId
+ * **/
 function getAllProductByShopIdAndCategoryId(data, id) {
     // alert(data.url)
     $.ajax({
@@ -1292,9 +1292,9 @@ function getAllProductByShopIdAndCategoryId(data, id) {
         }
     })
 }
-
-//get Wishlist
-//get Wishlist
+/***
+ * getWishlist
+ * **/
 function getWishlist() {
     $.ajax({
         url: baseUrl + "get-all-wishlist", method: "get", dataType: "json", success: function (res) {
@@ -1329,7 +1329,9 @@ function getWishlist() {
         }
     })
 }
-
+/***
+ * deleteWishList
+ * **/
 function deleteWishList(id) {
     $.ajax({
         url: baseUrl + "delete-wishlist/" + id, method: "get", dataType: "json", success: function (res) {
@@ -1343,77 +1345,15 @@ function deleteWishList(id) {
         }
     })
 }
-
-
-$(document).on('click', '.category-menu', function () {
-    $('.category-list').toggleClass('d-none')
-})
-$(document).on('click', '.homepage-menu', function () {
-    $('.homepage-list').toggleClass('d-none')
-})
-$(document).on('click', '.order-menu', function () {
-    $('.order-list').toggleClass('d-none')
-})
-$(document).on('click', '.chat-launcher', function () {
-    $('.chat-section').toggleClass('d-none')
-    $('.chat-launcher').addClass('d-none')
-})
-$(document).on('click', '.close-btn', function () {
-    $('.chat-section').addClass('d-none')
-    $('.chat-launcher').removeClass('d-none')
-})
 /***
- * SUB-MENU TOGGLE
+ * getClientCartAllItems
  * **/
-$('.sub-list').hide();
-$('.list > .sub-list').parent().click(function () {
-    let submenu = $(this).children('.sub-list');
-    let title = $(this).children('.list-title');
-    if ($(submenu).is(':hidden')) {
-        $(submenu).slideDown(200);
-        $(title).css('font-weight', 'bold')
-    } else {
-        $(title).css('font-weight', 'normal')
-        $(submenu).slideUp(200);
-    }
-});
-/***
- * COLOR SWITCHER
- * **/
-let colorSwitchButtons = document.querySelectorAll('.switch-button');
-console.log("color", colorSwitchButtons)
-
-
-colorSwitchButtons.forEach(item => {
-    let id = item.getAttribute('id')
-    let buttonId = document.getElementById(id);
-    buttonId.style.backgroundColor = id;
-    buttonId.addEventListener('click', function (e) {
-        buttonId.style.border = '1px solid black'
-    })
-})
-/***
- * SIZE SWITCHER
- * **/
-let sizeSwitchButtons = document.querySelectorAll('.size-button');
-sizeSwitchButtons.forEach(item => {
-    let id = item.getAttribute('id')
-    let buttonId = document.getElementById(id);
-    // buttonId.style.backgroundColor = id;
-    buttonId.addEventListener('click', function (e) {
-        buttonId.style.cssText = 'border: none; background: red; color: white;'
-    })
-})
-
-
 function getClientCartAllItems() {
     $.ajax({
         url: baseUrl + "get-client-cart-all-items",
         method: "get",
         dataType: "json",
         success: function (res) {
-
-
             if (res.status === "success") {
                 var data = res.data
                 let shopGroup = data.reduce((r, a) => {
@@ -1428,7 +1368,7 @@ function getClientCartAllItems() {
                     $("#clientCartItem").append(`
                     <div class=" my-3 py-2">
                     <div class="my-3">
-                    <input class="form-check-input select-input chkSelect" data-shopid="${item[0]}" type="checkbox" name="chkSelect[]" value="" /> <span class="mx-3">${item[1][0].store_details.store_name}</span> <span class="iconify" data-icon="akar-icons:chevron-right"></span>
+                    <input class="form-check-input select-input chkSelect shopid${item[0]}" data-shopid="${item[0]}" type="checkbox"   value="" /> <span class="mx-3">${item[1][0].store_details.store_name}</span> <span class="iconify" data-icon="akar-icons:chevron-right"></span>
                     </div>
                     <ul class="test${item[0]}"></ul>
                     </div>
@@ -1438,7 +1378,7 @@ function getClientCartAllItems() {
                         $(".test" + item[0]).append(`
                          <li class="order_list_item py-1 mx-3">
                                 <div class="d-flex">
-                                 <input class="form-check-input select-input chkSelect productItem" data-productid="${item[0]}" type="checkbox" name="chkSelect[]" value="${item2.id}" />
+                                 <input class="form-check-input select-input chkSelect productItem${item[0]}" data-productid="${item[0]}" type="checkbox" name="chkSelect[]"  value="${item2.id}" />
                                     <img class="img-fluid bottom-shadow me-5"
                                          src="assets/image/pos-item.png" alt="">
                                     <ul class="text-capitalize fw-bold">
@@ -1477,7 +1417,7 @@ function getClientCartAllItems() {
                 var allVals = [];
                 $(".checkAll").click(function () {
                     var checkwhat = $(this).data("checkwhat");
-                    alert(checkwhat)
+                    // alert(checkwhat)
                     $('input:checkbox.' + checkwhat).not(this).prop('checked', this.checked);
                     updateTextArea()
                 });
@@ -1487,32 +1427,36 @@ function getClientCartAllItems() {
                     $(".chkSelect:checked").each(function () {
                         allVals.push($(this).val());
                     });
+                    const results = allVals.filter(element => {
+                        return element !== "";
+                    });
+                    $("#final_cart_item").val(results)
                     console.log(allVals)
                 }
 
                 $(document).on("click", ".chkSelect", function () {
                     if ($(this).data('shopid')) {
                         var shopId = $(this).data('shopid')
-                        var selectItem = document.querySelectorAll(".productItem")
+                        var selectItem = document.querySelectorAll(".chkSelect")
                         selectItem.forEach(function (data) {
-                            var productId = data.getAttribute('data-productid')
+                            var productId = parseInt(data.getAttribute('data-productid'))
                             if (productId === shopId) {
-                                alert("hi")
+                                var shopStatus = $('.shopid'+shopId).prop( "checked");
+                                if(shopStatus===true){
+                                    $(".productItem"+shopId).prop( "checked",true);
+                                }else{
+                                    $(".productItem"+shopId).prop( "checked",false);
+                                }
                             }
-                            // console.log("data",data.getAttribute('data-productid'))
                         })
-
-                    } else if ($(this).data('producid')) {
-                        // alert($(this).data('productid'));
                     }
-                    // if($(this).data('shopId'))
                     allVals.length = 0
                     $("input[name='chkSelect[]']:checked").each(function () {
                         allVals.push($(this).val());
                         updateTextArea();
                     })
                 })
-                console.log("output", allVals)
+
 
                 itemTotalPrice()
 
@@ -1556,4 +1500,160 @@ function getClientCartAllItems() {
 
     })
 }
+/***
+ * getAllDivision
+ * **/
+function getAllDivision(){
+    $.ajax({
+        url: baseUrl+"get-all-division",
+        method: "get",
+        dataType: "json",
+        success: function (res) {
+
+            if (res.status === "success") {
+                $("#division").empty()
+                $("#division").append(`
+                         <option selected disabled>Select Your Division</option>
+                        `)
+                res.data.forEach(function (item) {
+                    $("#division").append(`
+                             <option value='{"id":"${item.id}","name":"${item.name}"}'>${item.name}</option>
+                            `)
+                })
+            }
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+}
+/***
+ * getAllDistrictByDivisionId
+ * **/
+function getAllDistrictByDivisionId(){
+    $("#division").change(function () {
+        var divisionInfo = JSON.parse($(this).val())
+        var division = divisionInfo.id
+
+
+        $.ajax({
+            url: baseUrl+"get-all-district-by-division-id/" + division,
+            method: "get",
+            dataType: "json",
+            success: function (res) {
+                // console.log("district",res)
+                if (res.status === "success") {
+                    $("#district").empty()
+                    $("#district").append(`
+                         <option selected disabled>Select Your District</option>
+                        `)
+                    res.data.forEach(function (item) {
+                        $("#district").append(`
+                             <option value='{"id":"${item.id}","name":"${item.name}"}'>${item.name}</option>
+                            `)
+                    })
+                }
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+
+    })
+}
+/***
+ * getAlStationByDistrictId
+ * **/
+function getAlStationByDistrictId(){
+    $("#district").change(function () {
+        var districtInfo = JSON.parse($(this).val())
+        var district = districtInfo.id
+        // alert(district)
+        $.ajax({
+            url: baseUrl+"get-all-station-by-district-id/" + district,
+            method: "get",
+            dataType: "json",
+            success: function (res) {
+                if (res.status === "success") {
+                    if (res.status === "success") {
+                        $("#station").empty()
+                        $("#station").append(`
+                         <option selected disabled>Select Your Station</option>
+                        `)
+                        res.data.forEach(function (item) {
+                            $("#station").append(`
+                             <option value='{"id":"${item.id}","name":"${item.name}"}'>${item.name}</option>
+                            `)
+                        })
+                    }
+                }
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+
+    })
+}
+/***
+ * MENU TOGGLE
+ * **/
+$(document).on('click', '.category-menu', function () {
+    $('.category-list').toggleClass('d-none')
+})
+$(document).on('click', '.homepage-menu', function () {
+    $('.homepage-list').toggleClass('d-none')
+})
+$(document).on('click', '.order-menu', function () {
+    $('.order-list').toggleClass('d-none')
+})
+$(document).on('click', '.chat-launcher', function () {
+    $('.chat-section').toggleClass('d-none')
+    $('.chat-launcher').addClass('d-none')
+})
+$(document).on('click', '.close-btn', function () {
+    $('.chat-section').addClass('d-none')
+    $('.chat-launcher').removeClass('d-none')
+})
+/***
+ * SUB-MENU TOGGLE
+ * **/
+$('.sub-list').hide();
+$('.list > .sub-list').parent().click(function () {
+    let submenu = $(this).children('.sub-list');
+    let title = $(this).children('.list-title');
+    if ($(submenu).is(':hidden')) {
+        $(submenu).slideDown(200);
+        $(title).css('font-weight', 'bold')
+    } else {
+        $(title).css('font-weight', 'normal')
+        $(submenu).slideUp(200);
+    }
+});
+/***
+ * COLOR SWITCHER
+ * **/
+let colorSwitchButtons = document.querySelectorAll('.switch-button');
+console.log("color", colorSwitchButtons)
+colorSwitchButtons.forEach(item => {
+    let id = item.getAttribute('id')
+    let buttonId = document.getElementById(id);
+    buttonId.style.backgroundColor = id;
+    buttonId.addEventListener('click', function (e) {
+        buttonId.style.border = '1px solid black'
+    })
+})
+/***
+ * SIZE SWITCHER
+ * **/
+let sizeSwitchButtons = document.querySelectorAll('.size-button');
+sizeSwitchButtons.forEach(item => {
+    let id = item.getAttribute('id')
+    let buttonId = document.getElementById(id);
+    // buttonId.style.backgroundColor = id;
+    buttonId.addEventListener('click', function (e) {
+        buttonId.style.cssText = 'border: none; background: red; color: white;'
+    })
+})
+
 
